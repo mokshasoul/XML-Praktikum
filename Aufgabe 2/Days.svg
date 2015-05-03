@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<?xml-stylesheet type="text/css" href="untitled.css"?> 
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>		
+		<rect id="APP" width="500" height="110"
+			style="stroke: black; fill: lightgrey">
+		</rect>
+		<g class="times" id="TIMES">
+			<g transform="translate(0,140)">
+				
+				<text x="0" y="30" font-size="48">
+					00:00
+					<tspan x="0" y="130">02:00</tspan>
+					<tspan x="0" y="250">04:00</tspan>
+					<tspan x="0" y="370">06:00</tspan>
+					<tspan x="0" y="490">08:00</tspan>
+					<tspan x="0" y="610">10:00</tspan>
+					<tspan x="0" y="730">12:00</tspan>
+					<tspan x="0" y="850">14:00</tspan>
+					<tspan x="0" y="970">16:00</tspan>
+					<tspan x="0" y="1090">18:00</tspan>
+					<tspan x="0" y="1210">20:00</tspan>
+					<tspan x="0" y="1330">22:00</tspan>
+				</text>
+			</g>
+		</g>
+	
+		<rect id="overlayX" width="500" height="130"
+			style="fill:#6D6083">
+		</rect>
+		<g  class="days" id="T2015-04-20" >
+	
+			<script type="application/javascript">
+				function dayDate(date,day){
+				document.getElementById('calendarDay').innerHTML=day;
+				document.getElementById('calendarDate').innerHTML=date;
+				}
+			</script>
+			<script type="application/javascript">
+				window.onload = function(){
+				dayDate('20-04-2015','Mon')
+				}
+			</script>
+			<use xlink:href="#overlayX	" transform="translate(20,0) scale(1,12)" />
+			<text id="calendarDay" x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" ></text>
+			<text id="calendarDate" x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8"></text>
+			<g transform="translate(0,100)" >
+				<g transform="translate(0,840)" > <!--14*60 -->
+					<use xlink:href="#APP" transform="scale(0.95,1.2) translate(35,20)" />
+					<text transform="scale(1.20,1.20) translate(30,10)" x="0" y="36" font-size="32">
+						14:00-16:00
+						<tspan x="0" y="90" font-weight="bold" font-size="52">Meeting1
+						</tspan>
+					</text>
+				</g>
+			</g>
+		</g>
+
+
+		<g id="T2015-04-21">
+			<use xlink:href="#overlayX	" transform="translate(20,0) scale(1,12)" />
+			<text x="10" y="80" font-size="100">2015-04-21</text>
+			<g transform="translate(0,100)">
+				<g transform="translate(0,480)"> <!--8*60 -->
+					<use xlink:href="#APP" transform="scale(1,1.80)" />
+					<text transform="scale(1.80,1.80)" x="0" y="36" font-size="32">
+						08:00-11:00
+						<tspan x="0" y="80" font-weight="bold" font-size="52">Meeting2
+						</tspan>
+					</text>
+				</g>
+				<g transform="translate(0,960)"> <!--16*60 -->
+					<use xlink:href="#APP" transform="scale(1,1.20)" />
+					<text transform="scale(1.20,1.20)" x="0" y="36" font-size="32">
+						16:00-18:00
+						<tspan x="0" y="80" font-weight="bold" font-size="52">ImportantMeeting
+						</tspan>
+					</text>
+				</g>
+			</g>
+		</g>
+
+
+		<g id="T2015-04-22">
+			<text x="10" y="80" font-size="100">2015-04-22</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+		<g id="T2015-04-23">
+			<text x="10" y="80" font-size="100">2015-04-23</text>
+			<g transform="translate(0,100)">
+				<g transform="translate(0,960)"> <!--16*60 -->
+					<use xlink:href="#APP" transform="scale(1,1.20)" />
+					<text transform="scale(1.20,1.20)" x="0" y="36" font-size="32">
+						16:00-18:00
+						<tspan x="0" y="80" font-weight="bold" font-size="52">Meeting4
+						</tspan>
+					</text>
+				</g>
+			</g>
+		</g>
+
+
+		<g id="T2015-04-24">
+			<text x="10" y="80" font-size="100">2015-04-24</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+
+		<g id="T2015-04-25">
+			<text x="10" y="80" font-size="100">2015-04-25</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+
+		<g id="T2015-04-26">
+			<text x="10" y="80" font-size="100">2015-04-26</text>
+			<g transform="translate(0,100)">
+				<g transform="translate(0,1020)"> <!--17*60 -->
+					<use xlink:href="#APP" transform="scale(1,2.40)" />
+					<text transform="scale(2.40,2.40)" x="0" y="36" font-size="32">
+						17:00-21:00
+						<tspan x="0" y="80" font-weight="bold" font-size="52">Meeting5
+						</tspan>
+					</text>
+				</g>
+			</g>
+		</g>
+
+		<g id="T2015-04-27">
+			<text x="10" y="80" font-size="100">2015-04-27</text>
+			<g transform="translate(0,100)">
+				<g transform="translate(0,780)"> <!--13*60 -->
+					<use xlink:href="#APP" transform="scale(1,0.60)" />
+					<text transform="scale(0.60,0.60)" x="0" y="36" font-size="32">
+						13:00-14:00
+						<tspan x="0" y="80" font-weight="bold" font-size="52">Meeting X
+						</tspan>
+					</text>
+				</g>
+			</g>
+		</g>
+
+
+		<g id="T2015-04-28">
+			<text x="10" y="80" font-size="100">2015-04-28</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+		<g id="T2015-04-29">
+			<text x="10" y="80" font-size="100">2015-04-29</text>
+			<g transform="translate(0,100)">
+				<g transform="translate(0,1260)"> <!--21*60 -->
+					<use xlink:href="#APP" transform="scale(1,1.20)" />
+					<text transform="scale(1.20,1.20)" x="0" y="36" font-size="32">
+						21:00-23:00
+						<tspan x="0" y="80" font-weight="bold" font-size="52">Meeting Y
+						</tspan>
+					</text>
+				</g>
+			</g>
+		</g>
+
+
+
+		<g id="T2015-04-30">
+			<text x="10" y="80" font-size="100">2015-04-30</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+		<g id="T2015-05-01">
+			<text x="10" y="80" font-size="100">2015-05-01</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+		<g id="T2015-05-02">
+			<text x="10" y="80" font-size="100">2015-05-02</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+		<g id="T2015-05-03">
+			<text x="10" y="80" font-size="100">2015-05-03</text>
+			<g transform="translate(0,100)">
+			</g>
+		</g>
+
+
+	</defs>
+
+
+	<g transform="scale(0.4,0.4)">
+		<use xlink:href="#TIMES" />
+	
+		<use xlink:href="#T2015-04-20" transform="translate(120,0)"  />
+	</g>
+
+
+</svg>
+

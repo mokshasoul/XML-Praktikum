@@ -1,0 +1,22 @@
+<?xml version="1.1" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+    "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<?xml-stylesheet type="text/css" href="untitled.css"?>   
+<svg width="140"  height="170">
+    <title>Cat</title>
+    <desc>Stick Figure of a Cat</desc>
+    <rect class="border" width="130" height="160"></rect>
+    <g id="time">
+        
+        
+    </g>
+    <circle cx="60" cy="85" r="5" style="stroke: black; fill:green"/>
+    <circle cx="80" cy="85" r="5" style="stroke: black; fill:green"/>
+    <circle cx="70" cy="95"  r="50"  style="stroke: black; fill: none"/>
+    <g id="whiskers">
+        <line x1="80" y1="100" x2="135" y2="85" style="stroke:black;"/>
+        <line x1="80" y1="100" x2="135" y2="100" style="stroke:black;"/>
+    </g>
+    <use xlink:href="#whiskers" transform="scale(-1,1) translate (-140,0)"/>
+        
+</svg>

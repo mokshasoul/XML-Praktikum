@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<?xml-stylesheet type="text/css" href="untitled.css"?> 
+
+<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<defs>
+		
+
+		<g id="VLINE">
+			<line x1="0" y1="0" x2="0" y2="1540"
+				style="stroke:rgb(0,0,0);stroke-width:4" />
+		</g>
+
+
+		<g id="WEEK1">
+			
+			<g transform="translate(0,0)">
+				<use xlink:href="Days.svg#T2015-04-20" />
+
+				<g transform="translate(525,0)">
+					<use xlink:href="Days.svg#T2015-04-21" />
+					<use xlink:href="#VLINE" />
+
+					<g transform="translate(525,0)">
+						<use xlink:href="Days.svg#T2015-04-22" />
+						<use xlink:href="#VLINE" />
+
+						<g transform="translate(525,0)">
+							<use xlink:href="Days.svg#T2015-04-23" />
+							<use xlink:href="#VLINE" />
+
+							<g transform="translate(525,0)">
+								<use xlink:href="Days.svg#T2015-04-24" />
+								<use xlink:href="#VLINE" />
+
+								<g transform="translate(525,0)">
+									<use xlink:href="Days.svg#T2015-04-25" />
+									<use xlink:href="#VLINE" />
+
+									<g transform="translate(525,0)">
+										<use xlink:href="Days.svg#T2015-04-26" />
+										<use xlink:href="#VLINE" />
+
+										<g transform="translate(525,0)">
+											<use xlink:href="#VLINE" />
+
+										</g>
+									</g>
+								</g>
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+
+		<g id="WEEK2">
+			<g transform="translate(0,0)">
+				<use xlink:href="Days.svg#T2015-04-27" />
+
+				<g transform="translate(500,0)">
+					<use xlink:href="Days.svg#T2015-04-28" />
+					<use xlink:href="#VLINE" />
+
+					<g transform="translate(500,0)">
+						<use xlink:href="Days.svg#T2015-04-29" />
+						<use xlink:href="#VLINE" />
+
+						<g transform="translate(500,0)">
+							<use xlink:href="Days.svg#T2015-04-30" />
+							<use xlink:href="#VLINE" />
+
+							<g transform="translate(500,0)">
+								<use xlink:href="Days.svg#T2015-05-01" />
+								<use xlink:href="#VLINE" />
+
+								<g transform="translate(500,0)">
+									<use xlink:href="Days.svg#T2015-05-02" />
+									<use xlink:href="#VLINE" />
+
+									<g transform="translate(500,0)">
+										<use xlink:href="Days.svg#T2015-05-03" />
+										<use xlink:href="#VLINE" />
+
+										<g transform="translate(500,0)">
+											<use xlink:href="#VLINE" />
+
+										</g>
+									</g>
+								</g>
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</defs>
+
+	<g transform="scale(0.3,0.3)">
+		<use xlink:href="Days.svg#TIMES"  transform="translate(0,50)"/>
+		
+		<use xlink:href="#WEEK1" transform="translate(120,0)" />
+	</g>
+</svg>
