@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-<svg width="100%" height="770" xmlns="http://www.w3.org/2000/svg"
+<svg width="3559px" height="7731px" xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink">
 
 
@@ -9,7 +9,7 @@
 	<defs>
 		<g id="HLINE">
 			<line x1="0" y1="0" x2="3500" y2="0"
-				style="stroke:rgb(255,0,0);stroke-width:2" />
+				style="stroke:rgb(255,255,0);stroke-width:2" />
 		</g>
 
 

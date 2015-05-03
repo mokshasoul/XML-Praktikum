@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onload='init(evt)'>
+<defs>
+    
+    <rect id="APP" width="500" height="110"
+        style="stroke: black; fill: lightgrey">
+    </rect>
+    <g id="T2015-04-20_1416">
+        <use xlink:href="#APP" />
+        <text transform="translate(0,15) scale(1.2,1)" font-size="32" >
+            <tspan x='10' y='10' font-size="16" textLength="16">14:00-16:00</tspan>
+            <tspan x='100' y='15' font-weight="bold" textLength="16">Meeting 1</tspan>
+            <tspan x='10' y='50'>Lorem Ipsum</tspan>
+        </text>
+    </g>
+    
+    <g id="T2015-04-21_0811">
+        <use xlink:href="#APP" />
+        <text transform="translate(0,15) scale(1.2,1)" font-size="32" >
+            <tspan x='10' y='10' font-size="16">08:00 - 11:00</tspan>
+            <tspan x='100' y='15' font-weight="bold" textLength="16">Meeting 2</tspan>
+            <tspan x='10' y='50' >Lorem Ipsum</tspan>
+        </text>
+    </g>
+    
+    <g id="T2015-04-21_1618">
+        <use xlink:href="#APP" />
+        <text transform="translate(0,15) scale(1.2,1)" font-size="32" >
+            <tspan x='10' y='10' font-size="16">16:00-18:00</tspan>
+            <tspan x='100' y='15' font-weight="bold" textLength="16">Meeting 3</tspan>  
+            <tspan x='10' y='50' id="Description3" >Lorem Ipsum</tspan>
+        </text>
+    </g>
+    
+</defs>
+    <g alignment-baseline="baseline">
+             <use xlink:href="#Task1"/>
+    </g>
+</svg>
