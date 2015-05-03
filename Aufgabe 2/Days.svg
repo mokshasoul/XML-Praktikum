@@ -34,10 +34,14 @@
 			<text id="calendarDay" x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Mon</text>
 			<text id="calendarDate" x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-20</text>
 			<g transform="translate(0,100)" >
-				<g transform="translate(0,850)" > <!--14*60 -->
+				<g transform='translate(0,480)'>
+					<use xlink:href='Tasks.svg#T2015-4-20_0810' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
+				<g transform="translate(0,840)" > <!--14*60 -->
 					<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
 				</g>
 			</g>
+
 		</g>
 
 		<g id="T2015-04-21">
@@ -45,6 +49,9 @@
 			<text x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Tue</text>
 			<text x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-21</text>
 			<g transform="translate(0,100)">
+				<g transform='translate(0,720)'>
+				<use xlink:href='Tasks.svg#T2015-4-21_1214' transform='scale(0.95,1.2) translate(15,20)' />
+			</g>
 				<g transform="translate(0,480)"> <!--8*60 -->
 					<use xlink:href="Tasks.svg#T2015-04-21_0811" transform="scale(0.95,1.2) translate(15,20)" />
 				</g>
@@ -60,7 +67,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Wed</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-22</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,1200)'>
+					<use xlink:href='Tasks.svg#T2015-4-22_2022' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -70,7 +79,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Thu</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-22</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,600)'>
+					<use xlink:href='Tasks.svg#T2015-4-23_1012' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -80,7 +91,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Fri</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-23</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,1080)'>
+					<use xlink:href='Tasks.svg#T2015-4-24_1820' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>			
 			</g>
 		</g>
 
@@ -91,7 +104,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Sat</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-24</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,780)'>
+					<use xlink:href='Tasks.svg#T2015-4-25_1315' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>		</g>
 
 
@@ -101,7 +116,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Sun</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-25</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,1080)'>
+					<use xlink:href='Tasks.svg#T2015-4-26_1820' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -110,7 +127,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Mon</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-26</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,600)'>
+					<use xlink:href='Tasks.svg#T2015-4-27_1012' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -120,7 +139,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Tue</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-27</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,480)'>
+					<use xlink:href='Tasks.svg#T2015-4-28_0810' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -130,7 +151,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Wed</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-28</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,0)'>
+					<use xlink:href='Tasks.svg#T2015-4-29_0002' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -141,7 +164,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Thu</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-29</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,840)'>
+					<use xlink:href='Tasks.svg#T2015-4-30_1416' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -151,7 +176,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Fri</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-04-30</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,960)'>
+					<use xlink:href='Tasks.svg#T2015-5-1_1620' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -161,7 +188,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Sat</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-05-01</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,840)'>
+					<use xlink:href='Tasks.svg#T2015-5-2_1416' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
@@ -171,7 +200,9 @@
 			<text  x="170" y="80" font-size="100" fill="#ffd500" fill-opacity="0.8" >Sun</text>
 			<text  x="170" y="120" font-size="40"  fill="#ffd500" fill-opacity="0.8">2015-05-02</text>
 			<g transform="translate(0,100)">
-				<use xlink:href="Tasks.svg#T2015-04-20_1416" transform="scale(0.95,1.2) translate(15,20)" />
+				<g transform='translate(0,1200)'>
+					<use xlink:href='Tasks.svg#T2015-5-3_2022' transform='scale(0.95,1.2) translate(15,20)' />
+				</g>
 			</g>
 		</g>
 
