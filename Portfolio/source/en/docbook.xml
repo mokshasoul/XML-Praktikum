@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xml:lang="en" xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xl="http://www.w3.org/1999/xlink">
+	<info>		
+		<title>Portfolio</title>
+	</info>
+	<section>
+		<title>Blatt 2</title>
+		<section>
+			<title>Aufgabe 3 - Templates für Tages- Woche- und Monatssichten</title>
+			<para>
+				In dieser Aufgabe sollen Templates für die verschiedenen Kalenderansichten (Tag, Woche, Monat) als SVG Grafik erstellt werden. 
+				Der SVG Code soll möglichst redundanzfrei sein und später automatisch generiert werden können. 
+			</para>
+			<section>
+				<title>Termine</title>
+				<para>
+					In Tasks.svg sind die Termine eingetragen.  Jeder Termin besteht aus einem Rechteck (width=500, height=100), in welchem
+					dann der entsprechende Kalendertext angezeigt wird. Dieser besteht aus zwei Zeilen: Uhrzeit und Titel des Termins in der ersten Zeile, 
+					sowie die Beschreibung des Termins. Die Größe des Textes wird abhängig von der Länge des Termins in x-Richtung skaliert. Beispielsweise 
+					wird scale(1.8,1) verwendet, wenn der Termin 3 Stunden (=180 Minuten) lang ist. Dies ist notwendig, damit das Ergebnis
+					am Ende schön angezeigt wird.
+				
+				</para>
+			</section>
+			<section>
+				<title>Tagessicht</title>
+				<para>
+					In der Tagessicht (Days.svg) werden die Termine aus Tasks.svg referenziert.
+					Jeder Termin wird abhängig von der Startzeit und der Länge des Termins innerhalb des Tages platziert. Jedes Pixel in y-Richtung (nach unten)
+					entspricht dabei einer Minute. Ein Termin um 14 Uhr wird also um 14*60=840 Pixel nach unten verschoben (transform="translate(0,840)").
+					Die Länge des Termins wird durch die Höhe des Rechtecks beschrieben, dazu wird das Rechteck entsprechend skaliert. 
+					Dauert der Termin 120 Minuten, muss die Höhe mit 1.20 multipliziert werden (transform="scale(1,1.20)"). Der Einfachheit halber wurde 
+					deshalb die Höhe des ursprünglichen Rechtecks auf 100 gesetzt.
+				
+				</para>
+				<para>
+					Jeder Tag bekommt eine eigene Gruppe. wobei die Gruppen-ID in der Form TYYYY-MM-DD dargestellt wird. Mithilfe der ID kann entsprechend
+					ausgewählt werden, welcher Tag bzw. welche Tage angezeigt werden sollen (in allen drei Sichten). Innerhalb der Gruppe gibt es zunächst
+					zwei text-Elemente, in welchen der Tag bzw. das Datum stehen. Da folgt eine translate-Anweisung um 120 Pixel nach unten 
+					(in den oberen 120 Pixeln steht das Datum), bzw. 15 Pixel naach rechts (es sollen immer 15 Pixel Platz links neben den Terminen sein), 
+					dann folgen die einzelnen Termine (s. oben).	
+				</para>
+				<para>
+					Zusätzlich gibt es noch eine Gruppe, innerhalb derer bestimmte Uhrzeiten in text-Elementen ausgegeben werden. Die Uhrzeiten (im 2h-Abstand,
+					also 00:00, 02:00, 04:00, usw) stehen untereinander und sollen links neben der Tages- und Wochensicht eingeblendet werden.
+				</para>
+				<para>
+					Angezeigt werden die Termine eines Tages, indem die Zeitleiste zusammen mit den Terminen eines Tages (welcher entsprechend nach rechts verschoben
+					werden muss), angezeigt werden. Da Eine Höhe von 24*60=1440 Pixeln sehr hoch ist, muss alles noch skaliert werden - angenehm sind 0.4 für die
+					Tagessicht.
+				</para>
+			</section>
+			<section>
+				<title>Wochensicht</title>
+				<para>
+					In der Wochensicht werden die einzelnen Tagessichten (ohne die Zeitleiste links) wiederverwendet. Dazu wird für jede Woche eine Gruppe definiert
+					(mit ID=WEEKx, wobei x = Kalenderwoche, also z.B. WEEK4). Innerhalb jeder Gruppe werden die entsprechenden 7 Tage eingefügt, jeweils um 505
+					Pixel nach links verschoben (""ein Tag ist 505 Pixel breit"). Dazwischen wird jeweils eine zuvor definierte vertikale Linie eingefügt.
+				</para>
+				<para>
+					Um eine Woche anzuzeigen wird zunächst die Zeitleiste aus Days.SVG wiederverwendet und anschließend eine oben definierte Woche
+					(verschoben etwas nach rechts aufgrund der Zeitleiste) ausgewählt. Wieder muss alles skaliert werden (hier wurde 0.3 gewählt).
+				</para>
+			</section>
+			<section>
+				<title>Monatssicht</title>
+				<para>
+					Die Monatssicht vereinigt fünf Wochen. Die Monate werden definiert wie die Wochen: einer (Monats-)Gruppe werden die entsprechenden
+					Wochen zugeordnet und untereinander angezeigt, sodass alle Montage, Dienstage etc. in jeweils einer Spalte sind. Der
+					vertikale Abstand zwischen den jeweiligen (0,0)-Koordinaten zweier Wochen beträgt 1540 Pixel (1440 für die Höhe eines Tags bzw. der
+					Anzahl der Minuten eines Tags plus 100 Pixel für das Datum).
+				</para>
+				<para>
+					Bei der Wochenansicht wird auf die Zeitleiste links verzichtet. Es muss also nur der anzuzeigende Monat gewählt und skaliert werden.
+					Hier muss abgewogen werden, ob alles möglichst ohne scrollen (und relativ klein) angezeigt werden soll, oder ob die Übersicht entsprechend größer
+					ausfallen soll. Ein guter Wert scheint transform="scale(0.15,0.1)" zu sein.
+				</para>
+			</section>
+		</section>
+	</section>
+</article>
