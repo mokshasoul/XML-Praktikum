@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="SimpleEvents.xsl" ?>
+
+<events xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="CalendarXEvents.xsd">
+	<event description="PraktXMLT" categories="work" date="2015-05-07"
+		startTime="10:15:00" endTime="12:00:00" note="">
+		<attendees>
+			<attendee description="Anne Brüggemann-Klein"/>
+		</attendees>
+		<location description="01.07.023"/>
+	</event>
+	<event description="VorlEP" categories="work" date="2015-05-04"
+		startTime="12:15:00" endTime="13:45:00" note="">
+		<attendees>
+			<attendee description="Anne Brüggemann-Klein"/>
+		</attendees>
+	</event>
+	<event description="OChrHFP" categories="music" date="2015-05-08"
+		startTime="20:00:00" endTime="22:00:00" note="">
+		<attendees>
+			<attendee description="Anne Brüggemann-Klein"/>
+			<attendee description="Orchesterleitung"/>
+		</attendees>
+	</event>
+</events>
