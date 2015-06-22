@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-<svg width="1472px" height="1000px" xmlns="http://www.w3.org/2000/svg"
+<svg width="1366px" height="768px" xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink">
 
 
@@ -41,7 +41,7 @@
 	</defs>
 
 
-	<use xlink:href="#MONTH1" transform="scale(0.15,0.1)" />
+	<use xlink:href="#MONTH1" transform="scale(0.3,0.2)" />
 
 
 </svg>

@@ -1,0 +1,4 @@
+TODO:
+1. Calendar Front-End: Die Webseite für denn Kalendar aufbauen
+2. Front-End to Back-End logic: Wie werden wir diese Implementieren.
+3. Back-End: Ist teilweise Implementiert, über Kode schauen  und ggfs Verbesserungen vorschlagen.
