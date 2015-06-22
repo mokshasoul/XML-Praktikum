@@ -1,0 +1,27 @@
+@media all{
+	.navbar a:visited{
+		color:black;
+	}
+	.navbar a{
+		color:black;
+	}
+	.navbar h4{
+		background-color:#052e5a ;
+		border-right:7px #bcffe6 inset;
+		border-bottom: 7px #052e5a inset;
+		padding:3px 4px;
+		font: bold 150% "Lucida Grande", "Trebuchet MS",Verdana, Helvetica, sans-serif;
+	}
+	.navbar ul{
+		list-style:none;
+		padding:0;
+		margin:0;
+		display:inline-block;
+	}
+		.navbar li{
+		display:inline-block;
+	}
+		.navbar{
+		text-align:center;
+	}
+}
