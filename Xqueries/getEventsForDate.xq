@@ -5,9 +5,10 @@ import module namespace helper = 'http://www.help.com' at 'helperFunctions.xqm';
 let $date:=xs:date('2015-06-09')
 
 
-for $superEvent in doc('sampleCalendarX.xml')//superEvents/superEvent
+for $superEvent in doc('sampleCalendarX2.xml')//superEvents/superEvent
 for $event in $superEvent/eventRules/eventRule
 where helper:isDateInPattern($date, $event/recurrencePattern/text())
+order by $event/@startTime, $event/@endTime
 return 
 	<event description="{$superEvent/@description}" categories="{$superEvent/@categories}" date="{$date}"
 		startTime="{$event/@startTime}" endTime="{$event/@endTime}" note="{$event/@note}">
