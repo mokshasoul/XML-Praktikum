@@ -17,11 +17,14 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	<xsl:param name="requestedDate" select="xs:date('2015-05-07')"/>
 	
+<xsl:param name="packedView" select="xs:boolean('true')" />
 	
 	
 	
 	<xsl:template match="/">
-		<svg width="1472px" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		
+		
+		<svg width="1472px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 			<defs>
 			
 			<!--
@@ -43,7 +46,8 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 				</xsl:if>
 			</defs>
 			<g transform="scale(0.35,0.35)">
-				<use xlink:href="CalendarXTransformDay.xml#TIMES" transform="translate(0,15)"/>
+				<xsl:if test="not($packedView)"><use xlink:href="CalendarXTransformDay.xml#TIMES" transform="translate(0,15)"/>
+</xsl:if>
 				
 				
 				<!--

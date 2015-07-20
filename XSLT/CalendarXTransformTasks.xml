@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:foo="http://www.foo.org"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:fn="http://www.w3.org/2005/xpath-functions">
+   <defs>
+      <rect id="APP" width="500" height="100" style="stroke: black; fill: lightgrey"/>
+      <g id="T2015-05-04_101500_120000">
+         <use xlink:href="#APP"/>
+         <text transform="translate(0,15) scale(1.05,1)" font-size="32">
+            <tspan x="10" y="10" font-size="16">10:15-12:00</tspan>
+            <tspan x="100" y="15" font-weight="bold">PraktXMLT</tspan>
+            <tspan x="10" y="50">01.07.023</tspan>
+         </text>
+      </g>
+      <g id="T2015-05-04_121500_134500">
+         <use xlink:href="#APP"/>
+         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
+            <tspan x="10" y="10" font-size="16">12:15-13:45</tspan>
+            <tspan x="100" y="15" font-weight="bold">VorlEP</tspan>
+            <tspan x="10" y="50"/>
+         </text>
+      </g>
+      <g id="T2015-05-08_200000_220000">
+         <use xlink:href="#APP"/>
+         <text transform="translate(0,15) scale(1.2,1)" font-size="32">
+            <tspan x="10" y="10" font-size="16">20:00-22:00</tspan>
+            <tspan x="100" y="15" font-weight="bold">OChrHFP</tspan>
+            <tspan x="10" y="50"/>
+         </text>
+      </g>
+   </defs>
+</svg>

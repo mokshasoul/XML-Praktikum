@@ -15,7 +15,9 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	<xsl:include href="myFunctions.xsl"/>
 	
 	
-	<xsl:param name="requestedDate" select="xs:date('2015-05-27')"/>
+	<xsl:param name="requestedDate" select="xs:date('2015-05-07')"/>
+	<xsl:param name="packedView" select="xs:boolean('true')" />
+	
 	
 	<xsl:variable name="weeksInThisMonth">
 		<xsl:variable name="firstMonday">
@@ -60,8 +62,20 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 			</xsl:choose>
 		</maxWeek>
 	</xsl:variable>
+	
+	<xsl:variable name="displacement">
+			<xsl:choose>
+				<xsl:when test="$packedView"><xsl:value-of select="events/@height"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="1544"/></xsl:otherwise> <!--1440 (timeline) +100 (header) +4 (horizontal line)-->
+			</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="scale" select="0.35"/>
+
+	
 	<xsl:template match="/">
-		<svg width="1472px" height="1972px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<svg width="1472px" height="{$displacement*$scale*$weeksInThisMonth/maxWeek}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+				
 			<defs>
 			<!--
 				define the month to be displayed. For every week, first print the "template-week", then overlay the week from the week-svg (if this week exists, i.e. if the week has at least one event. Otherwise, the "use" will find 
@@ -74,33 +88,33 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 						</xsl:call-template>
 						<use xlink:href="CalendarXTransformWeek.xml#WEEKOF{$weeksInThisMonth/week1}"/>
 						<xsl:call-template name="foo:printHorizontalLine"/>
-						<g transform="translate(0,1544)"><!--1440 (timeline) +100 (header) +4 (horizontal line)-->
+						<g transform="translate(0,{$displacement})">
 							<xsl:call-template name="foo:printWeekOfDay">
 								<xsl:with-param name="date" select="$weeksInThisMonth/week2"/>
 							</xsl:call-template>
 							<use xlink:href="CalendarXTransformWeek.xml#WEEKOF{$weeksInThisMonth/week2}"/>
 							<xsl:call-template name="foo:printHorizontalLine"/>
-							<g transform="translate(0,1544)">
+							<g transform="translate(0,{$displacement})">
 								<xsl:call-template name="foo:printWeekOfDay">
 									<xsl:with-param name="date" select="$weeksInThisMonth/week3"/>
 								</xsl:call-template>
 								<use xlink:href="CalendarXTransformWeek.xml#WEEKOF{$weeksInThisMonth/week3}"/>
 								<xsl:call-template name="foo:printHorizontalLine"/>
-								<g transform="translate(0,1544)">
+								<g transform="translate(0,{$displacement})">
 									<xsl:call-template name="foo:printWeekOfDay">
 										<xsl:with-param name="date" select="$weeksInThisMonth/week4"/>
 									</xsl:call-template>
 									<use xlink:href="CalendarXTransformWeek.xml#WEEKOF{$weeksInThisMonth/week4}"/>
+									<xsl:call-template name="foo:printHorizontalLine"/>
 									<xsl:if test="xs:integer($weeksInThisMonth/maxWeek) ge 5">
-										<xsl:call-template name="foo:printHorizontalLine"/>
-										<g transform="translate(0,1544)">
+										<g transform="translate(0,{$displacement})">
 											<xsl:call-template name="foo:printWeekOfDay">
 												<xsl:with-param name="date" select="$weeksInThisMonth/week5"/>
 											</xsl:call-template>
 											<use xlink:href="CalendarXTransformWeek.xml#WEEKOF{$weeksInThisMonth/week5}"/>
+											<xsl:call-template name="foo:printHorizontalLine"/>
 											<xsl:if test="xs:integer($weeksInThisMonth/maxWeek) eq 6">
-												<xsl:call-template name="foo:printHorizontalLine"/>
-												<g transform="translate(0,1544)">
+												<g transform="translate(0,{$displacement})">
 													<xsl:call-template name="foo:printWeekOfDay">
 														<xsl:with-param name="date" select="$weeksInThisMonth/week6"/>
 													</xsl:call-template>
@@ -115,7 +129,7 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 					</g>
 				</g>
 			</defs>
-			<use xlink:href="#MONTH{functx:first-day-of-month($requestedDate)}" transform="scale(0.25,0.2)"/>
+			<use xlink:href="#MONTH{functx:first-day-of-month($requestedDate)}" transform="scale({$scale},{$scale})"/>
 		</svg>
 	</xsl:template>
 </xsl:stylesheet>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE events
+  PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<events xmlns:foo="http://www.foo.org" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:fn="http://www.w3.org/2005/xpath-functions"
+        height="350">
+   <event id="2015-05-04_101500_120000" description="PraktXMLT" date="2015-05-04"
+          mondayOfWeek="2015-05-04"
+          startTime="10:15:00"
+          endTime="12:00:00">
+      <location description="01.07.023"/>
+   </event>
+   <event id="2015-05-04_121500_134500" description="VorlEP" date="2015-05-04"
+          mondayOfWeek="2015-05-04"
+          startTime="12:15:00"
+          endTime="13:45:00">
+      <location description=""/>
+   </event>
+   <event id="2015-05-08_200000_220000" description="OChrHFP" date="2015-05-08"
+          mondayOfWeek="2015-05-04"
+          startTime="20:00:00"
+          endTime="22:00:00">
+      <location description=""/>
+   </event>
+</events>

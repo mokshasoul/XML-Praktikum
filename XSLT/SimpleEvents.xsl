@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 
-<xsl:stylesheet version="2.0"
-xmlns:foo="http://www.foo.org" 
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<xsl:stylesheet version="2.0" exclude-result-prefixes="xs functx" 
+xmlns:foo="http://www.foo.org"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:xlink="http://www.w3.org/1999/xlink" 
-xmlns:xs="http://www.w3.org/2001/XMLSchema"
- xmlns:functx="http://www.functx.com" 
- xmlns:fn="http://www.w3.org/2005/xpath-functions"
-  exclude-result-prefixes="xs functx" >
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:functx="http://www.functx.com" 
+xmlns:fn="http://www.w3.org/2005/xpath-functions">
 
 
 <xsl:output method="xml" indent="yes" standalone="no" doctype-public="-//W3C//DTD SVG 1.1//EN" doctype-system="http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" media-type="text/xml"/>
@@ -83,8 +82,23 @@ xmlns:xs="http://www.w3.org/2001/XMLSchema"
 
 
 <xsl:template match="/">
-  <?xml-stylesheet type="text/xsl" href="CalendarXTransformTasks.xslt" ?>
-  <events>
+  <xsl:variable name="numberOfEventsPerDate">
+	<xsl:for-each-group select="events/event" group-by="@date">
+		<day date="{@date}">
+			<xsl:copy-of select="count(current-group())">
+			</xsl:copy-of>
+		</day>
+	</xsl:for-each-group>
+	</xsl:variable>
+	
+	
+	<xsl:variable name="height">
+<!--		130 (header)+20(bottom)-->
+		<xsl:value-of select="150+(max($numberOfEventsPerDate/day))*100"/>
+	</xsl:variable>
+  
+
+  <events  height="{$height}">
 <xsl:apply-templates select="events/event"/>
 </events>
 </xsl:template>

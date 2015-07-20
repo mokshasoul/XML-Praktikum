@@ -3,7 +3,7 @@
 
 <events xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="CalendarXEvents.xsd">
-	<event description="PraktXMLT" categories="work" date="2015-05-07"
+	<event description="PraktXMLT" categories="work" date="2015-05-04"
 		startTime="10:15:00" endTime="12:00:00" note="">
 		<attendees>
 			<attendee description="Anne Brüggemann-Klein"/>
