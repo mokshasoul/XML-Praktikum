@@ -2,7 +2,7 @@ xquery version "3.0";
 
 import module namespace helper = 'http://www.help.com' at 'helperFunctions.xqm';
 
-let $date:=xs:date('2015-07-09')
+let $date:=xs:date('2015-06-09')
 
 
 
