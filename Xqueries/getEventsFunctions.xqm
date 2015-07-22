@@ -78,8 +78,11 @@ declare function getEvents:refineEvents($events)
 {
     getEvents:refineEvents2(for $e in $events
                             let $cnt :=
-                                count($events[@date = $e/@date and ((@startTime > $e/@startTime and @startTime <
-                                          $e/@endTime) or (@endTime > $e/@startTime and @endTime < $e/@endTime))])
+                                count($events[@date = $e/@date and (
+                                        (@startTime ge $e/@startTime and @startTime < $e/@endTime) 
+                                    or (@startTime > $e/@startTime and @startTime le $e/@endTime) 
+                                    or (@endTime ge $e/@startTime and @endTime < $e/@endTime) 
+                                    or (@endTime > $e/@startTime and @endTime le $e/@endTime))])-1
                             return functx:add-attributes($e, xs:QName('intersecting'), $cnt))
 };
 
