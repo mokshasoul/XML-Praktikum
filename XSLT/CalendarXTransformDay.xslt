@@ -16,8 +16,8 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	
 	
-	<xsl:param name="requestedDate" select="xs:date('2015-05-04')"/>
-	<xsl:param name="packedView" select="xs:boolean('true')" />
+	<xsl:param name="requestedDate" select="xs:date('2015-06-02')"/>
+	<xsl:param name="packedView" select="xs:boolean('false')" />
 
 	
 	<xsl:template match="/">
@@ -77,11 +77,16 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 		<xsl:variable name="startTime" select="@startTime"/>
 		<xsl:variable name="endTime" select="@endTime"/>
 		
-		
-		<xsl:variable name="displacement">
+		<xsl:variable name="displacementY">
 			<xsl:choose>
 				<xsl:when test="$packedView"><xsl:value-of select="100*(position()-1)"/></xsl:when>
 				<xsl:otherwise><xsl:value-of select="foo:getTimeInMinutes($startTime)"/></xsl:otherwise> 
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="displacementX">
+			<xsl:choose>
+				<xsl:when test="$packedView"><xsl:value-of select="0"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="@pos*(500*0.96 div (@intersecting+1))"/></xsl:otherwise> 
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:variable name="scaleFactor">
@@ -91,8 +96,14 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 			</xsl:choose>
 		</xsl:variable>
 
-		<g transform="translate(0,{$displacement})" xmlns="http://www.w3.org/2000/svg">
-			<use xlink:href="CalendarXTransformTasks.xml#T{@id}" transform="scale(0.96,{$scaleFactor})"/>
+		<g transform="translate({$displacementX},{$displacementY})" xmlns="http://www.w3.org/2000/svg">
+			<xsl:choose>
+			<xsl:when test="@intersecting>0"><use xlink:href="CalendarXTransformTasks.xml#T{@id}_cropped" transform="scale(0.96,{$scaleFactor})"/>
+</xsl:when>
+			<xsl:otherwise><use xlink:href="CalendarXTransformTasks.xml#T{@id}" transform="scale(0.96,{$scaleFactor})"/>
+</xsl:otherwise>
+			</xsl:choose>
+			
 		</g>
 	</xsl:template>
 </xsl:stylesheet>

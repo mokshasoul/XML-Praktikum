@@ -54,31 +54,25 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
   <xsl:template match="event" >
 
 
- <xsl:variable name="startTime" select="@startTime"/>
- <xsl:variable name="endTime" select="@endTime"/>
-
- 
-    
-    
-	
-    
-
-    
-
     <g id="T{@id}" xmlns="http://www.w3.org/2000/svg">
       <use xlink:href="#APP" />
 
-      <text transform="translate(0,15) scale({foo:getScaleFactor($startTime,$endTime)},1)" font-size="32" >
-
-        <tspan x="10" y="10" font-size="16" ><xsl:value-of select="fn:format-time(xs:time($startTime), '[H01]:[m01]')"/>-<xsl:value-of select="fn:format-time(xs:time($endTime), '[H01]:[m01]')"/></tspan>
-        <tspan x="100" y="15" font-weight="bold" >
-          <xsl:value-of select="@description"/>
-        </tspan>
-        <tspan x="10" y="50">
-          <xsl:value-of select="location/@description"/>
-        </tspan>
-      </text>
+      <xsl:call-template name="foo:printEventDescription">
+      <xsl:with-param name="event"><xsl:value-of select="."/></xsl:with-param>
+      </xsl:call-template>
     </g>
+
+   <xsl:if test="@intersecting>0">
+   	<g id="T{@id}_cropped" xmlns="http://www.w3.org/2000/svg">
+   	<g transform="scale({1 div (@intersecting+1)},1)" xmlns="http://www.w3.org/2000/svg">
+      <use xlink:href="#APP" />
+
+	</g>
+      <xsl:call-template name="foo:printEventDescription">
+      <xsl:with-param name="event"><xsl:value-of select="."/></xsl:with-param>
+      </xsl:call-template>
+    </g>
+   </xsl:if>
 
 
 
