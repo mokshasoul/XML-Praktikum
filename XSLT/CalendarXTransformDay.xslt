@@ -17,7 +17,7 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	
 	<xsl:param name="requestedDate" select="xs:date('2015-06-02')"/>
-	<xsl:param name="packedView" select="xs:boolean('false')" />
+	<xsl:param name="packedView" select="xs:boolean('true')" />
 
 	
 	<xsl:template match="/">
@@ -98,8 +98,9 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 
 		<g transform="translate({$displacementX},{$displacementY})" xmlns="http://www.w3.org/2000/svg">
 			<xsl:choose>
-			<xsl:when test="@intersecting>0"><use xlink:href="CalendarXTransformTasks.xml#T{@id}_cropped" transform="scale(0.96,{$scaleFactor})"/>
-</xsl:when>
+			<xsl:when test="@intersecting>0 and not($packedView)">
+				<use xlink:href="CalendarXTransformTasks.xml#T{@id}_cropped" transform="scale(0.96,{$scaleFactor})"/>
+			</xsl:when>
 			<xsl:otherwise><use xlink:href="CalendarXTransformTasks.xml#T{@id}" transform="scale(0.96,{$scaleFactor})"/>
 </xsl:otherwise>
 			</xsl:choose>

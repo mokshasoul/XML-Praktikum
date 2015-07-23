@@ -15,7 +15,7 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	<xsl:include href="myFunctions.xsl"/>
 	
 	
-	<xsl:param name="requestedDate" select="xs:date('2015-05-07')"/>
+	<xsl:param name="requestedDate" select="xs:date('2015-06-07')"/>
 	<xsl:param name="packedView" select="xs:boolean('true')" />
 	
 	
