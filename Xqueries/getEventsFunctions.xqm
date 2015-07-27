@@ -88,12 +88,12 @@ declare function getEvents:refineEvents($events)
 
 
 (: adds position numbers of intersecting events :)
-declare function getEvents:refineEvents2($event)
+declare function getEvents:refineEvents2($events)
 {
     for $resultEvents in
-        ( let $maxIntersection := max($event/xs:integer(@intersecting))
+        ( let $maxIntersection := max($events/xs:integer(@intersecting))
         for $i in (0 to $maxIntersection)
-        for $eventsNintersections at $p in $event[@intersecting = $i]
+        for $eventsNintersections at $p in $events[@intersecting = $i]
         return functx:add-attributes($eventsNintersections, xs:QName('pos'), $i - ($p mod ($i + 1))))
     order by $resultEvents/@date, $resultEvents/@startTime, $resultEvents/@endTime
     return $resultEvents
