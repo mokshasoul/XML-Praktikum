@@ -17,10 +17,16 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	
 	<xsl:param name="requestedDate" select="xs:date('2015-06-02')"/>
-	<xsl:param name="packedView" select="xs:boolean('true')" />
+	<xsl:param name="packedView" select="xs:boolean('false')" />
+
 
 	
 	<xsl:template match="/">
+	
+	
+	
+	
+	
 	
 		<svg width="100%"   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 			<defs>
@@ -74,13 +80,11 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	
 	<xsl:template match="event">
-		<xsl:variable name="startTime" select="@startTime"/>
-		<xsl:variable name="endTime" select="@endTime"/>
 		
 		<xsl:variable name="displacementY">
 			<xsl:choose>
 				<xsl:when test="$packedView"><xsl:value-of select="100*(position()-1)"/></xsl:when>
-				<xsl:otherwise><xsl:value-of select="foo:getTimeInMinutes($startTime)"/></xsl:otherwise> 
+				<xsl:otherwise><xsl:value-of select="foo:getTimeInMinutes(@startTime)"/></xsl:otherwise> 
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:variable name="displacementX">
@@ -89,21 +93,10 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 				<xsl:otherwise><xsl:value-of select="@pos*(500*0.96 div (@intersecting+1))"/></xsl:otherwise> 
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:variable name="scaleFactor">
-			<xsl:choose>
-				<xsl:when test="$packedView"><xsl:value-of select="1"/></xsl:when>
-				<xsl:otherwise><xsl:value-of select="foo:getScaleFactor($startTime,$endTime)"/></xsl:otherwise> 
-			</xsl:choose>
-		</xsl:variable>
+		
 
 		<g transform="translate({$displacementX},{$displacementY})" xmlns="http://www.w3.org/2000/svg">
-			<xsl:choose>
-			<xsl:when test="@intersecting>0 and not($packedView)">
-				<use xlink:href="CalendarXTransformTasks.xml#T{@id}_cropped" transform="scale(0.96,{$scaleFactor})"/>
-			</xsl:when>
-			<xsl:otherwise><use xlink:href="CalendarXTransformTasks.xml#T{@id}" transform="scale(0.96,{$scaleFactor})"/>
-</xsl:otherwise>
-			</xsl:choose>
+			<use xlink:href="CalendarXTransformTasks.xml#T{@id}" transform="scale(0.96,1)"/>
 			
 		</g>
 	</xsl:template>

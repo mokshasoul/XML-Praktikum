@@ -4,154 +4,150 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:foo="http://www.foo.org"
      xmlns:xlink="http://www.w3.org/1999/xlink"
      xmlns:fn="http://www.w3.org/2005/xpath-functions">
-   <defs>
+   <defs packedView="false">
       <rect id="APP" width="500" height="100" style="stroke: black; fill: lightgrey"/>
       <g id="T2015-06-01_12:15:00_13:45:00_6_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">12:15-13:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">00.09.13A</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">12:15-13:45 |  00.09.13A</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-02_16:00:00_17:00:00_3_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.6,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:00-17:00</tspan>
-            <tspan x="100" y="15" font-weight="bold">FirstTuesdayEvent</tspan>
-            <tspan x="10" y="50"/>
-         </text>
-      </g>
-      <g id="T2015-06-02_16:00:00_17:00:00_3_1_cropped">
-         <g transform="scale(0.5,1)">
+         <g transform="scale(0.5,0.6)">
             <use xlink:href="#APP"/>
          </g>
-         <text transform="translate(0,15) scale(0.6,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:00-17:00</tspan>
-            <tspan x="100" y="15" font-weight="bold">FirstTuesdayEvent</tspan>
-            <tspan x="10" y="50"/>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">16:00-17:00 |  </tspan>
+            <tspan x="10" y="35" font-weight="bold">FirstTuesdayEvent</tspan>
          </text>
       </g>
       <g id="T2015-06-02_16:15:00_17:45:00_6_2">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:15-17:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">HS2</tspan>
-         </text>
-      </g>
-      <g id="T2015-06-02_16:15:00_17:45:00_6_2_cropped">
-         <g transform="scale(0.5,1)">
+         <g transform="scale(0.5,0.9)">
             <use xlink:href="#APP"/>
          </g>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:15-17:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">HS2</tspan>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">16:15-17:45 |  HS2</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
-      <g id="T2015-06-04_11:00:00_12:00:00_2_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.6,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">11:00-12:00</tspan>
-            <tspan x="100" y="15" font-weight="bold">FirstThursdayEvent</tspan>
-            <tspan x="10" y="50"/>
+      <g id="T2015-06-04_11:00:00_18:00:00_2_1">
+         <g transform="scale(1,4.2)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">11:00-18:00 |  </tspan>
+            <tspan x="10" y="35" font-weight="bold">FirstThursdayEvent</tspan>
          </text>
       </g>
       <g id="T2015-06-06_11:00:00_12:00:00_1_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.6,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">11:00-12:00</tspan>
-            <tspan x="100" y="15" font-weight="bold">FirstSaturdayEvent</tspan>
-            <tspan x="10" y="50"/>
+         <g transform="scale(1,0.6)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">11:00-12:00 |  </tspan>
+            <tspan x="10" y="35" font-weight="bold">FirstSaturdayEvent</tspan>
          </text>
       </g>
       <g id="T2015-06-08_12:15:00_13:45:00_6_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">12:15-13:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">00.09.13A</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">12:15-13:45 |  00.09.13A</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-09_16:15:00_17:45:00_6_2">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:15-17:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">HS2</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">16:15-17:45 |  HS2</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-11_10:15:00_12:00:00_5_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(1.05,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">10:15-12:00</tspan>
-            <tspan x="100" y="15" font-weight="bold">XMLT2015</tspan>
-            <tspan x="10" y="50"/>
+         <g transform="scale(1,1.05)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">10:15-12:00 |  </tspan>
+            <tspan x="10" y="35" font-weight="bold">XMLT2015</tspan>
          </text>
       </g>
       <g id="T2015-06-15_12:15:00_13:45:00_6_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">12:15-13:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">00.09.13A</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">12:15-13:45 |  00.09.13A</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-16_16:15:00_17:45:00_6_2">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:15-17:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">HS2</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">16:15-17:45 |  HS2</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-18_10:15:00_12:00:00_5_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(1.05,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">10:15-12:00</tspan>
-            <tspan x="100" y="15" font-weight="bold">XMLT2015</tspan>
-            <tspan x="10" y="50"/>
+         <g transform="scale(1,1.05)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">10:15-12:00 |  </tspan>
+            <tspan x="10" y="35" font-weight="bold">XMLT2015</tspan>
          </text>
       </g>
       <g id="T2015-06-22_12:15:00_13:45:00_6_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">12:15-13:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">00.09.13A</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">12:15-13:45 |  00.09.13A</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-23_16:15:00_17:45:00_6_2">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:15-17:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">HS2</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">16:15-17:45 |  HS2</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-25_10:15:00_12:00:00_5_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(1.05,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">10:15-12:00</tspan>
-            <tspan x="100" y="15" font-weight="bold">XMLT2015</tspan>
-            <tspan x="10" y="50"/>
+         <g transform="scale(1,1.05)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">10:15-12:00 |  </tspan>
+            <tspan x="10" y="35" font-weight="bold">XMLT2015</tspan>
          </text>
       </g>
       <g id="T2015-06-29_12:15:00_13:45:00_6_1">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">12:15-13:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">00.09.13A</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">12:15-13:45 |  00.09.13A</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
       <g id="T2015-06-30_16:15:00_17:45:00_6_2">
-         <use xlink:href="#APP"/>
-         <text transform="translate(0,15) scale(0.9,1)" font-size="32">
-            <tspan x="10" y="10" font-size="20">16:15-17:45</tspan>
-            <tspan x="100" y="15" font-weight="bold">EPS2015</tspan>
-            <tspan x="10" y="50">HS2</tspan>
+         <g transform="scale(1,0.9)">
+            <use xlink:href="#APP"/>
+         </g>
+         <text transform="translate(0,15)" font-size="30">
+            <tspan x="10" y="10" font-size="20">16:15-17:45 |  HS2</tspan>
+            <tspan x="10" y="35" font-weight="bold">EPS2015</tspan>
          </text>
       </g>
    </defs>

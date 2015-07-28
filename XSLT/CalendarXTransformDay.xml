@@ -31,7 +31,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-01</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,735)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-01_12:15:00_13:45:00_6_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -44,11 +44,11 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-02</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,960)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-02_16:00:00_17:00:00_3_1"
                     transform="scale(0.96,1)"/>
             </g>
-            <g transform="translate(0,100)">
+            <g transform="translate(240,975)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-02_16:15:00_17:45:00_6_2"
                     transform="scale(0.96,1)"/>
             </g>
@@ -61,8 +61,8 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-04</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
-               <use xlink:href="CalendarXTransformTasks.xml#T2015-06-04_11:00:00_12:00:00_2_1"
+            <g transform="translate(0,660)">
+               <use xlink:href="CalendarXTransformTasks.xml#T2015-06-04_11:00:00_18:00:00_2_1"
                     transform="scale(0.96,1)"/>
             </g>
          </g>
@@ -74,7 +74,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sat</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-06</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,660)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-06_11:00:00_12:00:00_1_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -87,7 +87,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-08</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,735)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-08_12:15:00_13:45:00_6_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -100,7 +100,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-09</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,975)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-09_16:15:00_17:45:00_6_2"
                     transform="scale(0.96,1)"/>
             </g>
@@ -113,7 +113,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-11</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,615)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-11_10:15:00_12:00:00_5_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -126,7 +126,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-15</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,735)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-15_12:15:00_13:45:00_6_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -139,7 +139,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-16</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,975)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-16_16:15:00_17:45:00_6_2"
                     transform="scale(0.96,1)"/>
             </g>
@@ -152,7 +152,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-18</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,615)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-18_10:15:00_12:00:00_5_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -165,7 +165,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-22</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,735)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-22_12:15:00_13:45:00_6_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -178,7 +178,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-23</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,975)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-23_16:15:00_17:45:00_6_2"
                     transform="scale(0.96,1)"/>
             </g>
@@ -191,7 +191,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-25</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,615)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-25_10:15:00_12:00:00_5_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -204,7 +204,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-29</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,735)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-29_12:15:00_13:45:00_6_1"
                     transform="scale(0.96,1)"/>
             </g>
@@ -217,7 +217,7 @@
          <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
          <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-30</text>
          <g transform="translate(10,130)">
-            <g transform="translate(0,0)">
+            <g transform="translate(0,975)">
                <use xlink:href="CalendarXTransformTasks.xml#T2015-06-30_16:15:00_17:45:00_6_2"
                     transform="scale(0.96,1)"/>
             </g>
@@ -225,6 +225,7 @@
       </g>
    </defs>
    <g transform="scale(0.4,0.4)">
+      <use xlink:href="#TIMES"/>
       <g transform="translate(120,0)">
          <g transform="translate(0,0) scale(1,12)">
             <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>

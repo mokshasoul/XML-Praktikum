@@ -16,7 +16,7 @@
 </attendees>
 <location description="HS2"/>
 </event>
-<event pos="0" intersecting="0" id="2015-06-04_11:00:00_12:00:00_2_1" description="FirstThursdayEvent" categories="teaching" date="2015-06-04" startTime="11:00:00" endTime="12:00:00" note="" mondayOfWeek="2015-06-01">
+<event pos="0" intersecting="0" id="2015-06-04_11:00:00_18:00:00_2_1" description="FirstThursdayEvent" categories="teaching" date="2015-06-04" startTime="11:00:00" endTime="18:00:00" note="" mondayOfWeek="2015-06-01">
 <attendees/>
 <location description=""/>
 </event>

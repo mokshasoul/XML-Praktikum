@@ -245,14 +245,11 @@ returns the scaling factor for scaling the event box accoridng to the duratio of
 		 <xsl:variable name="startTime" select="@startTime"/>
  <xsl:variable name="endTime" select="@endTime"/>
 		
-		 <text transform="translate(0,15) scale({foo:getScaleFactor($startTime,$endTime)},1)" font-size="32" >
+		 <text transform="translate(0,15)" font-size="30" >
 
-        <tspan x="10" y="10" font-size="18" ><xsl:value-of select="fn:format-time(xs:time($startTime), '[H01]:[m01]')"/>-<xsl:value-of select="fn:format-time(xs:time($endTime), '[H01]:[m01]')"/></tspan>
-        <tspan x="100" y="15" font-weight="bold" >
+        <tspan x="10" y="10" font-size="20" ><xsl:value-of select="fn:format-time(xs:time($startTime), '[H01]:[m01]')"/>-<xsl:value-of select="fn:format-time(xs:time($endTime), '[H01]:[m01]')"/> |  <xsl:value-of select="location/@description"/></tspan>
+        <tspan x="10" y="35" font-weight="bold" >
           <xsl:value-of select="@description"/>
-        </tspan>
-        <tspan x="10" y="50">
-          <xsl:value-of select="location/@description"/>
         </tspan>
       </text>
 	</xsl:template>
