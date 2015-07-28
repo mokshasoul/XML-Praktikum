@@ -245,15 +245,15 @@
 			</section>
 			<section>
 				<title>getEventsFunctions.xqm</title>
-				<section>
+				<section xml:id="getEventsForDay">
 					<title>getEvents:getEventsForDay($date as xs:date)</title>
 					<para>Diese Funktion erzeugt ein XML-Dokument, welches alle am angegebenen Datum stattfindenden Events beinhaltet. Das erzeugte XML-Dokument ist dann die Grundlage für die XSLT-Programme, welche die SVG-Sichten erzeugen.</para>
 				</section>
-			<section>
+			<section xml:id="getEventsForWeek">
 					<title>getEvents:getEventsForWeek($date as xs:date)</title>
 					<para>Diese Funktion erzeugt ein XML-Dokument, welches alle Events, die in der Woche stattfinden, in der das angegebene Datum liegt, beinhaltet. Das erzeugte XML-Dokument ist dann die Grundlage für die XSLT-Programme, welche die SVG-Sichten erzeugen.</para>
 				</section>
-			<section>
+			<section xml:id="getEventsForMonth">
 					<title>getEvents:getEventsForMonth($date as xs:date)</title>
 					<para>Diese Funktion erzeugt ein XML-Dokument, welches alle Events, die in dem Monat stattfinden, in der das angegebene Datum liegt, beinhaltet. Das erzeugte XML-Dokument ist dann die Grundlage für die XSLT-Programme, welche die SVG-Sichten erzeugen. Dabei ist zu beachten, dass für die Monatsansicht alle Wochen, in denen mindestens ein Tag des gewünschten Monats liegt, komplett angezeigt werden sollen. Das bedeutet, dass hier u.U. auch Daten berücksichtigt werden müssen, die nicht im eigentlich gewünschten Monat liegen. Ein Beispiel dafür wäre, dass der 1. August z.B. ein Samstag ist. Dann soll die komplette Woche des 1. August (beginnend am Montag, den 27. Juli) angezeigt werden. Die Events im Zeitraum vom 27. Juli bis 31. Juli müssen in diesem Fall also auch generiert werden, ebenso die Events vom 1. bis 6. September (da der 31. August ein Montag ist, muss diese Woche entsprechend auch berücksichtigt werden). Dies wird in der Funktion helper:getDatesInPatternWithinMonth berücksichtigt.</para>
 				</section>
@@ -301,5 +301,88 @@
 					<para>Diese Funktion gibt das Datum des <code>$ordinal</code>-ten <code>$dayType</code> (also z.B. das Datum des zweiten Dienstags) des Monats, in dem das Datum <code>$date</code> liegt, zurück. Diese Methode wird bei Vorkommen der Pattern <link  linkend="ordinalMonthlyPattern"><code>ordinalMonthlyPattern</code></link> und <link  linkend="ordinalYearlyPattern"><code>ordinalYearlyPattern</code></link> von <link  linkend="isDateInPattern"><code>helper:isDateInPattern</code></link>aufgerufen.</para>
 				</section>
 			</section>
+			<section>
+				<title>Ergebnis</title>
+				<para>Das Ergebnis der Queries <link linkend="getEventsForDay"><code>getEvents:getEventsForDay</code></link> (alle Events eines Tages), <link linkend="getEventsForWeek"><code>getEvents:getEventsForWeek</code></link> (alle Events einer Woche), <link linkend="getEventsForMonth"><code>getEvents:getEventsForMonth</code></link> (alle Events eines Monats) sieht dann in etwa so aus: 
+				<programlisting>
+					<![CDATA[
+<events>
+	<event pos="0" intersecting="0" id="2015-07-06_12:15:00_13:45:00_6_1" 
+	description="EPS2015" categories="teaching" date="2015-07-06" 
+	startTime="12:15:00" endTime="13:45:00" note="" mondayOfWeek="2015-07-06">
+		<attendees>
+			<attendee description="Anne Brüggemann-Klein"/>
+		</attendees>
+		<location description="00.09.13A"/>
+	</event>
+	<event pos="0" intersecting="1" id="2015-07-07_16:00:00_17:00:00_3_1" 
+	description="FirstTuesdayEvent" categories="teaching" date="2015-07-07" 
+	startTime="16:00:00" endTime="17:00:00" note="" mondayOfWeek="2015-07-06">
+		<attendees/>
+		<location description=""/>
+		</event>
+	<event pos="1" intersecting="1" id="2015-07-07_16:15:00_17:45:00_6_2" 
+	description="EPS2015" categories="teaching" date="2015-07-07" 
+	startTime="16:15:00" endTime="17:45:00" note="" mondayOfWeek="2015-07-06">
+		<attendees>
+			<attendee description="Anne Brüggemann-Klein"/>
+		</attendees>
+		<location description="HS2"/>
+	</event>
+	<event pos="0" intersecting="0" id="2015-07-09_10:15:00_12:00:00_5_1" 
+	description="XMLT2015" categories="teaching" date="2015-07-09" 
+	startTime="10:15:00" endTime="12:00:00" note="" mondayOfWeek="2015-07-06">
+		<attendees/>
+		<location description=""/>
+	</event>
+</events>
+        ]]>
+					</programlisting>
+				Dieses XML-Dokument dient nun als Input für die XSLT-Programme, welche die verschiedenen Sichten als SVG-Grafik generieren.
+			
+				</para>
+			
+			</section>
 		</section>
+		<section>
+			<title>XSLT</title>
+			<section>
+				<title>Motivation</title>
+				<para>Es wurden nun XSLT-Programme entwickelt, welche aus den Events, die mithilfe der im vorherigen Abschnitt beschriebenen Xqueries erzeugt wurden, Kalendersichten als SVG-Grafiken erzeugen. Dabei sollen sowohl Tages-, Wochen als auch Monatsansicht unterstützt werden. Dabei werden nacheinander folgende Transformationen ausgeführt:
+				<itemizedlist>
+					<listitem><para><link linkend="CalendarXTransformTasks"><code>CalendarXTransformTasks.xslt</code></link></para></listitem>
+					<listitem><para><link linkend="CalendarXTransformDay"><code>CalendarXTransformDay.xslt</code></link></para></listitem>
+					<listitem><para><link linkend="CalendarXTransformWeek"><code>CalendarXTransformWeek.xslt</code></link></para></listitem>
+					<listitem><para><link linkend="CalendarXTransformMonth"><code>CalendarXTransformMonth.xslt</code></link></para></listitem>
+				</itemizedlist>
+				Neben diesen vier Stylesheets gibt es noch <link linkend="myFunctions"><code>myFunctions.xsl</code></link>, welches mehrere in den xslt-Files benötigte Funktionen und Templates enthält.
+				</para>
+				<para>In der Tagesansicht werden die Termine abhängig von der Startzeit und der Länge entsprechend so angeordnet, dass sie zur auf der linken Seite angebrachten Zeitachse passen. Jeder Termin wird dabei als rechteckige Box dargestellt, in der die wichtigsten Informationen (Startzeit, Endzeit, Titel des Termins und den Ort) eingetragen sind. Termine, die sich zweitlich überschneiden, werden in ihrer Breite ebenfalls skaliert und nebeneinander angezeigt. Die Wochenansicht besteht aus 7 Tagen (Tagesansichten), die nebeneinander angezeigt werden. Eine Woche beginnt dabei immer am Montag, das heißt, der Tag ganz links ist immer ein Montag, der zweite von links ein Dienstag usw. Die Monatsansicht besteht nun aus untereinander angeordneten Wochen. Dabei umfasst ein Monat mindestens 4 Wochen, höchstens aber 6 Wochen. Um die Größe der Grafik nicht zu groß werden zu lassen (bzw. um nicht zu stark skalieren zu müssen, sodass die Ansicht auf den Bildschirm passt), werden die Termine in der Monatsansicht nicht auf einer Zeitskala angeordnet, sondern alle Termine eines Tages entsprechend direkt untereinander sozusagen als Liste dargestellt. 
+				
+				
+				
+				</para>
+			</section>
+			<section xml:id="CalendarXTransformTasks">
+				<title>CalendarXTransformTasks.xslt</title>
+				<para>Zunächst werden für jedes Event die Event-Boxen generiert. Diese erhalten die in den Xqueries generierten IDs und können dadurch bei der Generierung der Tagessicht entsprechend referenziert werden. Dabei muss darauf geachtet werden, dass die Boxen korrekt skaliert werden: Wenn sich mehrere Events überschneiden, müssen die Termin-Rechtecke entsprechend verschmälert werden. Wenn Tages- oder Wochensicht gewählt wurde, muss außerdem in Y-Richtung abhängig von der Länge des Termins skaliert werden. Falls die Monatssicht gewünscht ist, muss nichts skaliert werden, da dort die Termine n gleicher Größe untereinander angezeigt werden sollen. Um das zu realisieren wird dem XSLT-Programm der boolsche Parameter <code>packedView</code> übergeben. Wenn <code>packedView</code> true ist, wird die letztgenannte komprimierte Ansicht generiert, ansonsten die Ansicht, die sich der dann angezeigten Zeitleiste anpasst. Die Schrift wird, um Verzerrungen zu vermeiden, nicht skaliert und bleibt immer gleich.</para>
+			</section>
+			<section xml:id="CalendarXTransformDay">
+				<title>CalendarXTransformDay.xslt</title>
+				<para>Hier wird neben dem gewünschten Datum <code>date</code> ebenfalls der boolsche Wert <code>packedView</code> übergeben. Letzterer wird benötigt, um die Positionierung auf der Y-Achse zu berechnen. Wenn <code>packedView="false"</code> ist, werden die Termine in Abhängigkeit von ihrer Startzeit positioniert. Dabei entspricht eine Minute auf der Zeitachse einem Pixel auf der Y-Achse, sodass die Startuhrzeit in Minuten ab Mitternacht die Position angibt. Da dies sehr groß wäre wird der Termin, der angezeigt werden soll, anschließend skaliert. Zu beachten ist, dass alle Tage mit Terminen (unabhängig vom in <code>date</code> angegebenen Datum) generiert werden müssen, da diese für die Wochensicht und somit auch die Monatssicht gebraucht werden. Das <code>date</code> besagt lediglich, welcher der generierten Tage angezeigt werden soll, falls die Tagesansicht vom Nutzer gewünscht wurde. Die Funktion <code>foo:printDayAndDate</code> in <code>myFunctions.xsl</code> generiert dazu jeweils den Tag ohne Termine (mit Datum oben), Termine für diesen Tag werden dann darüber gelegt. Somit wird, wenn am Tag mit Datum <code>date</code> kein Termin stattfindet, trotzdem eine (leere) Tagesansicht erzeugt.</para>
+			</section>
+			<section xml:id="CalendarXTransformWeek">
+				<title>CalendarXTransformWeek.xslt</title>
+				<para>TODO</para>
+			</section>
+			<section xml:id="CalendarXTransformMonth">
+				<title>CalendarXTransformMonth.xslt</title>
+				<para>TODO</para>
+			</section>		
+			<section xml:id="myFunctions">
+				<title>myFunctions.xsl</title>
+				<para>TODO</para>
+			</section>			
+		</section>
+		
 </article>
