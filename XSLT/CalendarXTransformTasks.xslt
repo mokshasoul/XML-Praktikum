@@ -8,7 +8,7 @@
 	
 	
 	
-	<xsl:param name="packedView" select="xs:boolean('false')"/>
+	<xsl:param name="packedView" select="xs:boolean('true')"/>
 	
 	
 	

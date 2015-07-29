@@ -6,106 +6,6 @@
      xmlns:fn="http://www.w3.org/2005/xpath-functions"
      width="1472px">
    <defs>
-      <g id="WEEKOF2015-05-04">
-         <g transform="translate(20,0)">
-            <g transform="translate(0,0) scale(1,12)">
-               <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
-            </g>
-            <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
-            <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-05-04</text>
-            <use xlink:href="CalendarXTransformDay.xml#T2015-05-04"/>
-            <g id="VLINE">
-               <g transform="translate(-2,0)">
-                  <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-               </g>
-            </g>
-            <g transform="translate(504,0)">
-               <g transform="translate(0,0) scale(1,12)">
-                  <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
-               </g>
-               <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
-               <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-05-05</text>
-               <use xlink:href="CalendarXTransformDay.xml#T2015-05-05"/>
-               <g id="VLINE">
-                  <g transform="translate(-2,0)">
-                     <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-                  </g>
-               </g>
-               <g transform="translate(504,0)">
-                  <g transform="translate(0,0) scale(1,12)">
-                     <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
-                  </g>
-                  <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Wed</text>
-                  <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-05-06</text>
-                  <use xlink:href="CalendarXTransformDay.xml#T2015-05-06"/>
-                  <g id="VLINE">
-                     <g transform="translate(-2,0)">
-                        <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-                     </g>
-                  </g>
-                  <g transform="translate(504,0)">
-                     <g transform="translate(0,0) scale(1,12)">
-                        <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
-                     </g>
-                     <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
-                     <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-05-07</text>
-                     <use xlink:href="CalendarXTransformDay.xml#T2015-05-07"/>
-                     <g id="VLINE">
-                        <g transform="translate(-2,0)">
-                           <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-                        </g>
-                     </g>
-                     <g transform="translate(504,0)">
-                        <g transform="translate(0,0) scale(1,12)">
-                           <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
-                        </g>
-                        <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Fri</text>
-                        <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-05-08</text>
-                        <use xlink:href="CalendarXTransformDay.xml#T2015-05-08"/>
-                        <g id="VLINE">
-                           <g transform="translate(-2,0)">
-                              <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-                           </g>
-                        </g>
-                        <g transform="translate(504,0)">
-                           <g transform="translate(0,0) scale(1,12)">
-                              <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
-                           </g>
-                           <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sat</text>
-                           <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-05-09</text>
-                           <use xlink:href="CalendarXTransformDay.xml#T2015-05-09"/>
-                           <g id="VLINE">
-                              <g transform="translate(-2,0)">
-                                 <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-                              </g>
-                           </g>
-                           <g transform="translate(504,0)">
-                              <g transform="translate(0,0) scale(1,12)">
-                                 <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
-                              </g>
-                              <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sun</text>
-                              <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-05-10</text>
-                              <use xlink:href="CalendarXTransformDay.xml#T2015-05-10"/>
-                              <g id="VLINE">
-                                 <g transform="translate(-2,0)">
-                                    <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-                                 </g>
-                              </g>
-                              <g transform="translate(504,0)">
-                                 <g id="VLINE">
-                                    <g transform="translate(-2,0)">
-                                       <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
-                                    </g>
-                                 </g>
-                              </g>
-                           </g>
-                        </g>
-                     </g>
-                  </g>
-               </g>
-            </g>
-         </g>
-      </g>
       <g id="WEEKOF2015-06-01">
          <g transform="translate(20,0)">
             <g transform="translate(0,0) scale(1,12)">
@@ -206,9 +106,408 @@
             </g>
          </g>
       </g>
+      <g id="WEEKOF2015-06-08">
+         <g transform="translate(20,0)">
+            <g transform="translate(0,0) scale(1,12)">
+               <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+            </g>
+            <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
+            <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-08</text>
+            <use xlink:href="CalendarXTransformDay.xml#T2015-06-08"/>
+            <g id="VLINE">
+               <g transform="translate(-2,0)">
+                  <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+               </g>
+            </g>
+            <g transform="translate(504,0)">
+               <g transform="translate(0,0) scale(1,12)">
+                  <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+               </g>
+               <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
+               <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-09</text>
+               <use xlink:href="CalendarXTransformDay.xml#T2015-06-09"/>
+               <g id="VLINE">
+                  <g transform="translate(-2,0)">
+                     <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                  </g>
+               </g>
+               <g transform="translate(504,0)">
+                  <g transform="translate(0,0) scale(1,12)">
+                     <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                  </g>
+                  <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Wed</text>
+                  <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-10</text>
+                  <use xlink:href="CalendarXTransformDay.xml#T2015-06-10"/>
+                  <g id="VLINE">
+                     <g transform="translate(-2,0)">
+                        <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                     </g>
+                  </g>
+                  <g transform="translate(504,0)">
+                     <g transform="translate(0,0) scale(1,12)">
+                        <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                     </g>
+                     <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
+                     <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-11</text>
+                     <use xlink:href="CalendarXTransformDay.xml#T2015-06-11"/>
+                     <g id="VLINE">
+                        <g transform="translate(-2,0)">
+                           <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                        </g>
+                     </g>
+                     <g transform="translate(504,0)">
+                        <g transform="translate(0,0) scale(1,12)">
+                           <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                        </g>
+                        <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Fri</text>
+                        <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-12</text>
+                        <use xlink:href="CalendarXTransformDay.xml#T2015-06-12"/>
+                        <g id="VLINE">
+                           <g transform="translate(-2,0)">
+                              <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                           </g>
+                        </g>
+                        <g transform="translate(504,0)">
+                           <g transform="translate(0,0) scale(1,12)">
+                              <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                           </g>
+                           <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sat</text>
+                           <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-13</text>
+                           <use xlink:href="CalendarXTransformDay.xml#T2015-06-13"/>
+                           <g id="VLINE">
+                              <g transform="translate(-2,0)">
+                                 <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                              </g>
+                           </g>
+                           <g transform="translate(504,0)">
+                              <g transform="translate(0,0) scale(1,12)">
+                                 <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                              </g>
+                              <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sun</text>
+                              <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-14</text>
+                              <use xlink:href="CalendarXTransformDay.xml#T2015-06-14"/>
+                              <g id="VLINE">
+                                 <g transform="translate(-2,0)">
+                                    <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                 </g>
+                              </g>
+                              <g transform="translate(504,0)">
+                                 <g id="VLINE">
+                                    <g transform="translate(-2,0)">
+                                       <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                    </g>
+                                 </g>
+                              </g>
+                           </g>
+                        </g>
+                     </g>
+                  </g>
+               </g>
+            </g>
+         </g>
+      </g>
+      <g id="WEEKOF2015-06-15">
+         <g transform="translate(20,0)">
+            <g transform="translate(0,0) scale(1,12)">
+               <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+            </g>
+            <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
+            <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-15</text>
+            <use xlink:href="CalendarXTransformDay.xml#T2015-06-15"/>
+            <g id="VLINE">
+               <g transform="translate(-2,0)">
+                  <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+               </g>
+            </g>
+            <g transform="translate(504,0)">
+               <g transform="translate(0,0) scale(1,12)">
+                  <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+               </g>
+               <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
+               <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-16</text>
+               <use xlink:href="CalendarXTransformDay.xml#T2015-06-16"/>
+               <g id="VLINE">
+                  <g transform="translate(-2,0)">
+                     <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                  </g>
+               </g>
+               <g transform="translate(504,0)">
+                  <g transform="translate(0,0) scale(1,12)">
+                     <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                  </g>
+                  <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Wed</text>
+                  <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-17</text>
+                  <use xlink:href="CalendarXTransformDay.xml#T2015-06-17"/>
+                  <g id="VLINE">
+                     <g transform="translate(-2,0)">
+                        <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                     </g>
+                  </g>
+                  <g transform="translate(504,0)">
+                     <g transform="translate(0,0) scale(1,12)">
+                        <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                     </g>
+                     <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
+                     <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-18</text>
+                     <use xlink:href="CalendarXTransformDay.xml#T2015-06-18"/>
+                     <g id="VLINE">
+                        <g transform="translate(-2,0)">
+                           <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                        </g>
+                     </g>
+                     <g transform="translate(504,0)">
+                        <g transform="translate(0,0) scale(1,12)">
+                           <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                        </g>
+                        <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Fri</text>
+                        <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-19</text>
+                        <use xlink:href="CalendarXTransformDay.xml#T2015-06-19"/>
+                        <g id="VLINE">
+                           <g transform="translate(-2,0)">
+                              <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                           </g>
+                        </g>
+                        <g transform="translate(504,0)">
+                           <g transform="translate(0,0) scale(1,12)">
+                              <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                           </g>
+                           <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sat</text>
+                           <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-20</text>
+                           <use xlink:href="CalendarXTransformDay.xml#T2015-06-20"/>
+                           <g id="VLINE">
+                              <g transform="translate(-2,0)">
+                                 <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                              </g>
+                           </g>
+                           <g transform="translate(504,0)">
+                              <g transform="translate(0,0) scale(1,12)">
+                                 <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                              </g>
+                              <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sun</text>
+                              <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-21</text>
+                              <use xlink:href="CalendarXTransformDay.xml#T2015-06-21"/>
+                              <g id="VLINE">
+                                 <g transform="translate(-2,0)">
+                                    <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                 </g>
+                              </g>
+                              <g transform="translate(504,0)">
+                                 <g id="VLINE">
+                                    <g transform="translate(-2,0)">
+                                       <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                    </g>
+                                 </g>
+                              </g>
+                           </g>
+                        </g>
+                     </g>
+                  </g>
+               </g>
+            </g>
+         </g>
+      </g>
+      <g id="WEEKOF2015-06-22">
+         <g transform="translate(20,0)">
+            <g transform="translate(0,0) scale(1,12)">
+               <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+            </g>
+            <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
+            <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-22</text>
+            <use xlink:href="CalendarXTransformDay.xml#T2015-06-22"/>
+            <g id="VLINE">
+               <g transform="translate(-2,0)">
+                  <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+               </g>
+            </g>
+            <g transform="translate(504,0)">
+               <g transform="translate(0,0) scale(1,12)">
+                  <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+               </g>
+               <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
+               <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-23</text>
+               <use xlink:href="CalendarXTransformDay.xml#T2015-06-23"/>
+               <g id="VLINE">
+                  <g transform="translate(-2,0)">
+                     <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                  </g>
+               </g>
+               <g transform="translate(504,0)">
+                  <g transform="translate(0,0) scale(1,12)">
+                     <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                  </g>
+                  <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Wed</text>
+                  <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-24</text>
+                  <use xlink:href="CalendarXTransformDay.xml#T2015-06-24"/>
+                  <g id="VLINE">
+                     <g transform="translate(-2,0)">
+                        <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                     </g>
+                  </g>
+                  <g transform="translate(504,0)">
+                     <g transform="translate(0,0) scale(1,12)">
+                        <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                     </g>
+                     <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
+                     <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-25</text>
+                     <use xlink:href="CalendarXTransformDay.xml#T2015-06-25"/>
+                     <g id="VLINE">
+                        <g transform="translate(-2,0)">
+                           <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                        </g>
+                     </g>
+                     <g transform="translate(504,0)">
+                        <g transform="translate(0,0) scale(1,12)">
+                           <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                        </g>
+                        <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Fri</text>
+                        <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-26</text>
+                        <use xlink:href="CalendarXTransformDay.xml#T2015-06-26"/>
+                        <g id="VLINE">
+                           <g transform="translate(-2,0)">
+                              <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                           </g>
+                        </g>
+                        <g transform="translate(504,0)">
+                           <g transform="translate(0,0) scale(1,12)">
+                              <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                           </g>
+                           <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sat</text>
+                           <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-27</text>
+                           <use xlink:href="CalendarXTransformDay.xml#T2015-06-27"/>
+                           <g id="VLINE">
+                              <g transform="translate(-2,0)">
+                                 <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                              </g>
+                           </g>
+                           <g transform="translate(504,0)">
+                              <g transform="translate(0,0) scale(1,12)">
+                                 <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                              </g>
+                              <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sun</text>
+                              <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-28</text>
+                              <use xlink:href="CalendarXTransformDay.xml#T2015-06-28"/>
+                              <g id="VLINE">
+                                 <g transform="translate(-2,0)">
+                                    <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                 </g>
+                              </g>
+                              <g transform="translate(504,0)">
+                                 <g id="VLINE">
+                                    <g transform="translate(-2,0)">
+                                       <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                    </g>
+                                 </g>
+                              </g>
+                           </g>
+                        </g>
+                     </g>
+                  </g>
+               </g>
+            </g>
+         </g>
+      </g>
+      <g id="WEEKOF2015-06-29">
+         <g transform="translate(20,0)">
+            <g transform="translate(0,0) scale(1,12)">
+               <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+            </g>
+            <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Mon</text>
+            <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-29</text>
+            <use xlink:href="CalendarXTransformDay.xml#T2015-06-29"/>
+            <g id="VLINE">
+               <g transform="translate(-2,0)">
+                  <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+               </g>
+            </g>
+            <g transform="translate(504,0)">
+               <g transform="translate(0,0) scale(1,12)">
+                  <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+               </g>
+               <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Tues</text>
+               <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-06-30</text>
+               <use xlink:href="CalendarXTransformDay.xml#T2015-06-30"/>
+               <g id="VLINE">
+                  <g transform="translate(-2,0)">
+                     <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                  </g>
+               </g>
+               <g transform="translate(504,0)">
+                  <g transform="translate(0,0) scale(1,12)">
+                     <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                  </g>
+                  <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Wed</text>
+                  <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-07-01</text>
+                  <use xlink:href="CalendarXTransformDay.xml#T2015-07-01"/>
+                  <g id="VLINE">
+                     <g transform="translate(-2,0)">
+                        <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                     </g>
+                  </g>
+                  <g transform="translate(504,0)">
+                     <g transform="translate(0,0) scale(1,12)">
+                        <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                     </g>
+                     <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Thurs</text>
+                     <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-07-02</text>
+                     <use xlink:href="CalendarXTransformDay.xml#T2015-07-02"/>
+                     <g id="VLINE">
+                        <g transform="translate(-2,0)">
+                           <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                        </g>
+                     </g>
+                     <g transform="translate(504,0)">
+                        <g transform="translate(0,0) scale(1,12)">
+                           <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                        </g>
+                        <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Fri</text>
+                        <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-07-03</text>
+                        <use xlink:href="CalendarXTransformDay.xml#T2015-07-03"/>
+                        <g id="VLINE">
+                           <g transform="translate(-2,0)">
+                              <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                           </g>
+                        </g>
+                        <g transform="translate(504,0)">
+                           <g transform="translate(0,0) scale(1,12)">
+                              <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                           </g>
+                           <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sat</text>
+                           <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-07-04</text>
+                           <use xlink:href="CalendarXTransformDay.xml#T2015-07-04"/>
+                           <g id="VLINE">
+                              <g transform="translate(-2,0)">
+                                 <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                              </g>
+                           </g>
+                           <g transform="translate(504,0)">
+                              <g transform="translate(0,0) scale(1,12)">
+                                 <rect id="overlayX" width="500" height="130" style="fill:#BEBECB"/>
+                              </g>
+                              <text x="170" y="80" font-size="100" fill="#7125FE" fill-opacity="0.8">Sun</text>
+                              <text x="170" y="120" font-size="40" fill="#ffffff" fill-opacity="0.8">2015-07-05</text>
+                              <use xlink:href="CalendarXTransformDay.xml#T2015-07-05"/>
+                              <g id="VLINE">
+                                 <g transform="translate(-2,0)">
+                                    <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                 </g>
+                              </g>
+                              <g transform="translate(504,0)">
+                                 <g id="VLINE">
+                                    <g transform="translate(-2,0)">
+                                       <line x1="0" y1="0" x2="0" y2="1540" style="stroke:#7125FE;stroke-width:4"/>
+                                    </g>
+                                 </g>
+                              </g>
+                           </g>
+                        </g>
+                     </g>
+                  </g>
+               </g>
+            </g>
+         </g>
+      </g>
    </defs>
    <g transform="scale(0.35,0.35)">
-      <use xlink:href="CalendarXTransformDay.xml#TIMES" transform="translate(0,15)"/>
       <use xlink:href="#WEEKOF2015-06-01" transform="translate(120,0)"/>
    </g>
 </svg>

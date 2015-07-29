@@ -17,7 +17,7 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	
 	<xsl:param name="requestedDate" select="xs:date('2015-06-02')"/>
-	<xsl:param name="packedView" select="xs:boolean('false')" />
+	<xsl:param name="packedView" select="xs:boolean('true')" />
 
 
 	

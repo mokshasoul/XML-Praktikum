@@ -17,7 +17,7 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	<xsl:param name="requestedDate" select="xs:date('2015-06-07')"/>
 	
-<xsl:param name="packedView" select="xs:boolean('false')" />
+<xsl:param name="packedView" select="xs:boolean('true')" />
 	
 	
 	
@@ -39,7 +39,7 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 			<!--
 			This builds the week of the requested day (but only if it is necessary, i.e. only if the week has no event (otherwise it has already been generated)).
 			 -->
-				<xsl:if test="not(contains(distinct-values(events/event/@mondayOfWeek), foo:getCertainDayOfWeek($requestedDate, 0)))">
+				<xsl:if test="not(distinct-values(events/event/@mondayOfWeek) = foo:getCertainDayOfWeek($requestedDate, 0))">
 					<xsl:call-template name="foo:printWeekOfDay">
 						<xsl:with-param name="date" select="$requestedDate"/>
 					</xsl:call-template>

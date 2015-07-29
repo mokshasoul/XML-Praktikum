@@ -65,7 +65,7 @@ xmlns:fn="http://www.w3.org/2005/xpath-functions">
 	
 	<xsl:variable name="displacement">
 			<xsl:choose>
-				<xsl:when test="$packedView"><xsl:value-of select="events/@height"/></xsl:when>
+				<xsl:when test="$packedView"><xsl:value-of select="150+100*events/@maxNumOfEventsOnDay"/></xsl:when>
 				<xsl:otherwise><xsl:value-of select="1544"/></xsl:otherwise> <!--1440 (timeline) +100 (header) +4 (horizontal line)-->
 			</xsl:choose>
 	</xsl:variable>
