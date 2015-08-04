@@ -1,0 +1,6 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/apps/praktikum/resources" owner="admin" group="dba" mode="755" created="2015-07-19T19:14:16+02:00" version="1">
+    <acl entries="0" version="1"/>
+    <resource type="XMLResource" name="createTask.xhtml" owner="admin" group="dba" mode="644" created="2015-07-20T16:00:41+02:00" modified="2015-08-04T19:21:29+02:00" filename="createTask.xhtml" mimetype="application/xhtml+xml" namedoctype="html" publicid="" systemid="">
+        <acl entries="0" version="1"/>
+    </resource>
+</collection>

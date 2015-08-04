@@ -1,0 +1,75 @@
+<css>
+@namespace xf url("http://www.w3.org/2002/xforms");
+@namespace mozType url(http://www.mozilla.org/projects/xforms/2005/type);
+body{
+    width: 1920px;
+    height: 1080px;
+    background:lightgrey;
+    
+}
+ #wrapper{
+     width:90%;
+     height:100%;
+     background:white;
+     margin:auto;
+ }
+#calendarView{
+    height:100%;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+  -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+
+}
+#views{
+    display:inline;
+    position:relative;
+    left:50%;
+}
+#selectionView{
+    display:inline-block;
+}
+#taskButton{
+    display: inline-block;
+margin: 0;
+position: initial;
+}
+xf|trigger{
+position:relative;
+display:inline-block;
+     color: black;
+    border: 0.1em outset #BBB;	/* Make it look like a button */
+    border-bottom: 0.1em solid #CCC;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+    text-decoration: none;
+    margin-right: 0;
+    padding: 0.2em;
+    /* round the top corners - works under FireFox */
+    -moz-border-radius: .5em .5em 0em 0em;
+}
+#title{
+    text-align:center;
+    border:black solid;
+    width:auto;
+}
+
+#calendarViewSVG{
+    padding-top: 0.55%;
+    position:relative;
+}
+.viewButton{
+        color: red;
+    border: 0.1em outset #BBB;	/* Make it look like a button */
+    border-bottom: 0.1em solid #CCC;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+    text-decoration: none;
+    margin-right: 5px;
+    padding: 0.2em;
+}
+      xf|group {
+         position: relative;
+         top: -30px;
+         padding: 5px;
+      }
+</css>

@@ -1,0 +1,57 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/apps/praktikum/views" owner="admin" group="dba" mode="755" created="2015-07-19T19:13:40+02:00" version="1">
+    <acl entries="0" version="1"/>
+    <resource type="BinaryResource" name="functx-1.0-doc-2007-01.xq" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-07-20T10:51:22+02:00" filename="functx-1.0-doc-2007-01.xq" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="getViews.xqm" owner="admin" group="dba" mode="644" created="2015-08-04T11:29:18+02:00" modified="2015-08-04T23:29:54+02:00" filename="getViews.xqm" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="helperFunctions.xqm" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-08-04T19:20:35+02:00" filename="helperFunctions.xqm" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="getEventsFunctions.xqm" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-08-04T20:03:05+02:00" filename="getEventsFunctions.xqm" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="screen.css" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:23+02:00" modified="2015-08-04T23:07:18+02:00" filename="screen.css" mimetype="text/css">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="main.xq" owner="admin" group="dba" mode="755" created="2015-08-04T20:34:24+02:00" modified="2015-08-04T23:15:36+02:00" filename="main.xq" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="getView.xqm" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:23+02:00" modified="2015-08-04T21:32:16+02:00" filename="getView.xqm" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="CalendarXTransformDay.xslt" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-08-05T00:06:09+02:00" filename="CalendarXTransformDay.xslt" mimetype="application/xslt+xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="CalendarXTransformMonth.xslt" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-08-04T20:23:43+02:00" filename="CalendarXTransformMonth.xslt" mimetype="application/xslt+xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="CalendarXTransformTasks.xslt" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-08-04T23:18:06+02:00" filename="CalendarXTransformTasks.xslt" mimetype="application/xslt+xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="CalendarXTransformWeek.xslt" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-08-04T19:48:25+02:00" filename="CalendarXTransformWeek.xslt" mimetype="application/xslt+xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="createTask.xhtml" owner="admin" group="dba" mode="644" created="2015-07-20T16:58:55+02:00" modified="2015-08-04T20:39:32+02:00" filename="createTask.xhtml" mimetype="application/xhtml+xml" namedoctype="html" publicid="" systemid="">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="myFunctions.xsl" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:23+02:00" modified="2015-08-04T19:49:37+02:00" filename="myFunctions.xsl" mimetype="application/xslt+xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="functx-1.0-doc-2007-01.xsl" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:22+02:00" modified="2015-07-20T10:51:22+02:00" filename="functx-1.0-doc-2007-01.xsl" mimetype="application/xslt+xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="SimpleEvents.xsl" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:23+02:00" modified="2015-07-20T10:51:23+02:00" filename="SimpleEvents.xsl" mimetype="application/xslt+xml">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="generateSVG.xq" owner="admin" group="dba" mode="644" created="2015-08-04T17:37:57+02:00" modified="2015-08-04T17:40:53+02:00" filename="generateSVG.xq" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="BinaryResource" name="appendEvents.xq" owner="admin" group="dba" mode="644" created="2015-07-20T16:20:23+02:00" modified="2015-07-24T09:20:08+02:00" filename="appendEvents.xq" mimetype="application/xquery">
+        <acl entries="0" version="1"/>
+    </resource>
+    <resource type="XMLResource" name="index.xhtml" owner="admin" group="dba" mode="644" created="2015-07-20T10:51:23+02:00" modified="2015-08-04T21:38:37+02:00" filename="index.xhtml" mimetype="application/xhtml+xml" namedoctype="html" publicid="" systemid="">
+        <acl entries="0" version="1"/>
+    </resource>
+</collection>
