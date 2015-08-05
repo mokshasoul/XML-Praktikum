@@ -8,30 +8,31 @@ declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace transform = "http://exist-db.org/xquery/transform";
-declare option exist:serialize "method=html media-type=text/xml indent=yes";
+declare option exist:serialize "method=xhtml media-type=text/xml indent=no  process-xsl-pi=no";
 
 let $collection :=  'xmldb:exist:///db/apps/praktikum'
 let $login := xmldb:login($collection, 'admin', '')
 let $post-req := request:get-data()
+let $param2 := if ($post-req) then xs:date($post-req//date) else xs:date('2015-01-01')
 
 let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
 let $svg :=  if($post-req) then(
                (:POST parameters:)
+let $param1 := $post-req//mode
+let $param2 := xs:date($post-req//date)
 
-                let $param1 := $post-req//mode
-                let $param2 := xs:date($post-req//date)
-                 let $param := <parameters><param name="packedView" value="false"/><param name="requestedDate" value="{$param2}" /></parameters>        
-               (: XSLT Transform Parameter :)   
-               let $xsl := doc(concat("/db/apps/praktikum/views/CalendarXTransform",$param1,".xslt"))
-               let $xq := if ($param1="Day")
-                        then getEvents:getEventsForDay($param2)
-                        else if ($param1="Week")
-                        then getEvents:getEventsForWeek($param2) 
-                        else getEvents:getEventsForMonth($param2) 
+let $param := <parameters><param name='requestedDate' value='{$param2}' /><param name='packedView' value='false' /></parameters>        
+(: XSLT Transform Parameter :)   
+let $xsl := doc(concat("/db/apps/praktikum/views/CalendarXTransform",$param1,".xslt"))
+let $xq := if ($param1="Day")
+then getEvents:getEventsForDay($param2)
+else if ($param1="Week")
+then getEvents:getEventsForWeek($param2) 
+else getEvents:getEventsForMonth($param2) 
                               
-                   (: Generate Event File
-                      Set it as input:)
- let $data-path := '/db/apps/praktikum/data/'
+(: Generate Event File
+Set it as input:)
+let $data-path := '/db/apps/praktikum/data/'
 let $events-file := 'simpleEvents.xml'
 let $store-return-status := xmldb:store($data-path, $events-file, $xq)
 let $event-input := doc('/db/apps/praktikum/data/simpleEvents.xml')
@@ -57,9 +58,7 @@ let $month-xsl := doc('/db/apps/praktikum/views/CalendarXTransformMonth.xslt')
 
 return
     transform:transform( $event-input, $xsl, $param)
-)else(
-
-)
+)else()
 
 let $form := (
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:my="test" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -68,7 +67,7 @@ let $form := (
         <xf:model id="viewModel">
             <xf:instance xmlns="" id="dateData">
                 <root>
-                    <date/>
+                    <date>{$param2}</date>
                     <mode/>
                 </root>
             </xf:instance>
@@ -84,14 +83,13 @@ let $form := (
     </head>
     <body>
         <div id="wrapper">
+        <div id="wrapperPropper">
             <h1 id="title"> Calendar System </h1>
-
             <div id="views">
                 <xf:group id="selectionView" model="viewModel">
                     <xf:input id="date" ref="instance('dateData')//date">
                         <xf:label>Enter a date: </xf:label>
                     </xf:input>
-                    <br/>
                     <xf:trigger>
                         <xf:label>Day View</xf:label>
                         <xf:action  ev:event="DOMActivate">
@@ -117,19 +115,15 @@ let $form := (
                         </xf:action>
                     </xf:trigger>
             </div>
-
-
 <div id="calendarView">
-               
-               {$svg}
-
+                              {$svg}
+            </div>
             </div>
         </div>
     </body>
 </html>
 )
 let $xslt-pi := processing-instruction xml-stylesheet {'type="text/xsl" href="/exist/rest/db/apps/xsltforms/xsltforms.xsl"'}
-       
+    let $debug := processing-instruction xsltforms-options {'debug="yes"'}    
 return
-
   ($xslt-pi,$form)

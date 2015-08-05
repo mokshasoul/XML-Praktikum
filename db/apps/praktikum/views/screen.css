@@ -2,28 +2,30 @@
 @namespace xf url("http://www.w3.org/2002/xforms");
 @namespace mozType url(http://www.mozilla.org/projects/xforms/2005/type);
 body{
-    width: 1920px;
-    height: 1080px;
+
     background:lightgrey;
     
 }
+#wrapperPropper{
+background: white none repeat scroll 0 0;
+height: 102%;
+margin-left: 5%;
+width: 90%;
+}
  #wrapper{
-     width:90%;
-     height:100%;
-     background:white;
-     margin:auto;
+height: 625px;
+margin-left: 10%;
+width: 1475px;
  }
 #calendarView{
     height:100%;
   background-color: white;
-  box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
   -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
 
 }
 #views{
-    display:inline;
-    position:relative;
-    left:50%;
+display:inline-block;
+margin-left:25%;
 }
 #selectionView{
     display:inline-block;
@@ -34,7 +36,6 @@ margin: 0;
 position: initial;
 }
 xf|trigger{
-position:relative;
 display:inline-block;
      color: black;
     border: 0.1em outset #BBB;	/* Make it look like a button */
@@ -68,7 +69,6 @@ display:inline-block;
     padding: 0.2em;
 }
       xf|group {
-         position: relative;
          top: -30px;
          padding: 5px;
       }
