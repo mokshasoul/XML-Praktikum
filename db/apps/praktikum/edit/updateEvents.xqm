@@ -20,9 +20,9 @@ let $replace :=
     {for $attendee in $eventData//attendees/attendee
        return
        <attendee description="{$attendee}"/>
-       }
-      </attendees>
-       <location description="{$eventData//location}"/>
+     }
+     </attendees>
+     <location description="{$eventData//location}"/>
    </event>
 return
-    update insert $replace into $calendar/events
+    update insert $replace into $calendar/events 
