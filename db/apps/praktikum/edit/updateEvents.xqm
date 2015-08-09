@@ -72,9 +72,10 @@ let $event :=
 let $pattern := 
     <dailyPattern description="{$description}" startDate="{$startDate}" endDate="{if($endDate) then ($endDate) else ($startDate)}" />
     
-    
-let $target := $dbCal//superEvents/superEvent[@description=$description]
-let $test2 := update replace $target with $event
+let $targetEvent := $dbCal//superEvents/superEvent[@description=$description]
+let $test2 := update replace $targetEvent with $event
+let $targetPattern := $dbCal//patterns/dailyPattern[@description=$description]
+let $test3 := update replace $targetPattern with $pattern
     return
         $dbCal
      
