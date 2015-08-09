@@ -64,6 +64,7 @@ let $event :=
                             <attendee description="{$attendee}" /> 
                         }
                     </attendees>
+                    <note> {$note} </note>
                     <location>{$location}</location>
                 </eventRule>
             </eventRules>
