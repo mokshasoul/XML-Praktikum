@@ -1,43 +1,54 @@
 <css>
 @namespace xf url("http://www.w3.org/2002/xforms");
 @namespace mozType url(http://www.mozilla.org/projects/xforms/2005/type);
-body{
 
+
+body{
     background:lightgrey;
-    
+}
+object{
+    height:100%;
 }
 #wrapperPropper{
-background: white none repeat scroll 0 0;
-height: 102%;
-margin-left: 5%;
-width: 90%;
+    background: white none repeat scroll 0 0;
+    height: 102%;
+    margin-left: 5%;
+    width: 90%;
+}
+#navBar{
+    height: 10%;
+    width: 100%;
+}
+.inputLabels{
+    width:12% !important;
+    display:inline-block;
 }
  #wrapper{
-height: 625px;
-margin-left: 10%;
-width: 1475px;
+    height: 625px;
+    margin-left: 10%;
+    width: 1475px;
  }
+
 #calendarView{
-    height:100%;
+  height:100%;
   background-color: white;
   -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
-
 }
 #views{
-display:inline-block;
-margin-left:25%;
+    display:inline-block;
+    margin-left:25%;
 }
 #selectionView{
-    display:inline-block;
+    display:inline-flex;
 }
 #taskButton{
     display: inline-block;
-margin: 0;
-position: initial;
+    margin: 0;
+    position: initial;
 }
 xf|trigger{
-display:inline-block;
-     color: black;
+    display:inline-block;
+    color: black;
     border: 0.1em outset #BBB;	/* Make it look like a button */
     border-bottom: 0.1em solid #CCC;
     font-weight: bold;
@@ -45,15 +56,15 @@ display:inline-block;
     text-decoration: none;
     margin-right: 0;
     padding: 0.2em;
-    /* round the top corners - works under FireFox */
-    -moz-border-radius: .5em .5em 0em 0em;
 }
 #title{
     text-align:center;
     border:black solid;
     width:auto;
 }
-
+#calendarView{
+    height:100%;
+}
 #calendarViewSVG{
     padding-top: 0.55%;
     position:relative;
@@ -68,8 +79,15 @@ display:inline-block;
     margin-right: 5px;
     padding: 0.2em;
 }
-      xf|group {
+
+xf|group {
          top: -30px;
          padding: 5px;
-      }
+}
+xf|input{
+    display:block;
+}
+#inputBlock{
+    display:block;
+}
 </css>

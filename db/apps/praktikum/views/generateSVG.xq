@@ -10,11 +10,9 @@ let $login := xmldb:login($collection, 'admin', '')
 let $post-req := request:get-data()
 
 let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
-return
-if($post-req) then(
-               (:POST parameters:)
-               let $param1 := $post-req//mode
-               let $param2 := $post-req//date
+    (:POST parameters:)
+               let $param1 := xs:string('Day')
+               let $param2 := xs:date('2015-06-16')
                (: XSLT Transform Parameter :)
                let $param := <parameters><param name="requestedDate" value="{$param2}" /></parameters>
                let $xsl := doc(concat("/db/apps/praktikum/CalendarXTransform",$param1,".xslt"))
@@ -49,5 +47,5 @@ if($post-req) then(
                         let $store-return-status := xmldb:store($collection,$weeks-file,$weeks-generation)
                         return 
                                transform:transform($input, $xsl, $param)
-)else(
-"manikka")
+                               
+                        

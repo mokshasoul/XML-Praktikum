@@ -1,4 +1,4 @@
-xquery version "3.0";
+ xquery version "3.0";
 
 module namespace helper = "http://www.help.com";
 
