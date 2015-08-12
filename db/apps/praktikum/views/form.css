@@ -1,24 +1,27 @@
+@namespace xf url("http://www.w3.org/2002/xforms");
+@namespace mozType url(http://www.mozilla.org/projects/xforms/2005/type);
+
 .form-style {
     max-width: 500px;
     padding: 20px 12px 10px 20px;
     font: 13px Arial, Helvetica, sans-serif;
 }
 
-.form-style-heading {
+#form-heading {
     font-weight: bold;
     font-style: italic;
     border-bottom: 2px solid #ddd;
     margin-bottom: 20px;
-    font-size: 15px;
+    font-size: 25px;
     padding-bottom: 3px;
 }
 
-.form-style label{
+xf|inputBlock label{
     display: block;
     margin: 0px 0px 15px 0px;
 }
 
-.form-style label > span {
+xf|inputBlock label > span {
     width: 100px;
     font-weight: bold;
     float: left;
@@ -26,13 +29,25 @@
     padding-right: 5px;
 }
 
-.form-style span.required{
+xf|inputBlock span.required{
     width: 40px;
     text-align: center;
 }
 
-.form-style input.input-field{
+xf|inputBlock input.input-field{
     width: 48px;
+}
+
+xf|input{
+    display:block;
+}
+#inputBlock{
+    display:block;
+}
+
+.inputLabels{
+    width:12% !important;
+    display:inline-block;
 }
 
 input.text, select.select {
@@ -52,4 +67,3 @@ label.desc {
 input.text {
     padding: 0;
 }
-
