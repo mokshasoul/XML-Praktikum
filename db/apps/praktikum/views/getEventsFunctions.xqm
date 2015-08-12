@@ -103,3 +103,5 @@ declare function getEvents:refineEvents2($events)
     order by $resultEvents/@date, $resultEvents/@startTime, $resultEvents/@endTime
     return $resultEvents
 };
+
+

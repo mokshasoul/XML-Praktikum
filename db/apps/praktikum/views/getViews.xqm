@@ -57,8 +57,10 @@ let $svg :=  if($post-req) then(
    let $store-return-status := xmldb:store($data-path,$weeks-file,$weeks-generation)
    (: Generate Month :)
    let $month-file := 'CalendarXTransformMonth.xml'
-   let $month-xsl := doc('/db/apps/praktikum/views/CalendarXTransformMonth.xslt')
-   let $dispatch-test := concat('/db/apps/praktikum/data/CalendarXTransform',$param1,".xml")
+  (: let $month-xsl := doc('/db/apps/praktikum/views/CalendarXTransformMonth.xslt')
+   let $month-generation := transform:transform($event-input,$month-xsl,$param)
+   let $store-return-status := xmldb:store($data-path,$month-file,$month-generation) :)
+  
    return
         transform:transform($event-input,$xsl,$param)
    )else(<svg/>)

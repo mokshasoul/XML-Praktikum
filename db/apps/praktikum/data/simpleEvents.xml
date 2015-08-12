@@ -1,10 +1,1 @@
-<events>
-    <event pos="0" intersecting="0" id="2015-06-16_16:15:00_17:45:00_2_2" description="EPS2015"
-        categories="teaching" date="2015-06-16" startTime="16:15:00" endTime="17:45:00" note=""
-        mondayOfWeek="2015-06-15">
-        <attendees>
-            <attendee description="Anne Brüggemann-Klein"/>
-        </attendees>
-        <location description="HS2"/>
-    </event>
-</events>
+<events><event pos="0" intersecting="0" id="2015-06-01_12:15:00_13:45:00_2_1" description="EPS2015" categories="teaching" date="2015-06-01" startTime="12:15:00" endTime="13:45:00" note="" mondayOfWeek="2015-06-01"><attendees><attendee description="Anne Brüggemann-Klein"/><attendee description="David Becher"/></attendees><location description="00.09.13A"/></event><event pos="0" intersecting="0" id="2015-06-02_16:15:00_17:45:00_2_2" description="EPS2015" categories="teaching" date="2015-06-02" startTime="16:15:00" endTime="17:45:00" note="" mondayOfWeek="2015-06-01"><attendees><attendee description="Anne Brüggemann-Klein"/></attendees><location description="HS2"/></event></events>
