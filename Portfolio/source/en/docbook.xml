@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xml:lang="en" xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xl="http://www.w3.org/1999/xlink">
+	<info>		
+		<title>CalendarX</title>
+		<subtitle>Praktikum XML-Technologie Sommersemester 2015</subtitle>
+		<authorgroup>
+			<author><personname>David Becher</personname><email>david.becher@mytum.de</email></author>
+			<author><personname>et al.</personname></author>
+		</authorgroup>
+	</info>
+	
+	<section>
+		<title>Kalenderdaten</title>
+		<para>Der Kalender soll nicht nur einzelne Termine zu einem genau festgelegten Zeitpunkt an genau einem bestimmten Tag, sondern auch Terminserien unterstützen. Termine können deshalb nicht mit ihren genauen Daten gespeichert werden, da eine Terminserie ja theoretisch unendlich viele eigentliche Termine enthalten kann. Termine werden deshalb mithilfe von Patterns angelegt, aus denen dann alle eigentlichen Termine für die jeweilige Ansicht (z.B. für einen Monat) abgeleitet werden können. Die verschiedenen Patterns, die unterstützt werden sollen, sowie deren Verwendung sind im Folgenden aufgeführt. Dabei wird bei den Patterns zwischen einfachen Patterns (<link linkend="simplePattern"><code>simplePattern</code></link>) und zusammengesetzten Patterns (<link linkend="complexPattern"><code>complexPattern</code></link>) unterschieden. Alle Patterns enthalten das Attribut <code>description</code>, über dessen Wert sie eindeutig identifiziert werden können.</para>
+		<section>
+			<title>Einfache Patterns (simplePattern)</title>
+			<para>Folgende Patterns werden ohne Angabe anderer, bereits existierender Patterns erstellt:</para>
+			<section xml:id="simplePattern">
+				<title>dailyPattern</title>
+				<para>Das <code>dailyPattern</code> wird verwendet, um jeden Tag innerhalb von zwei angegebenen Datumsgrenzen (<code>startDate</code> und <code>endDate</code>) auszuwählen (z.B. um an diesen Tagen einen täglich stattfindendenden Termin zu beschreiben). Ein Spezialfall ist hierbei, wenn die <code>startDate</code> und <code>endDate</code> das gleiche Datum enthalten; dadurch wird ein einziger Tag beschrieben.</para>
+				<para>Beispiele: 
+				<programlisting>
+					<![CDATA[<dailyPattern description="Fronleichnam" startDate="2015-06-04" 
+					endDate="2015-06-04"/>
+					 ]]>
+					</programlisting></para>
+				<para>
+				<programlisting>
+					<![CDATA[<dailyPattern description="S2015" startDate="2015-04-13" 
+					endDate="2015-07-17"/>
+					 ]]>
+					</programlisting>
+				</para>
+			</section>
+			<section>
+				<title>weeklyPattern</title>
+				<para>Im <code>weeklyPattern</code> sind alle Daten enthalten, die auf einen bestimmten Wochentag fallen. Der Wochentag wird entsprechend im Attribut <code>dayOfWeek</code> angegeben.</para>
+				<para>Beispiel: 
+				<programlisting>
+					<![CDATA[<weeklyPattern description="mondays" dayOfWeek="Monday"/>
+					 ]]>
+					</programlisting></para>
+			</section>
+			<section xml:id="ordinalMonthlyPattern">
+				<title>ordinalMonthlyPattern</title>
+				<para>Durch das <code>ordinalMonthlyPattern</code> werden alle Daten beschrieben, die an einem bestimmten Wochentag eines Monat liegen. Beispielsweise können so Regeln wie "jeden ersten Mittwoch im Monat" aufgestellt werden. Dabei wird der Wochentag im Attribut <code>dayType</code> beschrieben (wobei neben den sieben Wochentagen auch <code>day</code> und <code>weekday</code> möglich ist), die Angabe, der wievielte Wochentag gemeint ist, steht im Attribut <code>ordinal</code>. Dort sind die Werte <code>first</code>, <code>second</code>, <code>third</code>, <code>fourth</code>, <code>penultimate</code> und <code>ultimate</code> möglich.</para>
+				<para>Beispiel: 
+				<programlisting>
+					<![CDATA[<ordinalMonthlyPattern ordinal="first" dayType="Tuesday"
+					 description="everyFirstTuesdayInMonth"/>
+					 ]]>
+					</programlisting></para>
+			</section>
+			<section>
+				<title>cardinalMonthlyPattern</title>
+				<para>In diesem Pattern kann ein bestimmter Tag eines Monats angegeben werden (durch das Attribut <code>dayOfMonth</code>). Das Pattern umfasst somit alle Tage, bei denen der Tag dem <code>dayOfMonth</code> entspricht, unabhängig vom Monat oder Jahr.</para>
+				<para>Beispiel: 
+				<programlisting>
+					<![CDATA[<cardinalMonthlyPattern dayOfMonth="5"	description="OnThe5thOfEveryMonth"/>
+					 ]]>
+					</programlisting></para>
+			</section>
+			<section xml:id="ordinalYearlyPattern">
+				<title>ordinalYearlyPattern</title>
+				<para>Dieses Pattern ist ähnlich zum <code>ordinalMonthlyPattern</code>, filtert jedoch zusätzlich nach einem bestimmten Monat. Dieser Monat wird im Attribut <code>month</code> angegeben.</para>
+				<para>Beispiel: 
+				<programlisting>
+					<![CDATA[<ordinalYearlyPattern ordinal="second" dayType="Saturday" 
+					month="August" description="everySecondSaturdayInAugust"/>
+					 ]]>
+					</programlisting></para>
+			</section>
+			<section>
+				<title>cardinalYearlyPattern</title>
+				<para>Dieses Pattern ist ähnlich zum <code>cardinalMonthlyPattern</code>, ist allerdings zusätzlich auf einen bestimmten Monat bezogen. In diesem Pattern kann also ein bestimmter Tag im Jahr angegeben werden (durch die Attribute <code>dayOfMonth</code> und <code>month</code>). Das Pattern umfasst somit alle Tage mit diesem Datum für alle Jahre.</para>
+				<para>Beispiel: 
+				<programlisting>
+					<![CDATA[<cardinalYearlyPattern dayOfMonth="24" month="December" 
+					description="christmas"/>
+					 ]]>
+					</programlisting></para>
+			</section>
+		</section>
+		<section xml:id="complexPattern">
+			<title>Zusammengesetzte Patterns (complexPattern)</title>
+			<para>Folgende Patterns werden aus anderen, bereits existierenden Patterns erstellt. Dabei wird zunächst jeweils ein <code>firstPattern</code> angegeben, anschließend weitere <code>furtherPattern</code>s. Der Name der referenzierten Patterns steht dann entsprechend in den eben genannten Elementen.</para>
+				<section>
+					<title>unionPattern</title>
+					<para>Beim <code>unionPattern</code> wird die Vereinigungsmenge aus allen Daten, die durch alle angegebenen Patterns bestimmt werden, gebildet.</para>
+					<para>Beispiel:
+					<programlisting>
+					<![CDATA[
+					<unionPattern description="Feiertage2015">
+            <firstPattern>ChrHf</firstPattern>
+            <furtherPatterns>
+                <furtherPattern>Fronleichnam</furtherPattern>
+            </furtherPatterns>
+        </unionPattern>
+        ]]>
+					</programlisting>
+					</para>
+				</section>
+				<section>
+					<title>differencePattern</title>
+					<para>Durch das <code>differencePattern</code> werden alle Daten aus dem in <code>firstPattern</code> angegebenen Pattern erfasst, die nicht in den <code>furtherPattern</code>s enthalten sind. Die in den <code>furtherPattern</code>s enthaltenen Tage werden sozusagen vom <code>firstPattern</code> abgezogen.</para>
+					<para>Beispiel:
+					<programlisting>
+					<![CDATA[
+					<differencePattern description="thursdaysInS105wOFeiertage">
+						<firstPattern>thursdaysInS2015</firstPattern>
+           				<furtherPatterns>
+                			<furtherPattern>Feiertage2015</furtherPattern>
+            			</furtherPatterns>
+        			</differencePattern>
+        ]]>
+					</programlisting>
+					</para>
+				</section>
+			<section>
+					<title>intersectionPattern</title>
+					<para>Beim <code>intersectionPattern</code> wird die Schnittmenge aus allen Daten, die durch alle angegebenen Patterns bestimmt werden, gebildet.</para>
+					<para>Beispiel:
+					<programlisting>
+					<![CDATA[
+					<intersectionPattern description="tuesdaysInS2015">
+            			<firstPattern>S2015</firstPattern>
+           				 <furtherPatterns>
+               				 <furtherPattern>tuesdays</furtherPattern>
+            			</furtherPatterns>
+        			</intersectionPattern>
+        ]]>
+					</programlisting>
+					</para>
+				</section>
+		</section>
+		<section>
+			<title>Events</title>
+			<para>Die einzelnen Events werden als <code>superEvent</code> angegeben. Einem <code>superEvent</code> ist eine <code>description</code> und eine <code>category</code> zugeordnet. Ein <code>superEvent</code> besteht aus einer oder meheren <code>eventRule</code>s. Einer solchen Regel sind jeweils unter Anderem die Startzeit (<code>startTime</code>), Endzeit (<code>endTime</code>) sowie das entsprechende Pattern (<code>recurrencePattern</code>) zugeordnet. Die Unterteilung eines <code>superEvents</code> in mehrere <code>eventRules</code> ist nötig, um Events, die semantisch zusammengehören, jedoch an verschiedenen Tagen zu  verschiedenen Uhrzeiten stattfinden, abbilden zu können.</para>
+			<para>Ein Beispiel-Event sieht so aus:
+			<programlisting>
+					<![CDATA[
+		<superEvent description="EPS2015" categories="teaching">
+        	<eventRules>
+        		<eventRule description="EPS2015Mo" startTime="12:15:00" 
+        					endTime="13:45:00" note="">
+        			<recurrencePattern>mondaysInS2015</recurrencePattern>
+					<attendees>
+						<attendee>Anne Brüggemann-Klein</attendee>
+					</attendees>
+					<location>00.09.13A</location>
+				</eventRule>
+				<eventRule description="EPS2015Tue" startTime="16:15:00" 
+							endTime="17:45:00" note="">
+					<recurrencePattern>tuesdaysInS2015</recurrencePattern>
+					<attendees>
+						<attendee>Anne Brüggemann-Klein</attendee>
+					</attendees>
+					<location>HS2</location>
+				</eventRule>
+			</eventRules>
+		</superEvent>
+        ]]>
+					</programlisting>
+			
+			</para>
+		</section>
+		</section>
+	<section>
+		<title>XQueries</title>
+		<section>
+			<title>Motivation</title>
+			<para>Für die gewünschte Ansicht (Tages-, Wochen-, Monatssicht) müssen nun die dort stattfindenden Events aus den in der Datenbasis stehenden <code>superEvents</code> bzw. deren <code>eventRules</code> generiert werden. Dies geschieht mittels XQuery-Funktionen, welche im Folgenden jeweils kurz beschrieben werden.</para>
+			</section>
+			<section>
+				<title>getEventsFunctions.xqm</title>
+				<section xml:id="getEventsForDay">
+					<title>getEvents:getEventsForDay($date as xs:date)</title>
+					<para>Diese Funktion erzeugt ein XML-Dokument, welches alle am angegebenen Datum stattfindenden Events beinhaltet. Das erzeugte XML-Dokument ist dann die Grundlage für die XSLT-Programme, welche die SVG-Sichten erzeugen.</para>
+				</section>
+			<section xml:id="getEventsForWeek">
+					<title>getEvents:getEventsForWeek($date as xs:date)</title>
+					<para>Diese Funktion erzeugt ein XML-Dokument, welches alle Events, die in der Woche stattfinden, in der das angegebene Datum liegt, beinhaltet. Das erzeugte XML-Dokument ist dann die Grundlage für die XSLT-Programme, welche die SVG-Sichten erzeugen.</para>
+				</section>
+			<section xml:id="getEventsForMonth">
+					<title>getEvents:getEventsForMonth($date as xs:date)</title>
+					<para>Diese Funktion erzeugt ein XML-Dokument, welches alle Events, die in dem Monat stattfinden, in der das angegebene Datum liegt, beinhaltet. Das erzeugte XML-Dokument ist dann die Grundlage für die XSLT-Programme, welche die SVG-Sichten erzeugen. Dabei ist zu beachten, dass für die Monatsansicht alle Wochen, in denen mindestens ein Tag des gewünschten Monats liegt, komplett angezeigt werden sollen. Das bedeutet, dass hier u.U. auch Daten berücksichtigt werden müssen, die nicht im eigentlich gewünschten Monat liegen. Ein Beispiel dafür wäre, dass der 1. August z.B. ein Samstag ist. Dann soll die komplette Woche des 1. August (beginnend am Montag, den 27. Juli) in der Monatssicht angezeigt werden. Die Events im Zeitraum vom 27. Juli bis 31. Juli müssen in diesem Fall also auch generiert werden, ebenso die Events vom 1. bis 6. September (da der 31. August ein Montag ist, muss diese Woche entsprechend auch berücksichtigt werden). Dies wird in der Funktion <link linkend="getDatesInPatternWithinMonth"><code>helper:getDatesInPatternWithinMonth</code></link> berücksichtigt. Das <code>events</code>-Element, welches alle <code>event</code>s des Monats umschließt, bekommt zudem noch das Attribut <code>maxNumOfEventsOnDay</code>, welches die höchste Anzahl der an einem Tag stattfindenden Events enthält. Das wird später im XSLT-Programm, welches die Monatsansicht generiert, benötigt (siehe <link linkend="CalendarXTransformMonth"><code>CalendarXTransformMonth.xslt</code></link>).</para>
+				</section>
+				<section xml:id="getEventDaysOfWeek">
+					<title>getEvents:getEventDaysOfWeek($date as xs:date)</title>
+					<para>Diese Funktion erzeugt eine XML-Ausgabe, die alle Daten innerhalb der Woche, in der das Datum liegt und an denen mindestens ein Event stattfindet, enthält.</para>
+				</section>
+				<section xml:id="getEventDaysOfMonth">
+					<title>getEvents:getEventDaysOfMonth($date as xs:date)</title>
+					<para>Diese Funktion erzeugt eine XML-Ausgabe, die alle Daten innerhalb des Monats, in der das Datum liegt und an denen mindestens ein Event stattfindet, enthält.</para>
+				</section>
+				<section xml:id="getBasicEventsForDay">
+					<title>getEvents:getBasicEventsForDay($date as xs:date)</title>
+					<para>Diese Funktion erzeugt für jedes Event, welches am angegebenen Tag stattfindet, ein <code>event</code>-Element. Dieses Event enthält alle grundsätzlichen Informationen zum Event, also beispielsweise die Beschreibung, das Datum, Start- und Endzeit sowie Teilnehmer und Ort. Außerdem werden eine (eindeutige) ID generiert (bestehend aus Datum, Startzeit, Endzeit, Position des superEvents, Position der eventRule) und das Datum des Montags der entsprechenden Woche als Attribut gespeichert. Letzteres ist hilfreich in den XSLT-Programmen, da dort die Wochen über das Datum des Montags referenziert werden.</para>
+				</section>
+				<section>
+					<title>getEvents:refineEvents($events)</title>
+					<para>Diese Funktion bekommt alle bisher generierten Events (Rückgabewert von <link linkend="getBasicEventsForDay"><code>getEvents:getBasicEventsForDay</code></link>) und fügt weitere Informationen hinzu. Zunächst wird berechnet, mit wie vielen anderen Events sich jedes Event zeitlich überschneidet. Dies ist wichtig für die XSLT-Programme, sodass die Events, die sich zeitlich überschneiden, nicht übereinander, sondern nebeneinander dargestellt werden. Dazu wird dann die Breite der Event-Boxen entsprechend der Anzahl der parallel stattfindenden Events verkleinert. Anschließend wird die Funktion <link linkend="refineEvents2"><code>getEvents:refineEvents2</code></link> mit den Events aufgerufen, um die parallel stattfindenden Events durchzunummerieren.</para>
+				</section>
+				<section xml:id="refineEvents2">
+					<title>getEvents:refineEvents2($events)</title>
+					<para>Diese Funktion fügt den übergebenen <code>event</code>-Elementen das Attribut <code>pos</code> hinzu. Dieses sagt jeweils aus, das wievielte Event der Events, die sich überschneiden, das entsprechende Event ist. Überschneiden sich beispielsweise Event A und B, so würde A die Positionsnummer <code>pos="0"</code> und B die Positionsnummer <code>pos="1"</code> bekommen. Events, zu denen kein paralleles Event stattfinden, bekommen entsprechend immer <code>pos="0"</code>. Die Positionsnummer wird in den XSLT-Programmen verwendet, um die Positionierung innerhalb der Spalte bei sich überschneidenden Events zu regeln. Im Beispiel würde das Event A in der Spalte des Tages in der linken Hälfte angezeigt werden, das Event B rechts daneben.</para>
+				</section>
+			</section>
+			<section>
+				<title>helperFunctions.xqm</title>
+				<section>
+					<title>helper:getMondayOfWeek($date as xs:date)</title>
+					<para>Diese Funktion gibt das Datum des Montags zurück, in der das Datum <code>$date</code> liegt.</para>
+				</section>
+				<section xml:id="isDateInPattern">
+					<title>helper:isDateInPattern($date as xs:date, $patternName as xs:string)</title>
+					<para>Diese Funktion gibt <code>xs:boolean('true')</code> zurück, wenn das Datum <code>$date</code> im Pattern <code>$patternName</code> enthalten ist, andernfalls wird <code>xs:boolean('false')</code> zurückgegeben. Dazu wird für jede Pattern-Möglichkeit ein boolscher Ausdruck ausgewertet, der entsprechend aussagt, ob das Datum durch das Pattern abgedeckt wird oder nicht. Prinzipiell werden in den bereits beschriebenen Funktionen für jedes Datum in z.B. der Woche die <code>superEvents</code> bzw. <code>eventRules</code> durchlaufen und diese Funktion für jede <code>eventRule</code> mit deren entsprechenden Pattern aufgerufen.</para>
+				</section>
+				<section>
+					<title>helper:getDatesInPatternWithinWeek($date as xs:date, $pattern as xs:string)</title>
+					<para>Diese Funktion gibt eine Liste von Daten zurück, die sich in der Woche, in der das Datum <code>$date</code> liegt, befinden und im angegebenen Pattern enthalten sind. Die Methode wird von <link linkend="getEventDaysOfWeek"><code>getEvents:getEventDaysOfWeek</code></link> aufgerufen und ruft selbst wiederum unter anderem die Methode <link linkend="isDateInPattern"><code>helper:isDateInPattern</code></link> auf.</para>
+				</section>
+	<section xml:id="getDatesInPatternWithinMonth">
+					<title>helper:getDatesInPatternWithinMonth($date as xs:date, $pattern as xs:string)</title>
+					<para>Diese Funktion gibt eine Liste von Daten zurück, die sich im Monat, in der das Datum <code>$date</code> liegt, befinden und im angegebenen Pattern enthalten sind. Die Methode wird von <link linkend="getEventDaysOfMonth"><code>getEvents:getEventDaysOfMonth</code></link> aufgerufen und ruft selbst wiederum unter anderem die Methode <link linkend="isDateInPattern"><code>helper:isDateInPattern</code></link> auf.</para>
+				</section>
+			<section>
+					<title>helper:getOrdinalOfMonth($date as xs:date, $ordinal, $dayType)</title>
+					<para>Diese Funktion gibt das Datum des <code>$ordinal</code>-ten <code>$dayType</code> (also z.B. das Datum des zweiten Dienstags) des Monats, in dem das Datum <code>$date</code> liegt, zurück. Diese Methode wird bei Vorkommen der Pattern <link  linkend="ordinalMonthlyPattern"><code>ordinalMonthlyPattern</code></link> und <link  linkend="ordinalYearlyPattern"><code>ordinalYearlyPattern</code></link> von <link  linkend="isDateInPattern"><code>helper:isDateInPattern</code></link> aufgerufen.</para>
+				</section>
+			</section>
+			<section>
+				<title>Ergebnis</title>
+				<para>Das Ergebnis der Queries <link linkend="getEventsForDay"><code>getEvents:getEventsForDay</code></link> (alle Events eines Tages), <link linkend="getEventsForWeek"><code>getEvents:getEventsForWeek</code></link> (alle Events einer Woche), <link linkend="getEventsForMonth"><code>getEvents:getEventsForMonth</code></link> (alle Events eines Monats) sieht dann in etwa so aus<footnote><para>Hier sind die Termine einer Woche generiert worden</para></footnote>: 
+				<programlisting>
+					<![CDATA[
+<events>
+	<event pos="0" intersecting="0" id="2015-07-06_12:15:00_13:45:00_6_1" 
+	description="EPS2015" categories="teaching" date="2015-07-06" 
+	startTime="12:15:00" endTime="13:45:00" note="" mondayOfWeek="2015-07-06">
+		<attendees>
+			<attendee description="Anne Brüggemann-Klein"/>
+		</attendees>
+		<location description="00.09.13A"/>
+	</event>
+	<event pos="0" intersecting="1" id="2015-07-07_16:00:00_17:00:00_3_1" 
+	description="FirstTuesdayEvent" categories="teaching" date="2015-07-07" 
+	startTime="16:00:00" endTime="17:00:00" note="" mondayOfWeek="2015-07-06">
+		<attendees/>
+		<location description=""/>
+		</event>
+	<event pos="1" intersecting="1" id="2015-07-07_16:15:00_17:45:00_6_2" 
+	description="EPS2015" categories="teaching" date="2015-07-07" 
+	startTime="16:15:00" endTime="17:45:00" note="" mondayOfWeek="2015-07-06">
+		<attendees>
+			<attendee description="Anne Brüggemann-Klein"/>
+		</attendees>
+		<location description="HS2"/>
+	</event>
+	<event pos="0" intersecting="0" id="2015-07-09_10:15:00_12:00:00_5_1" 
+	description="XMLT2015" categories="teaching" date="2015-07-09" 
+	startTime="10:15:00" endTime="12:00:00" note="" mondayOfWeek="2015-07-06">
+		<attendees/>
+		<location description=""/>
+	</event>
+</events>
+        ]]>
+					</programlisting>
+				Dieses XML-Dokument dient nun als Input für die XSLT-Programme, welche die verschiedenen Sichten als SVG-Grafik generieren.
+				</para>
+			
+			</section>
+		</section>
+		<section>
+			<title>XSLT</title>
+			<section>
+				<title>Motivation</title>
+				<para>Es wurden nun XSLT-Programme entwickelt, welche aus den Events, die mithilfe der im vorherigen Abschnitt beschriebenen XQueries erzeugt wurden, Kalendersichten als SVG-Grafiken generieren. Dabei sollen sowohl Tages-, Wochen als auch Monatsansicht unterstützt werden. Dazu werden nacheinander folgende Transformationen ausgeführt:
+				<itemizedlist>
+					<listitem><para><link linkend="CalendarXTransformTasks"><code>CalendarXTransformTasks.xslt</code></link></para></listitem>
+					<listitem><para><link linkend="CalendarXTransformDay"><code>CalendarXTransformDay.xslt</code></link></para></listitem>
+					<listitem><para><link linkend="CalendarXTransformWeek"><code>CalendarXTransformWeek.xslt</code></link></para></listitem>
+					<listitem><para><link linkend="CalendarXTransformMonth"><code>CalendarXTransformMonth.xslt</code></link></para></listitem>
+				</itemizedlist>
+				Die Sequenzielle Ausführung der Transformationsprogramme ist wichtig, weil das jeweils generierte SVG Elemente des SVGs referenziert, welches vom vorherigen XSLT-Programm generiert wird (z.B. nutzt die Wochenansicht zuvor generierte Tage). Dadurch ist der Code modular und redundanzfrei. Neben diesen vier Stylesheets gibt es noch <link linkend="myFunctions"><code>myFunctions.xsl</code></link>, welches mehrere in den xslt-Files benötigte Funktionen und Templates enthält.
+				</para>
+				<para>In der Tagesansicht werden die Termine abhängig von der Startzeit und der Länge entsprechend so angeordnet, dass sie zur auf der linken Seite angebrachten Zeitachse passen. Auf der Zeitachte befinden sich die Uhrzeiten im 2-Stunden-Abstand, also 00:00 Uhr, 02:00 Uhr usw. Jeder Termin wird dabei als rechteckige Box dargestellt, in der die wichtigsten Informationen (Startzeit, Endzeit, Titel des Termins und den Ort) eingetragen sind. Termine, die sich zeitlich überschneiden, werden in ihrer Breite entsprechend skaliert und nebeneinander angezeigt. Die Wochenansicht besteht aus 7 Tagen (Tagesansichten), die nebeneinander angezeigt werden. Eine Woche beginnt dabei immer am Montag, das heißt, der Tag ganz links ist immer ein Montag, der zweite von links ein Dienstag usw. Die Monatsansicht besteht nun aus untereinander angeordneten Wochen. Dabei umfasst ein Monat mindestens 4 Wochen, höchstens aber 6 Wochen. Um die Größe der Grafik nicht zu groß werden zu lassen (bzw. um nicht zu stark skalieren zu müssen, sodass die Ansicht auf den Bildschirm passt), werden die Termine in der Monatsansicht standardmäßig nicht auf einer Zeitskala angeordnet, sondern alle Termine eines Tages entsprechend direkt untereinander sozusagen als Liste dargestellt. 
+				
+				
+				
+				</para>
+			</section>
+			<section xml:id="CalendarXTransformTasks">
+				<title>CalendarXTransformTasks.xslt</title>
+				<para>Zunächst werden für jedes Event die Event-Boxen generiert. Diese erhalten die in den XQueries generierten IDs und können dadurch bei der Generierung der Tagessicht entsprechend referenziert werden. Dabei muss darauf geachtet werden, dass die Boxen korrekt skaliert werden: Wenn sich mehrere Events überschneiden, müssen die Termin-Rechtecke entsprechend verschmälert werden. Außerdem muss in Y-Richtung abhängig von der Länge des Termins skaliert werden. Dabei entspricht eine Minute auf der Zeitachse einem Pixel auf der Y-Achse, sodass die Länge des Termins in Minuten die Höhe des Rechtecks angibt. Dies wird so realisiert, dass das Rechteck standardmäßig die Höhe 100px hat und anschließend entsprechend skaliert wird. Ist ein Termin 3 Stunden lang (also 180 Minuten), wird entsprechend <code>scale(1,1.8)</code> verwendet. Es gibt auch die Möglichkeit, alle Termine gleich groß untereinander anzuzeigen, diese also nicht abhängig von ihrer Länge und Startzeit zu skalieren und anzuordnen. Dies ist nützlich für die Monatsansicht, da die Ansicht so deutlich komprimiert wird und nicht zu groß erscheint. Um das zu realisieren wird dem XSLT-Programm der boolsche Parameter <code>packedView</code> übergeben. Wenn <code>packedView</code> <code>true</code> ist, wird die letztgenannte komprimierte Ansicht generiert, ansonsten die Ansicht, die sich der dann angezeigten Zeitleiste anpasst. Die Schrift wird, um Verzerrungen zu vermeiden, nicht skaliert und bleibt immer gleich.</para>
+			</section>
+			<section xml:id="CalendarXTransformDay">
+				<title>CalendarXTransformDay.xslt</title>
+				<para>Hier wird neben dem gewünschten Datum <code>date</code> ebenfalls der boolsche Wert <code>packedView</code> übergeben. Letzterer wird benötigt, um die Positionierung auf der Y-Achse zu berechnen. Wenn <code>packedView="false"</code> ist, werden die Termine in Abhängigkeit von ihrer Startzeit positioniert. Dabei entspricht eine Minute auf der Zeitachse wieder einem Pixel auf der Y-Achse, sodass die Startuhrzeit in Minuten ab Mitternacht die Position angibt. Da dies sehr groß wäre wird der Tag, der angezeigt werden soll, anschließend skaliert. Zu beachten ist, dass alle Tage mit Terminen (unabhängig vom in <code>date</code> angegebenen Datum) generiert werden müssen, da diese für die Wochensicht und somit auch die Monatssicht gebraucht werden. Alle Events eines Tages werden unter einer gemeinsamen ID, die das Datum enthält, zusammengefasst. Der übergebene Parameter <code>date</code> besagt lediglich, welcher der generierten Tage angezeigt werden soll, falls die Tagesansicht vom Nutzer gewünscht wurde. Die Funktion <code></code> <link linkend="printDayAndDate"><code>foo:printDayAndDate</code></link> in <link linkend="myFunctions"><code>myFunctions.xsl</code></link> generiert dazu jeweils den Tag ohne Termine (mit Datum oben), Termine für diesen Tag werden dann mittels dem SVG-Element <code>use</code> darüber gelegt, sofern das referenzierte Element existiert. Somit wird, wenn am Tag mit Datum <code>date</code> kein Termin stattfindet, trotzdem eine (leere) Tagesansicht erzeugt, andernfalls ist der Tag mit allen Terminen sichtbar.</para>
+			</section>
+			<section xml:id="CalendarXTransformWeek">
+				<title>CalendarXTransformWeek.xslt</title>
+				<para>Wie bei der Tagesansicht müssen hier alle Wochen, die mindestens einen Termin enthalten, generiert werden. Jede Woche bekommt, um diese referenzieren zu können, eine ID, welche das Datum des Montags der Woche enthält. Eine Woche wird also eindeutig über das Datum des Montags referenziert. Außerdem muss zusätzlich noch eine (leere) Woche generiert werden, wenn die anzuzeigende Woche keine Events enthält. Die Generierung der Wochen wird dann im Template <link linkend="printWeekOfDay"><code>foo:printWeekOfDay</code></link> realisiert. Dabei werden zunächst alle Daten der Woche erzeugt, dann die entsprechenden (leeren) Tage mittels <link linkend="printDayAndDate"><code>foo:printDayAndDate</code></link>, danach werden jeweils die Tage in <code>CalendarXTransformDay.xml</code> (das ist der SVG-Code, der durch <link linkend="CalendarXTransformDay"><code>CalendarXTransformDay.xslt</code></link> erzeugt wurde) mittels <code>use</code> refereneziert. Abhängig davon, ob die übergebene Variable <code>packedView</code> <code>false</code> oder <code>true</code> ist, wird links eine Spalte mit Uhrzeiten auf der linken Seite entsprechend eingeblendet oder weggelassen.</para>
+			</section>
+			<section xml:id="CalendarXTransformMonth">
+				<title>CalendarXTransformMonth.xslt</title>
+				<para>Die Monatsansicht enthält 4 bis 6 Wochen, die untereinander angeordnet werden. Zunächst gilt es deshalb herauszufinden, wie viele Wochen benötigt werden. Für jede Woche wird wieder mittels <link linkend="printWeekOfDay"><code>foo:printWeekOfDay</code></link> die entsprechende leere Woche generiert, anschließend die Woche in der zuvor generierten <code>CalendarXTransformWeek.xml</code> über die Wochen-ID referenziert. Falls es die entsprechende ID gibt (also die Woche generiert wurde, weil sie mindestens ein Event enthält), wird deshalb die Woche angezeigt, ansonsten wird die Referenz nicht gefunden und es ist die leere Woche (die bei jedem Tag nur oben das jeweilige Datum enthält) zu sehen. Die Anzahl Pixel, um die die einzelnen Wochen nach unten verschoben werden, richtet sich nach der "Höhe" einer Woche. Diese wiederum hängt davon ab, ob <code>packedView</code> gewählt wurde. Ist <code>packedView=false</code>, ist die Höhe eines Tages (und somit einer Woche) immer gleich, weil alle 24 Stunden immer abgebildet werden. Ist <code>packedView=true</code>, hängt die Höhe von der Anzahl der Events ab. Damit die Übersicht einheitlich aussieht, erhält jede Woche die gleiche Höhe, diese ist dann abhängig von der maximalen Anzahl an Events, die an einem Tag stattfinden. Diese Anzahl wurde bereits durch die Xquery <link linkend="getEventsForMonth"><code>getEventsForMonth</code></link> berechnet.</para>
+			</section>		
+			<section xml:id="myFunctions">
+				<title>myFunctions.xsl</title>
+				<para>Die Bibliothek <code>myFunctions.xsl</code> enthält diverse Funktionen und Templates, die von den zuvor beschriebenen XSLT-Programmen genutzt werden. Dadurch ist der Code modular und redundanzfrei. Folgende Funktionen (<code>xsl:function</code>s) wurden definiert:
+				<itemizedlist>
+					<listitem><para><code>foo:getTimeInMinutes</code>: Gibt zu einer gegebenen Uhrzeit die Zeit in Minuten nach 00:00 Uhr zurück.</para></listitem>
+					<listitem xml:id="getLengthOfEvent"><para><code>foo:getLengthOfEvent</code>: Gibt die Länge eines Events (übergeben wird Start- und Enduhrzeit) in Minuten zurück.</para></listitem>
+					<listitem><para><code>foo:getScaleFactor</code>: Gibt den Skalierungsfaktor (in Y-Richtung) für das Rechteck, welches den Termin darstellt, zurück. Übergeben werden Start- und Enduhrzeit, der Skalierungsfakfor ist dann die Länge des Events in Minuten (<link linkend="getLengthOfEvent"><code>foo:getLengthOfEvent</code></link>) multipliziert mit 0.01.</para></listitem>
+					<listitem xml:id="getCertainDayOfWeek"><para><code>foo:getCertainDayOfWeek</code>: Diese Funktion erhält ein Datum und einen Integer zwischen 0 und 6. Die Funktion gibt das Datum desjenigen Wochentags, der durch diesen Integer beschrieben wird (0=Montag, 1=Dienstag usw) und der in der selben Woche wie das übergebene Datum liegt, zurück. Beispielsweise gibt <code>foo:getCertainDayOfWeek(xs:date('2015-07-29'), 4)</code> das Datum <code>2015-07-31</code> zurück (der "vierte Tag" (Freitag) der Woche vom 29.7.2015 ist der 31.07.2015.)</para></listitem>
+				</itemizedlist>
+				Außerdem wurden folgende Templates (<code>xsl:template</code>s) definiert:
+				<itemizedlist>
+					<listitem><para><code>foo:printVerticalLine</code>: Druckt eine vertikale Linie. Diese wird verwendet, um einen Tag seitlich abzugrenzen (z.B. in der Wochenansicht).</para></listitem>
+					<listitem><para><code>foo:printHorizontalLine</code>: Druckt eine horizontale Linie. Diese wird verwendet, um die verschiedenen Wochen in der Monatsansicht voneinander abzugrenzen.</para></listitem>
+				<listitem><para><code>foo:printOverlay</code>: Druckt das Rechteck, welches den Hintergrund eines Tages (der Tagesansicht) darstellt.</para></listitem>
+				<listitem xml:id="printDayAndDate"><para><code>foo:printDayAndDate</code>: Druckt eine leere Tagesansicht für das übergebene Datum.</para></listitem>
+				<listitem xml:id="printWeekOfDay"><para><code>foo:printWeekOfDay</code>: Druckt eine leere Wochenansicht für die Woche, in der das übergebene Datum liegt. Dieses Template verwendet die Funktion <link linkend="getCertainDayOfWeek"><code>foo:getCertainDayOfWeek</code></link> sowie das Template <link linkend="printDayAndDate"><code>foo:printDayAndDate</code></link>.</para></listitem>
+				<listitem><para><code>foo:printEventDescription</code>: Druckt den Text, der innerhalb des Rechtecks, das den Termin darstellt, erscheinen soll. Dies umfasst die Start- und Enduhrzeit, den Ort und die Terminbeschreibung. Das Event wird dabei als Parameter <code>event</code> übergeben.</para></listitem>
+				</itemizedlist>
+				</para>
+			</section>			
+		</section>
+		<section>
+			<title>Das Praktikum</title>
+			<section>
+				<title>Allgemeines</title>
+				<para>Mit der allgemeinen Organisation des Praktikums waren wir sehr zufrieden. Durch die wöchentlichen Vorlesungseinheiten wurde die grobe Idee der neu vorgestellten Technologien klar, welche dann durch das Aufgabenblatt eingeübt werden konnten. Dabei war die Modularisierung der einzelnen Teile super; dadurch konnte ein Teil unabhängig von den Anderen entwickelt werden (z.B. XSLT und XQuery). AUch die Reihenfolge der besprochenen Technologien war sinnvoll (also zuerst SVG, dann XSLT usw). Leider kam das letzte Thema mit XForms usw. etwas kurz (es gab z.B. kein extra Übungsblatt dazu); im Projekt stellte das die größte Schwierigkeit dar.</para>
+			</section>
+			<section>
+				<title>Im Team</title>
+				<para>Wir haben unsere Lösung des ersten Blatts (SVG) im Praktikum vorgestellt. Dadurch hatten wir bereits früh eine Basis für die Projektaufgabe. Wir haben ein git-Repository angelegt, um eine gemeinsame Versionskontrolle zu haben. Somit war die Möglichkeit gegeben, jederzeit am aktuellsten Code weiterzuarbeiten. .................</para>
+			</section>
+		</section>
+</article>
