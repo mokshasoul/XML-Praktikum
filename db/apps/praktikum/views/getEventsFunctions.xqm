@@ -67,11 +67,11 @@ declare function getEvents:getEventsForWeek($date as xs:date)
 
 declare function getEvents:getEventsForMonth($date as xs:date)
 {
-    let $maxNumOfEventsOnDay := max(
+    let $maximum := max(
          for $eventDay in distinct-values(getEvents:getEventDaysOfMonth($date))
          let $eventsOnThisDay := getEvents:getBasicEventsForDay($eventDay)
-        return count($eventsOnThisDay/@id)
-        )
+        return count($eventsOnThisDay/@id))
+       let $maxNumOfEventsOnDay := if (empty($maximum)) then 1 else $maximum
       return <events maxNumOfEventsOnDay="{$maxNumOfEventsOnDay}">{
         for $eventDay in distinct-values(getEvents:getEventDaysOfMonth($date))
         return getEvents:refineEvents(getEvents:getBasicEventsForDay($eventDay))

@@ -24,9 +24,11 @@ let $svg :=  if($post-req) then(
    let $param1 := $post-req//mode
    let $param2 := xs:date($post-req//date)
 
-   let $param := <parameters><param name='requestedDate' value='{$param2}' /><param name='packedView' value='false' /></parameters>        
+    let $packedView := if ($param1 eq 'Month') then 'true' else 'false'
+    
+   let $param := <parameters><param name='requestedDate' value='{$param2}' /><param name='packedView' value='{$packedView}' /><param name='mode' value='{$param1}'/></parameters>        
    (: XSLT Transform Parameter :)   
-   let $xsl := doc(concat("/db/apps/praktikum/views/CalendarXTransform",$param1,".xslt"))
+   let $xsl := doc("/db/apps/praktikum/views/CalendarXTransform.xslt")
    let $xq := if ($param1="Day")
    then getEvents:getEventsForDay($param2)
    else if ($param1="Week")
@@ -40,27 +42,12 @@ let $svg :=  if($post-req) then(
    let $store-return-status := xmldb:store($data-path, $events-file, $xq)
    let $event-input := doc('/db/apps/praktikum/data/simpleEvents.xml')
    
-   (: Generate Task SVG :)
-   let $tasks-file := 'CalendarXTransformTasks.xml'
-   let $tasks-xsl := doc('/db/apps/praktikum/views/CalendarXTransformTasks.xslt')
-   let $tasks-generation := transform:transform($event-input,$tasks-xsl,$param)
-   let $store-return-status := xmldb:store($data-path,$tasks-file,$tasks-generation)
-   (: Generate Day SVG :)
-   let $days-file := 'CalendarXTransformDay.xml'
-   let $days-xsl := doc('/db/apps/praktikum/views/CalendarXTransformDay.xslt')
-   let $days-generation := transform:transform($event-input,$days-xsl,$param)
-   let $store-return-status := xmldb:store($data-path,$days-file,$days-generation)
-   (: Generate Weeks SVG :)
-   let $weeks-file := 'CalendarXTransformWeek.xml'
-   let $weeks-xsl := doc('/db/apps/praktikum/views/CalendarXTransformWeek.xslt')
-   let $weeks-generation := transform:transform($event-input,$weeks-xsl,$param)
-   let $store-return-status := xmldb:store($data-path,$weeks-file,$weeks-generation)
-   (: Generate Month :)
-   let $month-file := 'CalendarXTransformMonth.xml'
-  (: let $month-xsl := doc('/db/apps/praktikum/views/CalendarXTransformMonth.xslt')
-   let $month-generation := transform:transform($event-input,$month-xsl,$param)
-   let $store-return-status := xmldb:store($data-path,$month-file,$month-generation) :)
-  
+   (: Generate SVG :)
+   let $svg-file := 'CalendarXTransform.xml'
+   let $svg-xsl := doc('/db/apps/praktikum/views/CalendarXTransform.xslt')
+   let $svg-generation := transform:transform($event-input,$svg-xsl,$param)
+   let $store-return-status := xmldb:store($data-path,$svg-file,$svg-generation)
+
    return
         transform:transform($event-input,$xsl,$param)
    )else(<svg/>)
@@ -111,9 +98,13 @@ let $form := (
                             <xf:send submission="getView"/>
                         </xf:action>
                     </xf:trigger>
-                    <xf:submit>
+                    <xf:trigger>
                         <xf:label>Month View</xf:label>
-                    </xf:submit>
+                        <xf:action ev:event="DOMActivate">
+                            <xf:setvalue ref="instance('dateData')//mode">Month</xf:setvalue>
+                            <xf:send submission="getView"/>
+                        </xf:action>
+                    </xf:trigger>
                 </xf:group>
                     <xf:trigger id="taskButton">
                         <xf:label>Create Task</xf:label>
@@ -129,9 +120,7 @@ let $form := (
                     </xf:trigger>
             </div>
 <div id="calendarView">
-                            <xf:output class="svgIMG" id="svgimg" 
-               value="xf:serialize(instance('inlineSVG'))"
-               mediatype="image/svg+xml"/>
+                            
                {$svg}
             </div>
             </div>

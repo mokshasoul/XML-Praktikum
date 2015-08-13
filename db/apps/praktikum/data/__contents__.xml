@@ -1,33 +1,24 @@
 <collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/apps/praktikum/data" owner="admin" group="dba" mode="777" created="2015-07-19T19:13:16+02:00" version="1">
     <acl entries="0" version="1"/>
-    <resource type="XMLResource" name="testFile.xml" owner="admin" group="dba" mode="777" created="2015-08-08T21:44:55+02:00" modified="2015-08-09T01:58:24+02:00" filename="testFile.xml" mimetype="application/xml">
+    <resource type="XMLResource" name="CalendarXTransform.xml" owner="guest" group="guest" mode="644" created="2015-08-13T15:13:02+02:00" modified="2015-08-13T15:30:36+02:00" filename="CalendarXTransform.xml" mimetype="application/xml">
         <acl entries="0" version="1"/>
     </resource>
-    <resource type="XMLResource" name="data.xml" owner="admin" group="dba" mode="777" created="2015-07-20T16:32:33+02:00" modified="2015-08-08T21:50:40+02:00" filename="data.xml" mimetype="application/xml">
-        <acl entries="0" version="1"/>
-    </resource>
-    <resource type="BinaryResource" name="CalendarXTransformMonth.xml" owner="admin" group="dba" mode="777" created="2015-08-12T13:38:55+02:00" modified="2015-08-12T13:43:26+02:00" filename="CalendarXTransformMonth.xml" mimetype="application/xquery">
-        <acl entries="0" version="1"/>
-    </resource>
-    <resource type="XMLResource" name="events.xml" owner="admin" group="dba" mode="777" created="2015-07-20T16:31:04+02:00" modified="2015-07-21T10:53:51+02:00" filename="events.xml" mimetype="application/xml">
-        <acl entries="0" version="1"/>
-    </resource>
-    <resource type="XMLResource" name="sampleCalendarX2.xml" owner="admin" group="dba" mode="777" created="2015-07-20T16:29:47+02:00" modified="2015-08-09T10:56:33+02:00" filename="sampleCalendarX2.xml" mimetype="application/xml">
+    <resource type="XMLResource" name="simpleEvents.xml" owner="admin" group="dba" mode="777" created="2015-08-09T01:53:10+02:00" modified="2015-08-13T15:30:35+02:00" filename="simpleEvents.xml" mimetype="application/xml">
         <acl entries="0" version="1"/>
     </resource>
     <resource type="XMLResource" name="sampleCalendarX.xml" owner="admin" group="dba" mode="777" created="2015-06-25T17:53:16+02:00" modified="2015-06-25T17:53:16+02:00" filename="sampleCalendarX.xml" mimetype="application/xml">
         <acl entries="0" version="1"/>
     </resource>
-    <resource type="XMLResource" name="CalendarXTransformWeek.xml" owner="admin" group="dba" mode="777" created="2015-08-12T12:28:22+02:00" modified="2015-08-12T14:25:50+02:00" filename="CalendarXTransformWeek.xml" mimetype="application/xml">
+    <resource type="XMLResource" name="sampleCalendarX2.xml" owner="admin" group="dba" mode="777" created="2015-07-20T16:29:47+02:00" modified="2015-08-09T10:56:33+02:00" filename="sampleCalendarX2.xml" mimetype="application/xml">
         <acl entries="0" version="1"/>
     </resource>
-    <resource type="XMLResource" name="CalendarXTransformTasks.xml" owner="admin" group="dba" mode="777" created="2015-08-09T01:53:10+02:00" modified="2015-08-12T14:25:50+02:00" filename="CalendarXTransformTasks.xml" mimetype="application/xml">
+    <resource type="XMLResource" name="events.xml" owner="admin" group="dba" mode="777" created="2015-07-20T16:31:04+02:00" modified="2015-07-21T10:53:51+02:00" filename="events.xml" mimetype="application/xml">
         <acl entries="0" version="1"/>
     </resource>
-    <resource type="XMLResource" name="simpleEvents.xml" owner="admin" group="dba" mode="777" created="2015-08-09T01:53:10+02:00" modified="2015-08-12T14:25:50+02:00" filename="simpleEvents.xml" mimetype="application/xml">
+    <resource type="XMLResource" name="data.xml" owner="admin" group="dba" mode="777" created="2015-07-20T16:32:33+02:00" modified="2015-08-08T21:50:40+02:00" filename="data.xml" mimetype="application/xml">
         <acl entries="0" version="1"/>
     </resource>
-    <resource type="XMLResource" name="CalendarXTransformDay.xml" owner="admin" group="dba" mode="777" created="2015-08-09T01:53:10+02:00" modified="2015-08-12T14:25:50+02:00" filename="CalendarXTransformDay.xml" mimetype="application/xml">
+    <resource type="XMLResource" name="testFile.xml" owner="admin" group="dba" mode="777" created="2015-08-08T21:44:55+02:00" modified="2015-08-09T01:58:24+02:00" filename="testFile.xml" mimetype="application/xml">
         <acl entries="0" version="1"/>
     </resource>
 </collection>
