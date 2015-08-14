@@ -4,6 +4,10 @@ xquery version "3.0";
  transform:transform($input, $xsl, $param)
  :)
 import module namespace getEvents = "http://www.getEvents.com" at 'getEventsFunctions.xqm';
+
+import module namespace functx = 'http://www.functx.com' at 'functx-1.0-doc-2007-01.xq';
+import module namespace helper = 'http://www.help.com' at 'helperFunctions.xqm';
+
 declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace request="http://exist-db.org/xquery/request";
@@ -24,7 +28,7 @@ let $svg :=  if($post-req) then(
    let $param1 := $post-req//mode
    let $param2 := xs:date($post-req//date)
 
-    let $packedView := if ($param1 eq 'Month') then 'true' else 'false'
+    let $packedView := if ($param1 eq 'Month') then 'true' else $post-req//packedView
     
    let $param := <parameters><param name='requestedDate' value='{$param2}' /><param name='packedView' value='{$packedView}' /><param name='mode' value='{$param1}'/></parameters>        
    (: XSLT Transform Parameter :)   
@@ -53,6 +57,7 @@ let $svg :=  if($post-req) then(
    )else(<svg/>)
 let $param2 := if ($post-req) then xs:date($post-req//date) else xs:date('2015-01-01')
 let $param1 := if ($post-req) then $post-req//mode else ""
+let $param3 := if ($post-req) then $post-req//packedView else 'false'
 let $form := (
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:my="test" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <head>
@@ -61,7 +66,8 @@ let $form := (
             <xf:instance xmlns="" id="dateData">
                 <root>
                     <date>{$param2}</date>
-                    <mode/>
+                    <mode></mode>
+                    <packedView>{$param3}</packedView>
                 </root>
             </xf:instance >
                  <xf:instance id='inlineSVG'>
@@ -71,6 +77,7 @@ let $form := (
             <xf:submission id="getView" method="post" action="getViews.xqm"/>
             <xf:bind nodeset="instance('dateData')//date" type="xs:date"/>
             <xf:bind nodeset="instance('dateData')//mode" type="xs:string"/>
+            <xf:bind nodeset="instance('dateData')//packedView" type="xs:boolean"/>
         </xf:model>
         <title>Calendar Forms </title>
     </head>
@@ -83,11 +90,11 @@ let $form := (
                     <xf:input id="date" ref="instance('dateData')//date">
                         <xf:label>Enter a date: </xf:label>
                     </xf:input>
-
                     <xf:trigger>
                         <xf:label>Day View</xf:label>
                         <xf:action  ev:event="DOMActivate">
                             <xf:setvalue ref="instance('dateData')//mode">Day</xf:setvalue>
+                            <xf:setvalue ref="instance('dateData')//packedView">{data($param3)}</xf:setvalue>
                             <xf:send  submission="getView"/>
                         </xf:action>
                     </xf:trigger>
@@ -95,6 +102,7 @@ let $form := (
                         <xf:label>Week View</xf:label>
                         <xf:action ev:event="DOMActivate">
                             <xf:setvalue ref="instance('dateData')//mode">Week</xf:setvalue>
+                            <xf:setvalue ref="instance('dateData')//packedView">{data($param3)}</xf:setvalue>
                             <xf:send submission="getView"/>
                         </xf:action>
                     </xf:trigger>
@@ -102,9 +110,27 @@ let $form := (
                         <xf:label>Month View</xf:label>
                         <xf:action ev:event="DOMActivate">
                             <xf:setvalue ref="instance('dateData')//mode">Month</xf:setvalue>
+                            <xf:setvalue ref="instance('dateData')//packedView">{data($param3)}</xf:setvalue>
                             <xf:send submission="getView"/>
                         </xf:action>
                     </xf:trigger>
+                    {if(not($param1 eq 'Month')) then (
+                    <xf:select1 id="packedView" ref="instance('dateData')//packedView" appearance="minimal" incremental="true">  
+            <xf:label>Ansicht: </xf:label>
+                <xf:item>
+                    <xf:label>Standard</xf:label>
+                    <xf:value>false</xf:value> 
+                </xf:item>
+                <xf:item>
+                    <xf:label>Liste</xf:label>
+                    <xf:value>true</xf:value>
+                </xf:item>
+                <xf:action ev:event="xforms-value-changed">
+                            <xf:setvalue ref="instance('dateData')//mode">{data($param1)}</xf:setvalue>
+                            <xf:send submission="getView"/>
+                        </xf:action>
+                		
+          </xf:select1>) else ()}
                 </xf:group>
                     <xf:trigger id="taskButton">
                         <xf:label>Create Task</xf:label>
@@ -120,7 +146,12 @@ let $form := (
                     </xf:trigger>
             </div>
 <div id="calendarView">
-                            
+                <h1>{switch($param1) 
+                    case 'Day' return format-date($param2, "[D1o] [MNn] [Y]", "de", (), ()) 
+                    case 'Week' return concat('Woche vom ', format-date(helper:getMondayOfWeek($param2), "[D].[M].[Y]"))
+                    case 'Month' return format-date($param2, "[MNn] [Y]", "de", (), ())
+                    default return ''
+                }</h1>            
                {$svg}
             </div>
             </div>
