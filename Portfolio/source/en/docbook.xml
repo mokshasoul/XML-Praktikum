@@ -308,6 +308,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 					<listitem xml:id="getLengthOfEvent"><para><code>foo:getLengthOfEvent</code>: Gibt die Länge eines Events (übergeben wird Start- und Enduhrzeit) in Minuten zurück.</para></listitem>
 					<listitem><para><code>foo:getScaleFactor</code>: Gibt den Skalierungsfaktor (in Y-Richtung) für das Rechteck, welches den Termin darstellt, zurück. Übergeben werden Start- und Enduhrzeit, der Skalierungsfakfor ist dann die Länge des Events in Minuten (<link linkend="getLengthOfEvent"><code>foo:getLengthOfEvent</code></link>) multipliziert mit 0.01.</para></listitem>
 					<listitem xml:id="getCertainDayOfWeek"><para><code>foo:getCertainDayOfWeek</code>: Diese Funktion erhält ein Datum und einen Integer zwischen 0 und 6. Die Funktion gibt das Datum desjenigen Wochentags, der durch diesen Integer beschrieben wird (0=Montag, 1=Dienstag usw) und der in der selben Woche wie das übergebene Datum liegt, zurück. Beispielsweise gibt <code>foo:getCertainDayOfWeek(xs:date('2015-07-29'), 4)</code> das Datum <code>2015-07-31</code> zurück (der "vierte Tag" (Freitag) der Woche vom 29.7.2015 ist der 31.07.2015.)</para></listitem>
+					<listitem xml:id="getUpdateLink"><para><code>foo:getUpdateLink</code>: Gibt die URL zurück, die zum Formular zur Editierung eines Tasks führt. Die Funktion bekommt dazu das Datum <code>date</code> und den (eindeutigen) Namen des zum Task gehörenden SuperEvents (<code>description</code>) als Parameter übergeben. Die Generierung dieser URL wurde als Funktion ausgelagert, da die URL an zwei verschiedenen Stellen benötigt und wird und somit keine Redundanz im Code vorhanden ist.</para></listitem>
 				</itemizedlist>
 				Außerdem wurden folgende Templates (<code>xsl:template</code>s) definiert:
 				<itemizedlist>
@@ -321,6 +322,17 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 				<listitem xml:id="translateTaskForDayView"><para><code>foo:translateTaskForDayView</code>: Verschiebt einen Task an die richtige Stelle innerhalb eines Tages. Dazu werden zunächst die Verschiebungen in X- und Y-Richtung berechnet und anschließend der zuvor in  <link linkend="generateBasicTask"><code>foo:generateBasicTask</code></link> generierte Task referenziert und mittels <code>transform</code> verschoben. Diese Methode wird für jedes Event jedes Tages aufgerufen.</para></listitem>
 				</itemizedlist>
 				</para>
+			</section>
+			<section>
+				<title>Probleme</title>
+				<para>Der ursprüngliche Plan war, die Generierung der drei Sichten auf mehrere XSLT-Stylesheets zu verteilen, also die Generierung der Tasks, der Tagessicht, der Wochensicht und der Monatssicht seperat vorzunehmen und jeweils ein SVG zu generieren. Dabei wurden dann z.B. in der Tagessicht die Tasks im zuvor generierten Tasks-SVG referenziert. Prinzipiell ist es möglich, Elemente in einer SVG aus einer anderen SVG zu referenzieren. Allerdings traten dabei folgende Probleme auf:
+				<itemizedlist>
+					<listitem><para>Die Elemente aus einer anderen SVG-Datei wurden nur im Firefox-Browser angezeigt. In Chrome und Internet Explorer waren jeweils nur die Elemente, die in der Datei definiert wurden, die aufgerufen wurde, angezeigt. Beispielsweise war in diesen Browsern dann nur die leere Tagesansicht zu sehen, da die Tasks in einer anderen Datei lagen. Zunächst haben wir das ignoriert und im Folgenden ausschließlich Firefox benutzt.</para></listitem>
+					<listitem><para>Bei Verwendung von eXist trat dann folgendes Problem auf: Bei Anzeige des (eingebetteten) generierten SVGs wurden die Elemente, die in einer anderen Datei liegen, nur manchmal angezeigt. Das SVG wurde aber korrekt generiert und bei direktem Aufruf auch korrekt dargestellt. Wir wissen nicht, woran das liegt, da der Code bzw. das generierte SVG in jedem Fall richtig war.</para></listitem>
+				</itemizedlist>
+				Hauptsächlich aus dem letzten Grund haben wir uns dann dazu entschieden, nur eine SVG-Datei zu generieren, die alle Elemente enthält. Dies war relativ einfach, da sowieso fast alles in Templates und Funktionen ausgelagert wurde und die ursprünglichen vier XSLT-Stylesheets deshalb eh relativ kurz waren. Anschließend wurde alles immer richtig angezeigt und der verwendete Browser spielt in diesem Zusammenhang nun auch keine Rolle mehr.
+				</para>
+			
 			</section>			
 		</section>
 		<section>
