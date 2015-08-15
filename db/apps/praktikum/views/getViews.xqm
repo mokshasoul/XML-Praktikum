@@ -20,15 +20,14 @@ let $login := if (not($post-req)) then xmldb:login($collection, 'admin', '') els
 
 
 
-
+let $today := adjust-date-to-timezone(fn:current-date(), ())
 let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
-let $svg :=  if($post-req) then(
+let $svg :=  (
                   (:POST parameters   :)
 
-   let $param1 := $post-req//mode
-   let $param2 := xs:date($post-req//date)
-
-    let $packedView := if ($param1 eq 'Month') then 'true' else $post-req//packedView
+   let $param1 := if($post-req) then $post-req//mode else 'Day'
+   let $param2 := if($post-req) then xs:date($post-req//date) else $today
+   let $packedView := if ($post-req) then (if ($param1 eq 'Month') then 'true' else $post-req//packedView) else 'false'
     
    let $param := <parameters><param name='requestedDate' value='{$param2}' /><param name='packedView' value='{$packedView}' /><param name='mode' value='{$param1}'/></parameters>        
    (: XSLT Transform Parameter :)   
@@ -54,9 +53,9 @@ let $svg :=  if($post-req) then(
 
    return
         transform:transform($event-input,$xsl,$param)
-   )else(<svg/>)
-let $param2 := if ($post-req) then xs:date($post-req//date) else xs:date('2015-01-01')
-let $param1 := if ($post-req) then $post-req//mode else ""
+)
+let $param2 := if ($post-req) then xs:date($post-req//date) else $today
+let $param1 := if ($post-req) then $post-req//mode else 'Day'
 let $param3 := if ($post-req) then $post-req//packedView else 'false'
 let $form := (
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:my="test" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -79,12 +78,12 @@ let $form := (
             <xf:bind nodeset="instance('dateData')//mode" type="xs:string"/>
             <xf:bind nodeset="instance('dateData')//packedView" type="xs:boolean"/>
         </xf:model>
-        <title>Calendar Forms </title>
+        <title>CalendarX</title>
     </head>
     <body>
         <div id="wrapper">
         <div id="wrapperPropper">
-            <h1 id="title"> Calendar System </h1>
+            <h1 id="title"> CalendarX System </h1>
             <div id="views">
                 <xf:group id="selectionView" model="viewModel">
                     <xf:input id="date" ref="instance('dateData')//date">
@@ -114,7 +113,7 @@ let $form := (
                             <xf:send submission="getView"/>
                         </xf:action>
                     </xf:trigger>
-                    {if(not($param1 eq 'Month')) then (
+                    {if($param1 eq 'Day' or $param1 eq 'Week') then (
                     <xf:select1 id="packedView" ref="instance('dateData')//packedView" appearance="minimal" incremental="true">  
             <xf:label>Ansicht: </xf:label>
                 <xf:item>
