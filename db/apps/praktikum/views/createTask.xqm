@@ -23,6 +23,8 @@ let $startTime := $post-req//startTime
 let $endTime := $post-req//endTime
 let $attendees := $post-req//attendees
 let $location := $post-req//location
+let $recurrencePattern := $post-req//repeat
+let $patternType := $post-req//patternType
 
 let $dbCal := doc('/db/apps/praktikum/data/calendarX2.xml')
 let $event :=  if ($post-req) then(
@@ -30,7 +32,8 @@ let $event :=  if ($post-req) then(
             <eventRules>
                 <eventRule description="{$description}" startTime="{$startTime}" endTime="{$endTime}" note="">
                     <attendees>
-                        <attendee></attendee>
+                        { for $attendee in tokenize($attendees, ",") return
+                        <attendee>{$attendee}</attendee> }
                     </attendees>
                     <location>{$location}</location>
                 </eventRule>
@@ -45,7 +48,8 @@ let $store-return-status := if ($post-req) then (update insert $event into $dbCa
 let $form := (
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms">
     <head>
-        <link href="screen.css" rel="stylesheet" type="text/css"/>
+        <link href="screen.css" rel="stylesheet" type="text/css" />
+        <link href="form.css" rel="stylesheet" type="text/css" />
         <xf:model id="appendData">
             <xf:instance id="dataI" src="../data/data.xml">
                 <data>
@@ -60,15 +64,20 @@ let $form := (
                         <attendee/>
                     </attendees>
                     <location/>
+                    <repeat />
+                    <patternType />
                 </data>
             </xf:instance>
             <xf:bind ref="description" required="false()"/>
             <xf:bind ref="startDate" required="true()" type="xs:date"/>
-            <xf:bind ref="endDate" required="true()" type="xs:date" />
+            <xf:bind ref="endDate" required="false()" type="xs:date" />
             <xf:bind ref="startTime" required="false()" type="xs:string"/>
             <xf:bind ref="endTime" required="false()" type="xs:string"/>
             <xf:bind ref="attendees" required="false()"/>
             <xf:bind ref="location" required="false()"/>
+            <xf:bind ref="repeat" required="false()" />
+            <xf:bind ref="patternType" required="false()" />
+            
 
             <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
                 <xf:action ev:event="xforms-submit-error">
@@ -85,7 +94,7 @@ let $form := (
     <body>
          <div id="wrapper">
          <div id="wrapperPropper">
-        <h1>Create New Task</h1>
+        <div id="form-heading">Create New Task</div>
         <div id="navBar">
             <ul>
                 <li>
@@ -94,7 +103,7 @@ let $form := (
             </ul>
         </div>
     
-        <div id="inputBlock">
+        <div id="inputBlock" class="inputBlock">
             <xf:group model="appendData" appearance="bf:verticalTable">
                 <xf:input ref="instance('dataI')//description">
                     <xf:label class="inputLabels">Task Name:</xf:label>
@@ -123,7 +132,35 @@ let $form := (
                 <xf:input ref="instance('dataI')//location">
                     <xf:label  class="inputLabels">Location:</xf:label>
                 </xf:input>
+                <xf:input ref="instance('dataI')//repeat">
+                    <xf:label class="inputLabels">Repeat:</xf:label>
+                </xf:input>
+                
+                <xf:select1 appearance="minimal" ref="patternType">
+                    <xf:label>How often should the event occur?</xf:label>
+                    <xf:item>
+                        <xf:label>Every Day</xf:label>
+                        <xf:value>dailyPattern</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Every Week</xf:label>
+                        <xf:value>weeklyPattern</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Every Month (Cardinal)</xf:label>
+                        <xf:value>cardinalMonthlyPattern</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Every Month</xf:label>
+                        <xf:value>monthlyPattern</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Every Year</xf:label>
+                        <xf:value>yearlyPattern</xf:value>
+                    </xf:item>
+                </xf:select1>
             </xf:group>
+            
             <xf:submit submission="convert">
                 <xf:label>Create New Task</xf:label>
             </xf:submit>
