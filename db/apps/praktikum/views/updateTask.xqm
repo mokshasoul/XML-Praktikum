@@ -15,15 +15,13 @@ let $collection :=  'xmldb:exist:///db/apps/praktikum'
 let $login := xmldb:login($collection, 'admin', '')
 let $data-path := '/db/apps/praktikum/data/'
 let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
-let $eventDescription := 'EPS20155'
-let $eventDate := '2015-06-29'
-(:
+
 let $eventDescription := request:get-parameter('description','')
 let $eventDate := request:get-parameter('date','')
-:)
+
 
 let $dbEvents := doc('/db/apps/praktikum/data/simpleEvents.xml')
-let $dbCal := doc('/db/apps/praktikum/data/sampleCalendarX2.xml')
+let $dbCal := doc('/db/apps/praktikum/data/sampleCalendarX.xml')
 let $event := $dbEvents//event[@description=$eventDescription][@date=$eventDate]
 let $location := xs:string($event/location/@description)
 let $note := xs:string($event/@note)
@@ -33,6 +31,8 @@ let $endTime := xs:string($event/@endTime)
 let $attendees := $event//attendees
 let $pattern := $dbCal//superEvent[@description=$eventDescription]//eventRule[1]/recurrencePattern
 let $dailyTest := $dbCal//patterns/dailyPattern[@description=$eventDescription]
+let $weeklyTest := $dbCal//patterns/unionPattern[@description=concat($eventDescription,'_1')]
+
 let $endDate := if ($dailyTest )then
                  xs:string($dbCal//dailyPattern[@description=$eventDescription]/@endDate)        
                 else
@@ -58,8 +58,8 @@ let $form := (
             <xf:instance xmlns="" id="dataI">
                 <root>
                     <description>{$eventDescription}</description>
-                    <startDate>{xs:date($startDateSeries)}</startDate>
-                    <endDate>{xs:date($endDate)}</endDate>
+                    <startDate>{xs:date(if ($startDateSeries) then $startDateSeries else $startDate)}</startDate>
+                    <endDate>{xs:date(if ($endDate) then $endDate else $startDate)}</endDate>
                     <startTime>{$startTime}</startTime>
                     <endTime>{$endTime}</endTime>
                     <note>{$note}</note>
@@ -78,11 +78,11 @@ let $form := (
                     </attendees>
                     <location>{$location}</location>
                     <series>{xs:boolean('false')}</series>
-                  </root>
+                    </root>
             </xf:instance>
             <xf:bind ref="description" required="false()" type="xs:string"/>
-            <xf:bind ref="startDate" required="false()" type="xs:date"/>
-            <xf:bind ref="endDate" required="false()" type="xs:date" />
+            <xf:bind ref="startDate" required="false()" type="xs:date" readonly="true()"/>
+            <xf:bind ref="endDate" required="false()" type="xs:date"  readonly="true()"/>
             <xf:bind ref="startTime" required="false()" type="xs:string"/>
             <xf:bind ref="endTime" required="false()" type="xs:string"/>
             <xf:bind ref="attendees" required="false()"/>
@@ -136,7 +136,15 @@ let $form := (
                 </xf:input>
                 <xf:input ref="instance('dataI')//series">
                     <xf:label class="inputLabels">Edit Only Occurence?</xf:label>
+                    <xf:action
+       
+                       if="instance('dataI')//series">
+                             <xf:setvalue ref="instance('dataI')//startDate" value="{$startDate}" />
+                    </xf:action>
+                    <xf:action
 
+                       if="not(instance('dataI')//series)">
+                             <xf:setvalue ref="instance('dataI')//startDate" value="{$startDateSeries}" /></xf:action>
                </xf:input>
             </xf:group>
             <xf:submit submission="convert">
