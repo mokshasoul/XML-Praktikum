@@ -12,38 +12,40 @@ declare option exist:serialize "method=xhtml media-type=text/xml indent=no  proc
 
 let $collection :=  'xmldb:exist:///db/apps/praktikum'
 let $login := xmldb:login($collection, 'admin', '')
+let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
 
 let $form := (
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms">
     <head>
         <link href="screen.css" rel="stylesheet" type="text/css" />
-        <link href="form.css" rel="stylesheet" type="text/css" />
-        <xf:model id="appendData">
-            <xf:instance id="dataI">
-                <data>
-                    <description/>
-                    <category/>
+
+        <xf:model xmlns="" id="appendData">
+            <xf:instance xmlns="" id="dataI">
+                <root>
+                    <description/>                    <category/>
                     <startDate/>
                     <endDate/>
                     <startTime/>
                     <endTime/>
                     <note/>
-                    <attendees/>
+                    <attendees>
+                    </attendees>
                     <location/>
                     <repeat />
                     <patternType />
-                </data>
+                    <repeatDayOfWeek />
+                </root>
             </xf:instance>
-            <xf:bind ref="description" required="false()"/>
+            <xf:bind ref="description" required="true()" type="xs:string"/>
             <xf:bind ref="startDate" required="true()" type="xs:date"/>
             <xf:bind ref="endDate" required="false()" type="xs:date" />
             <xf:bind ref="startTime" required="false()" type="xs:string"/>
             <xf:bind ref="endTime" required="false()" type="xs:string"/>
-            <xf:bind ref="attendees" required="false()"/>
+            <xf:bind ref="attendees" required="false()" type="xs:string"/>
             <xf:bind ref="location" required="false()"/>
-            <xf:bind ref="repeat" required="false()" />
-            <xf:bind ref="patternType" required="false()" />
-            
+            <xf:bind ref="repeat" required="false()" type="xs:boolean"/>
+            <xf:bind ref="patternType" required="false()" relevant="instance('dataI')//repeat[.='true']" />
+            <xf:bind ref="repeatDayOfWeek" required="false()" type="xs:boolean" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='weeklyPattern']" />
 
             <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
                 <xf:action ev:event="xforms-submit-error">
@@ -102,7 +104,7 @@ let $form := (
                     <xf:label class="inputLabels">Repeat:</xf:label>
                 </xf:input>
                 
-                <xf:select1 appearance="minimal" ref="patternType">
+                <xf:select1 ref="patternType" appearance="minimal">
                     <xf:label>How often should the event occur?</xf:label>
                     <xf:item>
                         <xf:label>Every Day</xf:label>
@@ -113,23 +115,46 @@ let $form := (
                         <xf:value>weeklyPattern</xf:value>
                     </xf:item>
                     <xf:item>
-                        <xf:label>Every Month (Cardinal)</xf:label>
-                        <xf:value>cardinalMonthlyPattern</xf:value>
-                    </xf:item>
-                    <xf:item>
                         <xf:label>Every Month</xf:label>
                         <xf:value>monthlyPattern</xf:value>
                     </xf:item>
-                    <xf:item>
-                        <xf:label>Every Year</xf:label>
-                        <xf:value>yearlyPattern</xf:value>
-                    </xf:item>
                 </xf:select1>
-            </xf:group>
-            
-            <xf:submit submission="convert">
-                <xf:label>Create New Task</xf:label>
-            </xf:submit>
+                
+                <xf:select ref="repeatDayOfWeek" appearance="full">
+                    <xf:item>
+                           <xf:label>Monday</xf:label>
+                           <xf:value>monday</xf:value>
+                    </xf:item>
+                    <xf:item>
+                           <xf:label>Tuesday</xf:label>
+                           <xf:value>tuesday</xf:value>
+                    </xf:item>
+                    <xf:item>
+                           <xf:label>Wednesday</xf:label>
+                           <xf:value>wednesday</xf:value>
+                    </xf:item>
+                    <xf:item>
+                           <xf:label>Thursday</xf:label>
+                           <xf:value>thursday</xf:value>
+                    </xf:item>
+                    <xf:item>
+                           <xf:label>Friday</xf:label>
+                           <xf:value>friday</xf:value>
+                    </xf:item>
+                    <xf:item>
+                           <xf:label>Saturday</xf:label>
+                           <xf:value>saturday</xf:value>
+                    </xf:item>
+                    <xf:item>
+                           <xf:label>Sunday</xf:label>
+                           <xf:value>sunday</xf:value>
+                    </xf:item>
+                </xf:select>  
+              </xf:group>
+              
+              <xf:submit submission="convert">
+                  <xf:label>Create New Task</xf:label>
+              </xf:submit>
             </div>
             </div>
         </div>
