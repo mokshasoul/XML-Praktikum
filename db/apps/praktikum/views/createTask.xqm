@@ -12,46 +12,14 @@ declare option exist:serialize "method=xhtml media-type=text/xml indent=no  proc
 
 let $collection :=  'xmldb:exist:///db/apps/praktikum'
 let $login := xmldb:login($collection, 'admin', '')
-let $data-path := '/db/apps/praktikum/data/'
-let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
-let $post-req := request:get-data()
 
-let $description := $post-req//description
-let $endDate := $post-req//endDate
-let $startDate := $post-req//startDate
-let $startTime := $post-req//startTime
-let $endTime := $post-req//endTime
-let $attendees := $post-req//attendees
-let $location := $post-req//location
-let $recurrencePattern := $post-req//repeat
-let $patternType := $post-req//patternType
-
-let $dbCal := doc('/db/apps/praktikum/data/calendarX2.xml')
-let $event :=  if ($post-req) then(
-<superEvent description="{$description}">
-            <eventRules>
-                <eventRule description="{$description}" startTime="{$startTime}" endTime="{$endTime}" note="">
-                    <attendees>
-                        { for $attendee in tokenize($attendees, ",") return
-                        <attendee>{$attendee}</attendee> }
-                    </attendees>
-                    <location>{$location}</location>
-                </eventRule>
-            </eventRules>
-        </superEvent>
-)else( <root/>)
-
-let $pattern := if (not($event = "failure")) then 
-    <dailyPattern description="{$description}" startDate="{$startDate}" endDate="{if($endDate) then ($endDate) else ($startDate)}" />
-    else (<empty/>)
-let $store-return-status := if ($post-req) then (update insert $event into $dbCal//SuperEvents) else ()
 let $form := (
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms">
     <head>
         <link href="screen.css" rel="stylesheet" type="text/css" />
         <link href="form.css" rel="stylesheet" type="text/css" />
         <xf:model id="appendData">
-            <xf:instance id="dataI" src="../data/data.xml">
+            <xf:instance id="dataI">
                 <data>
                     <description/>
                     <category/>
@@ -60,9 +28,7 @@ let $form := (
                     <startTime/>
                     <endTime/>
                     <note/>
-                    <attendees>
-                        <attendee/>
-                    </attendees>
+                    <attendees/>
                     <location/>
                     <repeat />
                     <patternType />
