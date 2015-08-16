@@ -7,8 +7,7 @@ declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace transform = "http://exist-db.org/xquery/transform";
 declare option exist:serialize "method=xhtml media-type=text/xml indent=no  process-xsl-pi=no";
-declare function updateFunction:updateSeries($post-req as item()*)
-{
+declare function updateFunction:updateSeries($post-req as item()*){
 let $collection :=  'xmldb:exist:///db/apps/praktikum'
 let $login := xmldb:login($collection, 'admin', '')
 
@@ -75,7 +74,7 @@ let $newPattern := for $pattern in $assocPattern/*
                                  update replace $dbCal//patterns/*[@description=$pattern/@description] with $replacementPattern
                           )else(
                           if ( $pattern/name() = 'unionPattern') then (
-                            let $replacementPattern := <unionPattern description="{concat($description,'_u_1')}">
+                            let $replacementPattern := <unionPattern description="{$newEventRule}">
                                 <firstPattern>{if ($pattern/firstPattern = $eventRuleDesc) then $newEventRule else $pattern/firstPattern} </firstPattern>
                                     <furtherPatterns>
                                         {for $furtherPattern in $pattern//furtherPatterns/*
