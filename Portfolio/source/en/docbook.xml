@@ -8,7 +8,12 @@
 			<author><personname>et al.</personname></author>
 		</authorgroup>
 	</info>
+	<section>
+		<title>Einleitung</title>
+		<para>Im Praktikum XML-Technologie im Sommersemester 2015 an der TUM soll eine Kalenderanwendung nur mithilfe von XML-Technologien realisiert werden. Ziel ist es, eine funktionstüchtige Webanwendung zu entwickeln, in der neue Termine angelegt, bereits bestehende Termine verändert und eingetragene Termine wahlweise in einer Tagesansicht, Wochenansicht oder Monatsansicht angezeigt werden können. Jeder "Schritt" wird dabei mithilfe einer bestimmten XML-Technlogie realisiert, weshalb diese Dokumentation nach den Technologien gegliedert ist.</para>
+		<para>Im ersten Abschnitt wird kurz das Format vorgestellt, in dem die Events (in einer XML-Datei) abgelegt werden. Da auch (unendlich lange) Terminserien erstellt werden sollen, werden zunächst keine "direkten" Events mit genauem Datum gespeichert. Diese müssen zur Anzeige erst generiert werden, und zwar mithilfe der Abfragesprache XQuery. Dies wird im zweiten Abschnitt vorgestellt. Danach gilt es, die Kalendersichten als SVG-Grafiken zu generieren. Dazu wird die Transformationssprache XSLT eingesetzt. Die Webanwendung verwendet dann unterschiedliche Technologien, wir gehen dabei kurz auf XForms/XSLTForms und XRX und ??? ein. Zum Schluss ziehen wir noch ein Fazit zum Praktikum.</para>
 	
+	</section>
 	<section>
 		<title>Kalenderdaten</title>
 		<para>Der Kalender soll nicht nur einzelne Termine zu einem genau festgelegten Zeitpunkt an genau einem bestimmten Tag, sondern auch Terminserien unterstützen. Termine können deshalb nicht mit ihren genauen Daten gespeichert werden, da eine Terminserie ja theoretisch unendlich viele eigentliche Termine enthalten kann. Termine werden deshalb mithilfe von Patterns angelegt, aus denen dann alle eigentlichen Termine für die jeweilige Ansicht (z.B. für einen Monat) abgeleitet werden können. Die verschiedenen Patterns, die unterstützt werden sollen, sowie deren Verwendung sind im Folgenden aufgeführt. Dabei wird bei den Patterns zwischen einfachen Patterns (<link linkend="simplePattern"><code>simplePattern</code></link>) und zusammengesetzten Patterns (<link linkend="complexPattern"><code>complexPattern</code></link>) unterschieden. Alle Patterns enthalten das Attribut <code>description</code>, über dessen Wert sie eindeutig identifiziert werden können.</para>
@@ -315,8 +320,8 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 					<listitem><para><code>foo:printVerticalLine</code>: Druckt eine vertikale Linie. Diese wird verwendet, um einen Tag seitlich abzugrenzen (z.B. in der Wochenansicht).</para></listitem>
 					<listitem><para><code>foo:printHorizontalLine</code>: Druckt eine horizontale Linie. Diese wird verwendet, um die verschiedenen Wochen in der Monatsansicht voneinander abzugrenzen.</para></listitem>
 				<listitem><para><code>foo:printOverlay</code>: Druckt das Rechteck, welches den Hintergrund eines Tages (der Tagesansicht) darstellt.</para></listitem>
-				<listitem xml:id="printDayAndDate"><para><code>foo:printDayAndDate</code>: Druckt eine leere Tagesansicht für das übergebene Datum.</para></listitem>
-				<listitem xml:id="printWeekOfDay"><para><code>foo:printWeekOfDay</code>: Druckt die Wochenansicht für die Woche, in der das übergebene Datum liegt. Dabei werden zunächst mittels <link linkend="printDayAndDate"><code>foo:printDayAndDate</code></link> die sieben leeren Tage gedruckt, anschließend mit <code>use</code> der jeweilige Tag in <code>CalendarXTransformDay.xml</code> referenziert, sodass im Falle eines "Treffers" (d.h. wenn dieser Tag mindestens einen Termin hat) die Tagesansicht über den leeren Tag gelegt wird.</para></listitem>
+				<listitem xml:id="printDayAndDate"><para><code>foo:printDayAndDate</code>: Druckt eine leere Tagesansicht für das übergebene Datum. Außerdem wird der boolsche Parameter <code>displayDayName</code> übergeben. Ist dieser <code>false</code>, wird nur das Datum, nicht aber der Name des Tages gerdruckt. Dies soll dann passieren, wenn "Monatssicht" gewählt wurde un der Tag sich nicht in der ersten Woche des Monas befindet. Dadurch wird sichergestellt, dass der Name des Tages in einer Spalte der Monatssicht nur ganz oben steht.</para></listitem>
+				<listitem xml:id="printWeekOfDay"><para><code>foo:printWeekOfDay</code>: Druckt die Wochenansicht für die Woche, in der das übergebene Datum liegt. Dabei werden zunächst mittels <link linkend="printDayAndDate"><code>foo:printDayAndDate</code></link> die sieben leeren Tage gedruckt, anschließend mit <code>use</code> der jeweilige Tag in <code>CalendarXTransformDay.xml</code> referenziert, sodass im Falle eines "Treffers" (d.h. wenn dieser Tag mindestens einen Termin hat) die Tagesansicht über den leeren Tag gelegt wird. Übergeben wird außerdem der boolsche Parameter <code>displayDayName</code> (siehe oben).</para></listitem>
 				<listitem xml:id="printEventDescription"><para><code>foo:printEventDescription</code>: Druckt den Text, der innerhalb des Rechtecks, das den Termin darstellt, erscheinen soll. Dies umfasst die Start- und Enduhrzeit, den Ort und die Terminbeschreibung. Das Event wird dabei als Parameter <code>event</code> übergeben.</para></listitem>
 				<listitem xml:id="generateBasicTask"><para><code>foo:generateBasicTask</code>: Druckt die Darstellung eines Tasks, also das Rechteck inklusive der Beschreibung, wobei die Beschreibung durch Aufruf von <link linkend="printEventDescription"><code>foo:printEventDescription</code></link> eingefügt wird. Hier wird außerdem das Rechteck skaliert, und zwar abhängig vom Wert von <code>packedView</code> und der Anzahl paralleler Events (<code>@intersecting</code>). </para></listitem>
 				<listitem xml:id="translateTaskForDayView"><para><code>foo:translateTaskForDayView</code>: Verschiebt einen Task an die richtige Stelle innerhalb eines Tages. Dazu werden zunächst die Verschiebungen in X- und Y-Richtung berechnet und anschließend der zuvor in  <link linkend="generateBasicTask"><code>foo:generateBasicTask</code></link> generierte Task referenziert und mittels <code>transform</code> verschoben. Diese Methode wird für jedes Event jedes Tages aufgerufen.</para></listitem>
@@ -334,6 +339,46 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 				</para>
 			
 			</section>			
+		</section>
+		<section>
+			<title>XSLTforms</title>
+			<para>Für die Website verwenden wir XSLTforms für die Eingabemasken. Die Website zur Auswahl des Datums und der anzuzeigenden Sicht wird in <link linkend="getViews"><code>getViews.xqm</code></link> aufgerufen bzw. generiert. ...			</para>
+			<section xml:id="getViews">
+				<title>getViews.xqm</title>
+				<para>In <code>getViews.xqm</code> wird die Website generiert, die Eingabemasken zur Auswahl des Datums und der gewünschten Sicht enthält und die Sicht entsprechend anzeigt. Es gibt dabei folgende Eingabemöglichkeiten:
+				<itemizedlist>
+					<listitem><para><code>date</code>: Auswahlmöglichkeit des Datums. Da als Typ <code>xs:date</code> gewählt wurde, zeigt der Browser entsprechend einen Datepicker an.</para>
+					</listitem>
+					<listitem><para><code>mode</code>: Dieser Parameter gibt die gewünschte Sicht an. Dazu werden drei Buttons angezeigt, die jeweils einer Sicht zugeordnet sind. <code>mode</code> erhält so die Werte <code>Day</code>, <code>Week</code> oder <code>Month</code>.</para></listitem>
+					<listitem><para><code>packedView</code>: Der Nutzer soll (bei Tages- und Wochensicht) zwischen der Standardsicht (bei der die Daten abhängig von Uhrzeit und Länge des Termins angeordnet und skaliert sind) und der kompakten Sicht (Terminliste) wählen können. Dies passiert mittels eines Dropdowns (<code>select1</code>), welches dem Parameter <code>packedView</code> die Werte <code>false</code> (normale Sicht) oder <code>true</code> (kompakte Sicht) zuweist.</para></listitem>
+				</itemizedlist>
+				Das Model sieht letztentlich so aus:
+				<programlisting>
+					<![CDATA[
+					<xf:model id="viewModel">
+					 <xf:instance xmlns="" id="dateData">
+					  <root>
+					   <date>{$param2}</date>
+					   <mode></mode>
+					   <packedView>{$param3}</packedView>
+					  </root>
+					 </xf:instance>
+					 <xf:instance id='inlineSVG'>
+					  {$svg}
+					 </xf:instance>
+					  <xf:submission id="getView" method="post" action="getViews.xqm"/>
+					  <xf:bind nodeset="instance('dateData')//date" type="xs:date"/>
+					  <xf:bind nodeset="instance('dateData')//mode" type="xs:string"/>
+					  <xf:bind nodeset="instance('dateData')//packedView" type="xs:boolean"/>
+					 </xf:model>
+        ]]>
+					</programlisting>
+				</para>
+				<para>Zunächst wird überprüft, ob ein POST-request vorliegt. Wenn ja, werden die oben genannten drei Parameter in Variablen gespeichert. Wenn dies nicht der Fall ist, wurde die Seite mittels GET aufgerufen. Dann werden den Variablen Standardwerte so zugewiesen, dass die Tagesansicht des aktuellen Tages angezeigt wird. Auf Grundlage der gesetzten Parameter wird die Generierung des SVGs (also die Ausführung von <link linkend="CalendarXTransform"><code>CalendarXTransform.xslt</code></link>) angestoßen. Schließlich wird die Webseite mit allen XSLTforms-Elementen und dem eingebetteten generierten SVG erstellt.</para>
+			</section>
+		
+		
+		
 		</section>
 		<section>
 			<title>Das Praktikum</title>
