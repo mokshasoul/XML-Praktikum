@@ -51,7 +51,9 @@ let $event :=  if ($mode eq 'singleDay') then(
                 </eventRule>
             </eventRules>
         </superEvent>
-)else( <superEvent description="{$description}">
+        
+)else( 
+<superEvent description="{$description}">
             <eventRules>
                 <eventRule description="{$eventRuleDesc}" startTime="{$startTime}" endTime="{$endTime}" note="">
                 <recurrencePattern>{$eventRuleDesc}</recurrencePattern>
@@ -62,25 +64,24 @@ let $event :=  if ($mode eq 'singleDay') then(
                     <location>{$location}</location>
                 </eventRule>
             </eventRules>
-        </superEvent>)
+        </superEvent>
+        )
 let $store-return-status := update insert $event into $dbCal//SuperEvents
 (: pattern types :)
+
 let $dailyPattern:= if ($startDate and $endDate) then  
     let $pattern :=  <dailyPattern description="{$description}" startDate="{$startDate}" endDate="{$endDate}" />
     return
         update insert $pattern into $dbCal//patterns 
     else (xs:boolean('false')) 
 
-let $intersectionPattern := if ($dailyPattern and ($mode eq "Weekly")) then(
+let $intersectionPattern := if ($dailyPattern and ($mode eq "weeklyPattern")) then(
                 let $pattern := <intersectionPattern description="{$eventRuleDesc}">
             <firstPattern>{$dailyPattern/@description}</firstPattern>
             <furtherPatterns>{
-                for $day in $days/*
+                for $day in tokenize($days," ")
                 return
-                    if ($day) then(
-                        <furtherPattern>{$day/name()}</furtherPattern>
-                        
-                        )else()
+                     <furtherPattern>{$day}</furtherPattern>
             }
             </furtherPatterns>
         </intersectionPattern>
@@ -89,29 +90,37 @@ let $intersectionPattern := if ($dailyPattern and ($mode eq "Weekly")) then(
     
    (: else( (mode eq "weekly") and not($dailyPattern) ) :)
 
-let $weeklyPattern := if (($mode eq "weekly") and $daysCount = 1) then (
-    <weeklyPattern description="{$description}" dayOfWeek="{$days}" />
-) else if ((mode eq "weekly") and not ($dailyPattern)) then (
-    <weeklyPattern description="{$description}" dayOfWeek="{$days}" />
-    ) else ()
-
-let $unionPattern := if (($mode eq "weekly") and $daysCount > 1) then (
-        <unionPattern description="{$eventRuleDesc}">
-         <firstPattern>{$dailyPattern/@description}</firstPattern>
+let $weeklyPattern := if (($mode eq "weeklyPattern") and $daysCount = 1) then (
+    <weeklyPattern description="{$description}" dayOfWeek="{$day}" />
+    )else()
+    
+let $unionPattern := if (($mode eq "weeklyPattern") and $daysCount > 1) then (
+        let $pattern := <unionPattern description="{$eventRuleDesc}">
+         <firstPattern>{tokenize($days, " ")[1]}</firstPattern>
          <furtherPatterns> {
              for $day in tokenize($days, " ")
              return
                  if ($day) then(
                      <furtherPattern>{$day}</furtherPattern>
-                ) 
+                )else()
          }
           </furtherPatterns>
     </unionPattern>
-    )
+         return 
+         update insert $pattern into $dbCal//patterns
+    )else()
+    
+let $monthlyPattern := if (($mode eq "monthlyPattern") and ($monthMode eq "day")) then
+    <ordinalMonthlyPattern ordinal="first" dayType="{$startDate}"
+            description="{$description}"/>
+    else
+    <cardinalMonthlyPattern dayOfMonth="{fn:day-from-date($startDate)}" description="{$description}"/>
 
-   
-    
-    
-    return updade insert $pattern into $dbCal//patterns
-    ) else () :)
-    
+let $yearlyPattern := if (($mode eq "yearlyPattern") and ($yearlyMode eq "day")) then 
+        <ordinalYearlyPattern ordinal="second" dayType="Saturday"
+month="{fn:month-from-date($startDate)}" description="{$description}"/>
+else
+<cardinalYearlyPattern dayOfMonth="{fn:day-from-date($startDate)}" month="{fn:month-from-date($startDate)}"
+description="{$description}"/>
+return
+<root/>
