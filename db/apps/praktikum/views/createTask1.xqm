@@ -67,6 +67,10 @@ let $form := (
                     <repeat />
                     <patternType />
                     <repeatDayOfWeek />
+                    <monthlyCardinalOrOrdinal />
+                    <monthlyBeginOn />
+                    <yearlyCardinalOrOrdinal />
+                    <yearlylyBeginOn />
                 </data>
             </xf:instance>
             <xf:bind ref="description" required="false()"/>
@@ -79,7 +83,11 @@ let $form := (
             <xf:bind ref="repeat" required="false()" type="xs:boolean"/>
             <xf:bind ref="patternType" required="false()" relevant="instance('dataI')//repeat[.='true']" />
             <xf:bind ref="repeatDayOfWeek" required="false()" type="xs:boolean" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='weeklyPattern']" />
-
+            <xf:bind ref="monthlyCardinalOrOrdinal" required="false()" type="xs:boolean" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='monthlyPattern']" />
+            <xf:bind ref="monthlyBeginOn" required="false()" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='monthlyPattern']" />
+            <xf:bind ref="yearlyCardinalOrOrdinal" required="false()" type="xs:boolean" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='yearlyPattern']" />
+            <xf:bind ref="yearlyBeginOn" required="false()"  relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='yearlyPattern']" />
+           
             <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
                 <xf:action ev:event="xforms-submit-error">
                     <xf:message>An Error has occured please contact Admin</xf:message>
@@ -151,6 +159,10 @@ let $form := (
                         <xf:label>Every Month</xf:label>
                         <xf:value>monthlyPattern</xf:value>
                     </xf:item>
+                    <xf:item>
+                        <xf:label>Every Year</xf:label>
+                        <xf:value>yearlyPattern</xf:value>
+                    </xf:item>
                 </xf:select1>
                 
                 <xf:select ref="repeatDayOfWeek" appearance="full">
@@ -183,6 +195,37 @@ let $form := (
                            <xf:value>sunday</xf:value>
                     </xf:item>
                 </xf:select>  
+                
+                <xf:select1 ref="monthlyCardinalOrOrdinal" appearance="full">
+                    <xf:label>Select ordinal or cardinal?</xf:label>
+                    <xf:item>
+                        <xf:label>Day of the month (cardinal)</xf:label>
+                        <xf:value>monthlyCardinal</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Day of the week (ordinal)</xf:label>
+                        <xf:value>monthlyOrdinal</xf:value>
+                    </xf:item>
+                </xf:select1>
+                <xf:input ref="instance('dataI')//monthlyBeginOn">
+                    <xf:label  class="inputLabels">Begin On:</xf:label>
+                </xf:input>
+                
+                <xf:select1 ref="yearlyCardinalOrOrdinal" appearance="full">
+                    <xf:label>Select ordinal or cardinal?</xf:label>
+                    <xf:item>
+                        <xf:label>Day of the month (cardinal)</xf:label>
+                        <xf:value>yearlyCardinal</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Day of the week (ordinal)</xf:label>
+                        <xf:value>yearlyOrdinal</xf:value>
+                    </xf:item>
+                </xf:select1>
+                <xf:input ref="instance('dataI')//yearlyBeginOn">
+                    <xf:label  class="inputLabels">Begin On:</xf:label>
+                </xf:input>
+                
               </xf:group>
               
               <xf:submit submission="convert">

@@ -10,7 +10,11 @@
         <attendee/>
     </attendees>
     <location/>
-    <repeat />
-    <patternType />
-    <repeatDayOfWeek />
+    <repeat/>
+    <patternType/>
+    <repeatDayOfWeek/>
+    <monthlyCardinalOrOrdinal />
+    <monthlyBeginOn />
+    <yearlyCardinalOrOrdinal />
+    <yearlyBeginOn />
 </data>
