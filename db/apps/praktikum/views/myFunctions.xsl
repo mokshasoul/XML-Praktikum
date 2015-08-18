@@ -43,7 +43,7 @@ returns the scaling factor for scaling the event box accoridng to the duratio of
     <!-- 
         returns the URL used to update the task with "description" on "date" 
     --><xsl:function name="foo:getUpdateLink"><xsl:param name="date"/><xsl:param name="description"/>
-        editTask.xqm?date=<xsl:value-of select="$date"/>&amp;description=<xsl:value-of select="$description"/></xsl:function><xsl:template xmlns="http://www.w3.org/2000/svg" name="foo:printEventDescription"><a xlink:href="{foo:getUpdateLink(@date, @description)}"><text transform="translate(0,15)" font-size="30"><tspan x="10" y="10" font-size="20"><xsl:value-of select="fn:format-time(xs:time(@startTime), '[H01]:[m01]')"/>-<xsl:value-of select="fn:format-time(xs:time(@endTime), '[H01]:[m01]')"/> |  <xsl:value-of select="location/@description"/></tspan><tspan x="10" y="35" font-weight="bold"><xsl:value-of select="@description"/></tspan></text></a></xsl:template>
+         updateTask.xqm?date=<xsl:value-of select="$date"/>&amp;description=<xsl:value-of select="$description"/></xsl:function><xsl:template xmlns="http://www.w3.org/2000/svg" name="foo:printEventDescription"><a xlink:href="{foo:getUpdateLink(@date, @description)}"><text transform="translate(0,15)" font-size="30"><tspan x="10" y="10" font-size="20"><xsl:value-of select="fn:format-time(xs:time(@startTime), '[H01]:[m01]')"/>-<xsl:value-of select="fn:format-time(xs:time(@endTime), '[H01]:[m01]')"/> |  <xsl:value-of select="location/@description"/></tspan><tspan x="10" y="35" font-weight="bold"><xsl:value-of select="@description"/></tspan></text></a></xsl:template>
 	
 	
 	

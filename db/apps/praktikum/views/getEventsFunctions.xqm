@@ -11,7 +11,7 @@ import module namespace helper = 'http://www.help.com' at 'helperFunctions.xqm';
 
 declare function getEvents:getBasicEventsForDay($date as xs:date)
 {
-    for $superEvent at $s in doc('../data/sampleCalendarX.xml')//superEvents/superEvent
+    for $superEvent at $s in helper:calendarDoc()//superEvents/superEvent
     for $event at $e in $superEvent/eventRules/eventRule
     where helper:isDateInPattern($date, $event/recurrencePattern/text())
     order by $event/@startTime, $event/@endTime
@@ -34,7 +34,7 @@ declare function getEvents:getBasicEventsForDay($date as xs:date)
 
 declare function getEvents:getEventDaysOfWeek($date as xs:date)
 {
-    for $superEvent in doc('../data/sampleCalendarX.xml')//superEvents/superEvent
+    for $superEvent in helper:calendarDoc()//superEvents/superEvent
     for $event in $superEvent/eventRules/eventRule
     for $eventDay in helper:getDatesInPatternWithinWeek($date, $event/recurrencePattern/text())
     order by $eventDay, $event/@startTime, $event/@endTime
@@ -43,7 +43,7 @@ declare function getEvents:getEventDaysOfWeek($date as xs:date)
 
 declare function getEvents:getEventDaysOfMonth($date as xs:date)
 {
-    for $superEvent in doc('../data/sampleCalendarX.xml')//superEvents/superEvent
+    for $superEvent in helper:calendarDoc()//superEvents/superEvent
     for $event in $superEvent/eventRules/eventRule
     for $eventDay in helper:getDatesInPatternWithinMonth($date, $event/recurrencePattern/text())
     order by $eventDay, $event/@startTime, $event/@endTime

@@ -7,9 +7,14 @@ module namespace helper = "http://www.help.com";
 import module namespace functx = 'http://www.functx.com' at 'functx-1.0-doc-2007-01.xq';
 
 
+declare function helper:calendarDoc(){
+    doc('../data/sampleCalendarX2.xml')
+};
+
+
 declare function helper:isDateInPattern($date as xs:date, $patternName as xs:string)
 {
-    let $pattern := doc('../data/sampleCalendarX.xml')//patterns/*[@description = $patternName]
+    let $pattern := helper:calendarDoc()//patterns/*[@description = $patternName]
     return
         switch ($pattern/name())
             case "dailyPattern"
