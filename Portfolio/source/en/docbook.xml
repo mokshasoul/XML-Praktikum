@@ -231,7 +231,7 @@
 				</section>
 			<section>
 					<title>helper:getOrdinalOfMonth($date as xs:date, $ordinal, $dayType)</title>
-					<para>Diese Funktion gibt das Datum des <code>$ordinal</code>-ten <code>$dayType</code> (also z.B. das Datum des zweiten Dienstags) des Monats, in dem das Datum <code>$date</code> liegt, zurück. Diese Methode wird bei Vorkommen der Pattern <link  linkend="ordinalMonthlyPattern"><code>ordinalMonthlyPattern</code></link> und <link  linkend="ordinalYearlyPattern"><code>ordinalYearlyPattern</code></link> von <link  linkend="isDateInPattern"><code>helper:isDateInPattern</code></link> aufgerufen.</para>
+					<para>Diese Funktion gibt das Datum des <code>$ordinal</code>-ten <code>$dayType</code> (also z.B. das Datum des zweiten Dienstags) des Monats, in dem das Datum <code>$date</code> liegt, zurück. Diese Methode wird bei Vorkommen der Pattern <link linkend="ordinalMonthlyPattern"><code>ordinalMonthlyPattern</code></link> und <link linkend="ordinalYearlyPattern"><code>ordinalYearlyPattern</code></link> von <link linkend="isDateInPattern"><code>helper:isDateInPattern</code></link> aufgerufen.</para>
 				</section>
 			</section>
 			<section>
@@ -294,7 +294,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			
 			<section xml:id="CalendarXTransformDay">
 				<title>Tagessicht</title>
-				<para>Danach werden die Tagessichten generiert und in der Ausgabe unterhalb der zuvor generierten Events angeordnet. Wenn <code>packedView="false"</code> ist, werden die Termine in Abhängigkeit von ihrer Startzeit positioniert. Dabei entspricht eine Minute auf der Zeitachse wieder einem Pixel auf der Y-Achse, sodass die Startuhrzeit in Minuten ab Mitternacht die Position angibt. Da dies sehr groß wäre wird der Tag, der angezeigt werden soll, anschließend skaliert. Zu beachten ist, dass alle Tage mit Terminen (unabhängig vom in <code>date</code> angegebenen Datum) generiert werden müssen, da diese für die Wochensicht und somit auch die Monatssicht gebraucht werden. Alle Events eines Tages werden unter einer gemeinsamen ID, die das Datum enthält, zusammengefasst. Der übergebene Parameter <code>date</code> besagt dabei lediglich, welcher der generierten Tage angezeigt werden soll, falls die Tagesansicht vom Nutzer gewünscht wurde. Die Funktion <code></code> <link linkend="printDayAndDate"><code>foo:printDayAndDate</code></link> in <link linkend="myFunctions"><code>myFunctions.xsl</code></link> generiert dazu jeweils den Tag ohne Termine (mit Datum oben), Termine für diesen Tag werden dann mittels dem SVG-Element <code>use</code> darüber gelegt, sofern das referenzierte Element existiert. Somit wird, wenn am Tag mit Datum <code>date</code> kein Termin stattfindet, trotzdem eine (leere) Tagesansicht erzeugt, andernfalls ist der Tag mit allen Terminen sichtbar.</para>
+				<para>Danach werden die Tagessichten generiert und in der Ausgabe unterhalb der zuvor generierten Events angeordnet. Wenn <code>packedView="false"</code> ist, werden die Termine in Abhängigkeit von ihrer Startzeit positioniert. Dabei entspricht eine Minute auf der Zeitachse wieder einem Pixel auf der Y-Achse, sodass die Startuhrzeit in Minuten ab Mitternacht die Position angibt. Da dies sehr groß wäre wird der Tag, der angezeigt werden soll, anschließend skaliert. Zu beachten ist, dass alle Tage mit Terminen (unabhängig vom in <code>date</code> angegebenen Datum) generiert werden müssen, da diese für die Wochensicht und somit auch die Monatssicht gebraucht werden. Alle Events eines Tages werden unter einer gemeinsamen ID, die das Datum enthält, zusammengefasst. Der übergebene Parameter <code>date</code> besagt dabei lediglich, welcher der generierten Tage angezeigt werden soll, falls die Tagesansicht vom Nutzer gewünscht wurde. Die Funktion <code/> <link linkend="printDayAndDate"><code>foo:printDayAndDate</code></link> in <link linkend="myFunctions"><code>myFunctions.xsl</code></link> generiert dazu jeweils den Tag ohne Termine (mit Datum oben), Termine für diesen Tag werden dann mittels dem SVG-Element <code>use</code> darüber gelegt, sofern das referenzierte Element existiert. Somit wird, wenn am Tag mit Datum <code>date</code> kein Termin stattfindet, trotzdem eine (leere) Tagesansicht erzeugt, andernfalls ist der Tag mit allen Terminen sichtbar.</para>
 			</section>
 			<section xml:id="CalendarXTransformWeek">
 				<title>Wochensicht</title>
@@ -337,14 +337,20 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 				</itemizedlist>
 				Hauptsächlich aus dem letzten Grund haben wir uns dann dazu entschieden, nur eine SVG-Datei zu generieren, die alle Elemente enthält. Dies war relativ einfach, da sowieso fast alles in Templates und Funktionen ausgelagert wurde und die ursprünglichen vier XSLT-Stylesheets deshalb eh relativ kurz waren. Anschließend wurde alles immer richtig angezeigt und der verwendete Browser spielt in diesem Zusammenhang nun auch keine Rolle mehr.
 				</para>
-			
+						
 			</section>			
 		</section>
 		<section>
-			<title>XSLTforms</title>
-			<para>Für die Website verwenden wir XSLTforms für die Eingabemasken. Die Website zur Auswahl des Datums und der anzuzeigenden Sicht wird in <link linkend="getViews"><code>getViews.xqm</code></link> aufgerufen bzw. generiert. ...			</para>
+			<title>XRX</title>
+		<para>Die Implementierung der Front-End Application sollte über XForms erfolgen. Die
+			Architektur von XForms basiert auf das Model-View-Controller Konzept. In unserem Fall
+			wurde XForms in Kombination mit XQuery eingesetzt um eine XRX Applikation zu
+			konstruieren. </para>
+
 			<section xml:id="getViews">
 				<title>getViews.xqm</title>
+				<para>Für die Website verwenden wir XSLTforms für die Eingabemasken. Die Website zur Auswahl des
+					Datums und der anzuzeigenden Sicht wird in <link linkend="getViews"><code>getViews.xqm</code></link> aufgerufen bzw. generiert.</para>
 				<para>In <code>getViews.xqm</code> wird die Website generiert, die Eingabemasken zur Auswahl des Datums und der gewünschten Sicht enthält und die Sicht entsprechend anzeigt. Es gibt dabei folgende Eingabemöglichkeiten:
 				<itemizedlist>
 					<listitem><para><code>date</code>: Auswahlmöglichkeit des Datums. Da als Typ <code>xs:date</code> gewählt wurde, zeigt der Browser entsprechend einen Datepicker an.</para>
@@ -374,11 +380,121 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
         ]]>
 					</programlisting>
 				</para>
-				<para>Zunächst wird überprüft, ob ein POST-request vorliegt. Wenn ja, werden die oben genannten drei Parameter in Variablen gespeichert. Wenn dies nicht der Fall ist, wurde die Seite mittels GET aufgerufen. Dann werden den Variablen Standardwerte so zugewiesen, dass die Tagesansicht des aktuellen Tages angezeigt wird. Auf Grundlage der gesetzten Parameter wird die Generierung des SVGs (also die Ausführung von <link linkend="CalendarXTransform"><code>CalendarXTransform.xslt</code></link>) angestoßen. Schließlich wird die Webseite mit allen XSLTforms-Elementen und dem eingebetteten generierten SVG erstellt.</para>
+				<para>Zunächst wird überprüft, ob ein POST-request vorliegt. Wenn ja, werden die oben genannten drei Parameter in Variablen gespeichert. 
+					Wenn dies nicht der Fall ist, wurde die Seite mittels GET aufgerufen. Dann werden den Variablen Standardwerte so zugewiesen, 
+					dass die Tagesansicht des aktuellen Tages angezeigt wird. Auf Grundlage der gesetzten Parameter wird die Generierung des SVGs (also die Ausführung 
+					von <link linkend="CalendarXTransform"><code>CalendarXTransform.xslt</code></link>) angestoßen. Schließlich wird die Webseite mit allen XSLTforms-Elementen und 
+					dem eingebetteten generierten SVG erstellt.</para>
 			</section>
-		
-		
-		
+			<section>
+				<title>createTask.xqm</title>
+				<para>Create Task erstellt per XQuery die XForm für die Eingabe eines neuen Termins. Die daten werden über POST an addEvents.xqm weitervermitellt.</para>
+				<para>Das Model für die XForm Datei sieht folgendermaßen aus:
+					<programlisting>
+				<![CDATA[			
+        <xf:model xmlns="" id="appendData">
+            <xf:instance xmlns="" id="dataI">
+                <root>
+                    <description/>                    
+                    <category/>
+                    <startDate/>
+                    <endDate/>
+                    <startTime/>
+                    <endTime/>
+                    <note/>
+                    <attendees>
+                    </attendees>
+                    <location/>
+                    <repeat />
+                    <patternType />
+                    <repeatDayOfWeek />
+                </root>
+            </xf:instance>
+            <xf:bind ref="description" required="true()" type="xs:string"/>
+            <xf:bind ref="startDate" required="true()" type="xs:date"/>
+            <xf:bind ref="endDate" required="false()" type="xs:date" />
+            <xf:bind ref="startTime" required="false()" type="xs:string"/>
+            <xf:bind ref="endTime" required="false()" type="xs:string"/>
+            <xf:bind ref="attendees" required="false()" type="xs:string"/>
+            <xf:bind ref="location" required="false()"/>
+            <xf:bind ref="repeat" required="false()" type="xs:boolean"/>
+            <xf:bind ref="patternType" required="false()" relevant="instance('dataI')//repeat[.='true']" />
+            <xf:bind ref="repeatDayOfWeek" required="false()" type="xs:boolean" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='weeklyPattern']" />
+
+            <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
+                <xf:action ev:event="xforms-submit-error">
+                    <xf:message>An Error has occured please contact Admin</xf:message>
+                </xf:action>
+                <xf:action ev:event="xforms-submit-done">
+                    <xf:message>Task Created You Can Close The Window Now or Create New Task</xf:message>
+                    <xf:reset model="appendData"/>
+                </xf:action>
+            </xf:submission>
+        </xf:model>
+				 ]]>
+					</programlisting>
+					Das Datenmodell sind die Eingabedaten für einen Termin. Wir benutzen eine boolean variable Names <code>repeat</code> um herauszufinden ob der Termin 
+					sich wiederholen soll. Die Variable mit namen <code>patternType</code> bestimmt was für eine Art wiederholung der Termin haben soll. Durch diese beiden
+					variablen können wir die Variable <code>repeatDayOfWeek</code> darstellen die nur sichtbar ist wenn ein Termin sich tatsächlich Wochentlich wiederholt. Dies 
+					aktiviert eine Checkbox indem man die verschiedenen Tage angeben kann. Dies ist gleich für monatliche und jährliche Wiederholungen, jedoch ohne das die eingabe Tage zur auswahl gibt.
+				</para>
+				<para>Als submit dient die funktion mit id <code>convert</code> die das Xquery addEvents.xqm aufruft. Falls die Operation Erfolgreich ist, wird die XForm 
+				zurueckgesetzt und eine Nachricht wird eingeblended die denn Nutzer drauf verweist, dass der Termin erstellt wuerde.
+				</para>
+			</section>
+			<section>
+				<title>addEvents.xqm</title>
+				<para>Die Datei ist eine pure xquery die Daten-Operationen auf unsere Datenbank ausfuhert, in diesem Fall die Datei <code>sampleCalendarX.xml</code>
+				Zuerst werden die Variablen vom post request ausgelesen. Dannach wird geprüft, falls es ein Start und End-Datum existiert, ob sie gleich sind und darauf wird der Modus falls dies der Fall ist auf <code>singleDay</code> gesetzt
+					ansonsten wird der Modus zum <code>patternType</code> gesetzt.
+				</para>
+				<para>
+					Für das zusammenstellen eines Events unterscheiden wir zwischen folgenden Ereignissen:
+					<itemizedlist>
+						<listitem>
+							<para>
+								Fall 1: Modus ist <code>singleDay</code> da wird ein Super Event erstellt, das als EventRule ID die Beschreibung des Termins. Diese Beschreibung wird auch als Name fuer das dazugehoerig erstelltes dailyPattern.
+							</para>
+						</listitem>
+						<listitem>
+							<para>
+								Fall 2:  Wenn der Modus nicht <code>singleDay</code> ist, wird ein Standard Super Event angelegt mit der EventRule ID Beschreibung + _1. Falls ein Start und End-Datum existiert wird ein DailyPattern angelegt, das als ID die Beschreibung vom Termin hat
+							</para>
+						</listitem>
+						<listitem>
+							<para>
+								Fall 3: Falls Es Wochentlich stattfinden soll und ein Start und End-Datum besitzt dann fügen wir ein IntersectionPattern mit dem Vorher Erstelltem DailyPattern und als ID die Beschreibung + _1
+							</para>
+						</listitem>
+					<listitem>
+						<para>
+							Fall 4: Falls es Wochentlich stattfinden soll und ein Start und End-Datum existiert, dann wird ein Intersection Pattern gebaut mit denn festen Schema
+						<programlisting>
+							<![CDATA[	
+							<intersectionPattern description="{$eventRuleDesc}">
+            <firstPattern>{$dailyPattern/@description}</firstPattern>
+            <furtherPatterns>{
+                for $day in tokenize($days," ")
+                return
+                     <furtherPattern>{$day}</furtherPattern>
+            }
+            </furtherPatterns>
+        </intersectionPattern>
+							]]>
+						</programlisting>		
+						</para>
+					</listitem>
+					</itemizedlist>
+				</para>
+			</section>
+			<section>
+				<title>updateTask.xqm</title>
+				<para></para>
+			</section>
+			<section>
+				<title>updateEvents.xqm und updateTesting.xqm</title>
+				<para></para>
+			</section>
 		</section>
 		<section>
 			<title>Das Praktikum</title>
