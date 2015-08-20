@@ -5,12 +5,14 @@
 		<subtitle>Praktikum XML-Technologie Sommersemester 2015</subtitle>
 		<authorgroup>
 			<author><personname>David Becher</personname><email>david.becher@mytum.de</email></author>
-			<author><personname>et al.</personname></author>
+			<author><personname>Charis-Nicolas Georgiou</personname><email>georgiou@in.tum.de</email></author>
+			<author><personname>Chahir Jeljeli</personname><email>foo@bar.de</email></author>
+			<author><personname>Aryan Borhani</personname><email>foo@bar.de</email></author>
 		</authorgroup>
 	</info>
 	<section>
 		<title>Einleitung</title>
-		<para>Im Praktikum XML-Technologie im Sommersemester 2015 an der TUM soll eine Kalenderanwendung nur mithilfe von XML-Technologien realisiert werden. Ziel ist es, eine funktionstüchtige Webanwendung zu entwickeln, in der neue Termine angelegt, bereits bestehende Termine verändert und eingetragene Termine wahlweise in einer Tagesansicht, Wochenansicht oder Monatsansicht angezeigt werden können. Jeder "Schritt" wird dabei mithilfe einer bestimmten XML-Technlogie realisiert, weshalb diese Dokumentation nach den Technologien gegliedert ist.</para>
+		<para>Im Praktikum XML-Technologie im Sommersemester 2015 an der TUM soll eine Kalenderanwendung nur mithilfe von XML-Technologien realisiert werden. Ziel ist es, eine funktionstüchtige Webanwendung zu entwickeln, in der neue Termine angelegt, eingetragene Termine wahlweise in einer Tagesansicht, Wochenansicht oder Monatsansicht angezeigt sowie bereits bestehende Termine verändert und werden können. Dabei soll es möglich sein, sowohl einzelne Termine einer Terminserie als auch alle Termine einer Serie zu bearbeiten. Jeder "Schritt" wird dabei mithilfe einer bestimmten XML-Technlogie realisiert, weshalb diese Dokumentation nach den Technologien gegliedert ist.</para>
 		<para>Im ersten Abschnitt wird kurz das Format vorgestellt, in dem die Events (in einer XML-Datei) abgelegt werden. Da auch (unendlich lange) Terminserien erstellt werden sollen, werden zunächst keine "direkten" Events mit genauem Datum gespeichert. Diese müssen zur Anzeige erst generiert werden, und zwar mithilfe der Abfragesprache XQuery. Dies wird im zweiten Abschnitt vorgestellt. Danach gilt es, die Kalendersichten als SVG-Grafiken zu generieren. Dazu wird die Transformationssprache XSLT eingesetzt. Die Webanwendung verwendet dann unterschiedliche Technologien, wir gehen dabei kurz auf XForms/XSLTForms und XRX und ??? ein. Zum Schluss ziehen wir noch ein Fazit zum Praktikum.</para>
 	
 	</section>
@@ -433,42 +435,41 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
         </xf:model>
 				 ]]>
 					</programlisting>
-					Das Datenmodell sind die Eingabedaten für einen Termin. Wir benutzen eine boolean variable Names <code>repeat</code> um herauszufinden ob der Termin 
-					sich wiederholen soll. Die Variable mit namen <code>patternType</code> bestimmt was für eine Art wiederholung der Termin haben soll. Durch diese beiden
-					variablen können wir die Variable <code>repeatDayOfWeek</code> darstellen die nur sichtbar ist wenn ein Termin sich tatsächlich Wochentlich wiederholt. Dies 
-					aktiviert eine Checkbox indem man die verschiedenen Tage angeben kann. Dies ist gleich für monatliche und jährliche Wiederholungen, jedoch ohne das die eingabe Tage zur auswahl gibt.
+					Das Datenmodell beinhaltet die Eingabedaten für einen Termin. Wir benutzen eine boolsche Variable names <code>repeat</code>, um herauszufinden, ob der Termin 
+					sich wiederholen soll. Die Variable mit Namen <code>patternType</code> bestimmt, was für eine Art Wiederholung der Termin haben soll. Durch diese beiden
+					Variablen können wir die Variable <code>repeatDayOfWeek</code> darstellen, die nur sichtbar ist, wenn ein Termin sich tatsächlich wöchentlich wiederholen soll. Dies 
+					kann durch Checkboxen angegeben werden, mit denen man die verschiedenen Tage angeben kann. Dies ist gleich für monatliche und jährliche Wiederholungen, jedoch ohne das die eingabe Tage zur auswahl gibt. ???????????????????
 				</para>
-				<para>Als submit dient die funktion mit id <code>convert</code> die das Xquery addEvents.xqm aufruft. Falls die Operation Erfolgreich ist, wird die XForm 
-				zurueckgesetzt und eine Nachricht wird eingeblended die denn Nutzer drauf verweist, dass der Termin erstellt wuerde.
+				<para>Als submit dient die Funktion mit id <code>convert</code>, die die XQuery addEvents.xqm aufruft. Falls die Operation erfolgreich ist, wird die XForm 
+				zurückgesetzt und eine Nachricht wird eingeblendet, die den Nutzer drauf hinweist, dass der Termin erstellt wurde.
 				</para>
 			</section>
 			<section>
 				<title>addEvents.xqm</title>
-				<para>Die Datei ist eine pure xquery die Daten-Operationen auf unsere Datenbank ausfuhert, in diesem Fall die Datei <code>sampleCalendarX.xml</code>
-				Zuerst werden die Variablen vom post request ausgelesen. Dannach wird geprüft, falls es ein Start und End-Datum existiert, ob sie gleich sind und darauf wird der Modus falls dies der Fall ist auf <code>singleDay</code> gesetzt
-					ansonsten wird der Modus zum <code>patternType</code> gesetzt.
+				<para>Die Datei ist eine XQuery, die Daten-Operationen auf unsere Datenbank ausführt, in diesem Fall die Datei <code>sampleCalendarX.xml</code>.
+				Zuerst werden die Variablen vom POST-Request ausgelesen. Dannach wird geprüft, ob ein Start- und End-Datum existiert, und wenn ja, ob sie gleich sind. Falls dies der Fall ist, wird der Modus auf <code>singleDay</code>, andernfalls auf <code>patternType</code> gesetzt.
 				</para>
 				<para>
-					Für das zusammenstellen eines Events unterscheiden wir zwischen folgenden Ereignissen:
+					Für das Zusammenstellen eines Events unterscheiden wir zwischen folgenden Ereignissen:
 					<itemizedlist>
 						<listitem>
 							<para>
-								Fall 1: Modus ist <code>singleDay</code> da wird ein Super Event erstellt, das als EventRule ID die Beschreibung des Termins. Diese Beschreibung wird auch als Name fuer das dazugehoerig erstelltes dailyPattern.
+								Fall 1: Modus ist <code>singleDay</code>. In diesem Fall wird ein <code>SuperEvent</code> erstellt, das als EventRule-ID die Beschreibung des Termins erhält. Diese Beschreibung wird auch als Name für das dazugehörige dailyPattern verwendet.
 							</para>
 						</listitem>
 						<listitem>
 							<para>
-								Fall 2:  Wenn der Modus nicht <code>singleDay</code> ist, wird ein Standard Super Event angelegt mit der EventRule ID Beschreibung + _1. Falls ein Start und End-Datum existiert wird ein DailyPattern angelegt, das als ID die Beschreibung vom Termin hat
+								Fall 2:  Wenn der Modus nicht <code>singleDay</code> ist, wird ein Standard-<code>SuperEvent</code> angelegt, wobei sich die EventRule-ID aus der Beschreibung und  <code>_1</code> zusammensetzt. Falls ein Start und End-Datum existiert wird ein DailyPattern angelegt, dessen ID der Beschreibung des Termins entspricht.
 							</para>
 						</listitem>
 						<listitem>
 							<para>
-								Fall 3: Falls Es Wochentlich stattfinden soll und ein Start und End-Datum besitzt dann fügen wir ein IntersectionPattern mit dem Vorher Erstelltem DailyPattern und als ID die Beschreibung + _1
+								Fall 3: Falls der Termin wöchentlich stattfinden soll und ein Start und End-Datum besitzt fügen wir ein <code>IntersectionPattern</code> mit dem vorher erstellten <code>DailyPattern</code> ein, wobei sich die ID wieder aus Beschreibung und <code>_1</code> zusammensetzt.
 							</para>
 						</listitem>
 					<listitem>
 						<para>
-							Fall 4: Falls es Wochentlich stattfinden soll und ein Start und End-Datum existiert, dann wird ein Intersection Pattern gebaut mit denn festen Schema
+							Fall 4: Falls es Wochentlich stattfinden soll und ein Start und End-Datum existiert, dann wird ein Intersection Pattern gebaut mit denn festen Schema  ???????????????UNTERSCHIED ZU FALL 3?????????
 						<programlisting>
 							<![CDATA[	
 							<intersectionPattern description="{$eventRuleDesc}">
@@ -504,7 +505,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			</section>
 			<section>
 				<title>Im Team</title>
-				<para>Wir haben unsere Lösung des ersten Blatts (SVG) im Praktikum vorgestellt. Dadurch hatten wir bereits früh eine Basis für die Projektaufgabe. Wir haben ein git-Repository angelegt, um eine gemeinsame Versionskontrolle zu haben. Somit war die Möglichkeit gegeben, jederzeit am aktuellsten Code weiterzuarbeiten. .................</para>
+				<para>Wir haben unsere Lösung des ersten Blatts (SVG) im Praktikum vorgestellt. Dadurch hatten wir bereits früh eine Basis für die Projektaufgabe. Wir haben ein git-Repository angelegt, um eine gemeinsame Versionskontrolle zu haben. Somit war die Möglichkeit gegeben, jederzeit am aktuellsten Code weiterzuarbeiten. Während der Vorlesungszeit wurden dann auch die Aufgabenblätter zu XSLT und XQuery separat entwickelt. Die restliche Arbeit haben wir dann nach den Klausuren erledigt, wobei es in dieser Phase auch häufiger Treffen oder Skype-Temrine gab, um sich abzustimmen. Hier wurde auch an fast allen Punkten noch gearbeitet, auch die bereits entwickelten XSLT- und XQuery-Codes mussten teilweise noch angepasst werden.</para>
 			</section>
 		</section>
 </article>
