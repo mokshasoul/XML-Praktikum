@@ -391,63 +391,35 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			<section>
 				<title>createTask.xqm</title>
 				<para>Create Task erstellt per XQuery die XForm für die Eingabe eines neuen Termins. Die Daten werden über POST an addEvents.xqm weitervermittelt.</para>
-				<para>Das Model für die XForm Datei sieht folgendermaßen aus:
+				<para>Die Instance im Model für die XForm Datei sieht folgendermaßen aus:
 					<programlisting>
 				<![CDATA[			
-<xf:model xmlns="" id="appendData">
-    <xf:instance xmlns="" id="dataI">
-        <root>
-            <description/>                    
-            <category/>
-            <startDate/>
-            <endDate/>
-            <startTime/>
-            <endTime/>
-            <note/>
-            <attendees>
-            </attendees>
-            <location/>
-            <repeat />
-            <patternType />
-            <repeatDayOfWeek />
-        </root>
-    </xf:instance>
-    <xf:bind ref="description" required="true()" type="xs:string"/>
-    <xf:bind ref="startDate" required="true()" type="xs:date"/>
-    <xf:bind ref="endDate" required="false()" type="xs:date" />
-    <xf:bind ref="startTime" required="false()" type="xs:string"/>
-    <xf:bind ref="endTime" required="false()" type="xs:string"/>
-    <xf:bind ref="attendees" required="false()" type="xs:string"/>
-    <xf:bind ref="location" required="false()"/>
-    <xf:bind ref="repeat" required="false()" type="xs:boolean"/>
-    <xf:bind ref="patternType" required="false()" 
-    		relevant="instance('dataI')//repeat[.='true']" />
-    <xf:bind ref="repeatDayOfWeek" required="false()" 
-    		type="xs:boolean" relevant="instance('dataI')//repeat[.='true'] 
-    		and instance('dataI')//patternType[.='weeklyPattern']" />
-
-    <xf:submission id="convert" method="post" replace="none" 
-    		action="../edit/addEvents.xqm">
-        <xf:action ev:event="xforms-submit-error">
-            <xf:message>
-            	An Error has occured please contact Admin
-            </xf:message>
-        </xf:action>
-        <xf:action ev:event="xforms-submit-done">
-            <xf:message>
-            	Task Created You Can Close The Window 
-            	Now or Create New Task
-            </xf:message>
-            <xf:reset model="appendData"/>
-        </xf:action>
-    </xf:submission>
-</xf:model>
+            <xf:instance xmlns="" id="dataI">
+                <root>
+                    <description/>                   
+                    <category/>
+                    <startDate/>
+                    <endDate/>
+                    <startTime/>
+                    <endTime/>
+                    <restrictDate />
+                    <note/>
+                    <attendees/>
+                    <location/>
+                    <repeat />
+                    <patternType />
+                    <repeatDayOfWeek />
+                    <monthlyCardinalOrOrdinal />
+                    <yearlyCardinalOrOrdinal />
+                    <ordinalType/>
+                </root>
+            </xf:instance>
 				 ]]>
 					</programlisting>
 					Das Datenmodell beinhaltet die Eingabedaten für einen Termin. Wir benutzen eine boolsche Variable names <code>repeat</code>, um herauszufinden, ob der Termin 
 					sich wiederholen soll. Die Variable mit Namen <code>patternType</code> bestimmt, was für eine Art Wiederholung der Termin haben soll. Durch diese beiden
 					Variablen können wir die Variable <code>repeatDayOfWeek</code> darstellen, die nur sichtbar ist, wenn ein Termin sich tatsächlich wöchentlich wiederholen soll. Dies 
-					kann durch Checkboxen angegeben werden, mit denen man die verschiedenen Tage angeben kann. Dies ist gleich für monatliche und jährliche Wiederholungen, jedoch ohne das die eingabe Tage zur auswahl gibt. ???????????????????
+					kann durch Checkboxen angegeben werden, mit denen man die verschiedenen Tage angeben kann. Für monatliche und jährliche Wiederholng kann jeweils zwischen <code>ordinal</code> bzw. <code>cardinal</code> gewählt werden<footnote><para>siehe dazu auch die Beschreibung der Patterns im Abschnitt zu den<link linkend="simplePattern"><code>simplePattern</code></link></para></footnote>.
 				</para>
 				<para>Als submit dient die Funktion mit id <code>convert</code>, die die XQuery <link linkend="addEvents"><code>addEvents.xqm</code></link> aufruft. Falls die Operation erfolgreich ist, wird die XForm 
 				zurückgesetzt und eine Nachricht wird eingeblendet, die den Nutzer drauf hinweist, dass der Termin erstellt wurde.
@@ -502,20 +474,7 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
 			<section>
 				<title>updateTask.xqm</title>
 				<para>
-					<code>updateTask.xqm</code>: Generiert eine XSLTForm, um einzelne Tasks zu editieren. Wir haben uns dazu entschieden, den Aufruf mit GET zu implementieren, da wir die Veranstaltung selber anklickbar machen wollten. Entsprechend haben wir im SVG einfach ein <code>href</code> verwendet, um die Tasks anklickbar zu machen. In der URL werden die Parameter <code>date</code> (das Datum, an dem dieser eine Termin stattfindet) und <code>description</code> (der eindeutige Name der Terminserie) übergeben. Die Daten werden direkt anhand der Beschreibung der Terminserie aus der Datenbank entnommen. Wir unterscheiden zwischen zwei Fällen in unserem Daten-Model: 
-					<itemizedlist>
-						<listitem>
-							<para>
-								Fall 1: Die Veranstaltung findet in einem begrentzen Zeitraum statt (es existiert ein Start- und End-Datum in einem <code>dailyPattern</code>).
-							</para>
-							
-						</listitem>
-						<listitem>
-							<para>
-								Fall 2: Die Veranstaltung ist eine wöchentlich/monatlich/jährlich stattfindende Veranstaltung und daher können wir das weitergegebene Datum benutzen????????????????
-							</para>
-						</listitem>
-					</itemizedlist>		
+					<code>updateTask.xqm</code>: Generiert eine XSLTForm, um einzelne Tasks zu editieren. Wir haben uns dazu entschieden, den Aufruf mit GET zu implementieren, da wir die Veranstaltung selber anklickbar machen wollten. Entsprechend haben wir im SVG einfach ein <code>href</code> verwendet, um die Tasks anklickbar zu machen. In der URL werden die Parameter <code>date</code> (das Datum, an dem dieser eine Termin stattfindet<footnote><para>Der Plan war, auch einzelne Termine einer Serie ändern zu können. Deshalb wird das Datum dieses einen Termins ebenfalls übergeben</para></footnote>) und <code>description</code> (der eindeutige Name der Terminserie) übergeben. Die Daten werden direkt anhand der Beschreibung der Terminserie aus der Datenbank entnommen. 
 					Letztendlich sieht unser Datenmodell folgendermaßen aus 
 				<programlisting>
 									<![CDATA[										
@@ -567,13 +526,13 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
  </xf:model>
         ]]>
 				</programlisting>
-					Nach der Eingabe der Änderungen werden die XQueries <code>updateEvents.xqm</code> und <code>updateTesting.xqm</code> ausgeführt. Die Aufspaltung der Funktionen in zwei Dateien hat sich für Debugging-Zwecke ergeben. Außerden hat man damit auch die Möglichkeit, eine einzelne Instanz einer Terminserie zu ändern. 
+					Nach der Eingabe der Änderungen werden die XQueries <code>updateEvents.xqm</code> und <code>updateFunctions.xqm</code> ausgeführt. Die Aufspaltung der Funktionen in zwei Dateien hat sich für Debugging-Zwecke ergeben. Außerden hat man damit auch die Möglichkeit, eine einzelne Instanz einer Terminserie zu ändern. 
 				</para>
 			</section>
 			<section>
-				<title>updateEvents.xqm und updateTesting.xqm</title>
+				<title>updateEvents.xqm und updateFunctions.xqm</title>
 				<para>
-					<code>updateEvents.xqm</code> dient der Weiterleitung der Daten zu den jeweiligen Funktionen von <code>updateTesting.xqm</code>. Es existieren zwei Funktionen in <code>updateTesting.xqm</code>, nämlich <code>updateOccurence</code> und <code>updateSeries</code>. Welche Funktion aufgerufen wird, hängt von der Variable <code>series</code> ab, deren Wert durch eine Checkbox in der XForm gesetzt wird. Als Orientierungspunkt in ??????????? dient die Originalbeschreibung der Veranstaltung. Diese wird im zuvor beschriebenen XForms-Model als <code>origDescription</code> dargestellt. 
+					<code>updateEvents.xqm</code> dient der Weiterleitung der Daten zu den jeweiligen Funktionen von <code>updateFunctions.xqm</code>. Es existieren zwei Funktionen in <code>updateFunctions.xqm</code>, nämlich <code>updateOccurence</code> und <code>updateSeries</code>. Welche Funktion aufgerufen wird, hängt von der Variable <code>series</code> ab, deren Wert durch eine Checkbox in der XForm gesetzt wird. Als Orientierungspunkt in <code>updateFunctions</code> dient die Originalbeschreibung der Veranstaltung. Diese wird im zuvor beschriebenen XForms-Model als <code>origDescription</code> dargestellt. 
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -608,7 +567,7 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
 			</section>
 			<section>
 				<title>Im Team</title>
-				<para>Wir haben unsere Lösung des ersten Blatts (SVG) im Praktikum vorgestellt. Dadurch hatten wir bereits früh eine Basis für die Projektaufgabe. Wir haben ein git-Repository angelegt, um eine gemeinsame Versionskontrolle zu haben. Somit war die Möglichkeit gegeben, jederzeit am aktuellsten Code weiterzuarbeiten. Während der Vorlesungszeit wurden dann auch die Aufgabenblätter zu XSLT und XQuery separat entwickelt. Die restliche Arbeit haben wir dann nach den Klausuren erledigt, wobei es in dieser Phase auch häufiger Treffen oder Skype-Temrine gab, um sich abzustimmen. Hier wurde auch an fast allen Punkten noch gearbeitet, auch die bereits entwickelten XSLT- und XQuery-Codes mussten teilweise noch angepasst werden.</para>
+				<para>Wir haben unsere Lösung des ersten Blatts (SVG) im Praktikum vorgestellt. Dadurch hatten wir bereits früh eine Basis für die Projektaufgabe. Wir haben ein git-Repository angelegt, um eine gemeinsame Versionskontrolle zu haben. Somit war die Möglichkeit gegeben, jederzeit am aktuellsten Code weiterzuarbeiten. Während der Vorlesungszeit wurden dann auch die Aufgabenblätter zu XSLT und XQuery separat entwickelt. Die restliche Arbeit haben wir dann nach den Klausuren erledigt, wobei es in dieser Phase auch häufiger Treffen oder Skype-Temrine gab, um sich abzustimmen. Hier wurde auch an fast allen Punkten noch gearbeitet, auch die bereits entwickelten XSLT- und XQuery-Codes mussten teilweise noch angepasst werden. Insbesondere die beiden Wochen vor der Präsentation waren sehr produktiv.</para>
 			</section>
 		</section>
 </article>
