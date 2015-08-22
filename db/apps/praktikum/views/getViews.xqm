@@ -133,12 +133,6 @@ let $form := (
                             <xf:load show="replace" resource="createTask.xqm"/>
                         </xf:action>
                     </xf:trigger>
-                     <xf:trigger id="updateTaskButton">
-                        <xf:label>Update Task</xf:label>
-                        <xf:action ev:event="DOMActivate">
-                            <xf:load show="replace" resource="updateTask.xqm"/>
-                        </xf:action>
-                    </xf:trigger>
             </div>
 <div id="calendarView">
                 <h1>{switch($param1) 
