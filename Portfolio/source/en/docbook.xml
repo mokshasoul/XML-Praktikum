@@ -596,6 +596,7 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
                 return
                      &lt;furtherPattern&gt;{$day}&lt;/furtherPattern&gt;
             }
+<<<<<<< HEAD
             &lt;/furtherPatterns&gt;
         &lt;/intersectionPattern&gt;
 							</programlisting>
@@ -625,3 +626,120 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
         </section>
     </section>
 </article>
+=======
+            </furtherPatterns>
+        </intersectionPattern>
+							]]>
+						</programlisting>		
+						</para>
+					</listitem>
+					</itemizedlist>
+				</para>
+			</section>
+			<section>
+				<title>updateTask.xqm</title>
+				<para>
+					<code>updateTask.xqm</code>: Generiert unsere XForm, um einzelne Tasks zu editieren. Wir haben uns dazu entschieden, den Aufruf mit GET zu implementieren, da wir die Veranstaltung selber anklickbar machen wollten. Entsprechend haben wir im SVG einfach ein <code>href</code> verwendet, um die Tasks anklickbar zu machen. In der URL werden die Parameter <code>date</code> (das Datum, an dem dieser eine Termin stattfindet) und <code>description</code> (der eindeutige Name der Terminserie) übergeben. Die Daten werden direkt anhand der Beschreibung der Terminserie aus der Datenbank entnommen. Wir unterscheiden zwischen zwei Fällen in unserem Daten-Model: 
+					<itemizedlist>
+						<listitem>
+							<para>
+								Fall 1: Die Veranstaltung findet in einem begrentzen Zeitraum statt (es existiert ein Start- und End-Datum in einem <code>dailyPattern</code>).
+							</para>
+							
+						</listitem>
+						<listitem>
+							<para>
+								Fall 2: Die Veranstaltung ist eine wöchentlich/monatlich/jährlich stattfindende Veranstaltung und daher können wir das weitergegebene Datum benutzen????????????????
+							</para>
+						</listitem>
+					</itemizedlist>		
+					Letztendlich sieht unser Datenmodell folgendermaßen aus 
+				<programlisting>
+									<![CDATA[										
+							<xf:model id="appendData">
+            <xf:instance xmlns="" id="dataI">
+                <root>
+                    <description>{$eventDescription}</description>
+                    <startDate>{xs:date(if ($startDateSeries) then $startDateSeries else $eventDate)}</startDate>
+                    <endDate>{xs:date(if ($endDate) then $endDate else $eventDate)}</endDate>
+                    <startTime>{$startTime}</startTime>
+                    <endTime>{$endTime}</endTime>
+                    <note>{$note}</note>
+                    <origDescription>{$eventDescription}</origDescription>
+                    <attendees>
+                        {
+                               for $attendee at $pos in $attendees/*
+                            return
+                  
+                               if (not($pos = 1)) then concat(', ',fn:trim(xs:string($attendee))) else(
+              
+                                fn:trim(xs:string($attendee))
+                                )
+                              
+                        }
+                    </attendees>
+                    <location>{$location}</location>
+                    <series>{xs:boolean('false')}</series>
+
+                    </root>
+            </xf:instance>
+            <xf:bind ref="description" required="false()" type="xs:string"/>
+            <xf:bind ref="startDate" required="false()" type="xs:date" readonly="true()"/>
+            <xf:bind ref="endDate" required="false()" type="xs:date"  readonly="true()"/>
+            <xf:bind ref="startTime" required="false()" type="xs:string"/>
+            <xf:bind ref="endTime" required="false()" type="xs:string"/>
+            <xf:bind ref="attendees" required="false()"/>
+            <xf:bind ref="location" required="false()"/>
+            <xf:bind ref="series" required="false()" type="xs:boolean"/>
+           
+           <xf:submission id="convert" method="post" replace="all" action="../edit/updateEvents.xqm">
+            </xf:submission>
+        </xf:model>
+        ]]>
+				</programlisting>
+					Nach der Eingabe der Änderungen werden die XQueries <code>updateEvents.xqm</code> und <code>updateTesting.xqm</code> ausgeführt. Die Aufspaltung der Funktionen in zwei Dateien hat sich für Debugging-Zwecke ergeben. Außerden hat man damit auch die Möglichkeit, eine einzelne Instanz einer Terminserie zu ändern. 
+				</para>
+			</section>
+			<section>
+				<title>updateEvents.xqm und updateTesting.xqm</title>
+				<para>
+					<code>updateEvents.xqm</code> dient der Weiterleitung der Daten zu den jeweiligen Funktionen von <code>updateTesting.xqm</code>. Es existieren zwei Funktionen in <code>updateTesting.xqm</code>: updateOccurence und updateSeries. Welche Funktion aufgerufen wird, hängt von der Variable <code>series</code> ab, deren Wert durch eine Checkbox in der XForm gesetzt wird. Als Orientierungspunkt in ??????????? dient die Originalbeschreibung der Veranstaltung. Diese wird im zuvor beschriebenen XForms-Model als <code>origDescription</code> dargestellt. 
+					<itemizedlist>
+						<listitem>
+							<para>
+								<code>updateSeries</code>: Anhand der Originalbeschreibung wird das jeweilige <code>SuperEvent</code> geladen und dessen erstes <code>recurrencePattern</code> eingelesen. Die <code>recurrencePattern</code> hängen immer von der Beschreibung der Veranstaltung ab. Dann werden alle Patterns geladen, die in ihrem Namen die Originalbeschreibung der Veranstaltung beinhalten. Anhand von den geladenen Patterns wird dann einzeln ein neues Pattern gebaut, das das originale Pattern ersetzt. 
+								Falls die Beschreibungen abweichen wird einfach ein neues <code>superEvent</code> gebaut.
+							</para>
+						</listitem>
+						<listitem>
+							<para>
+								<code>updateOccurences</code>:	Der Verlauf ist ähnlich zum vorherigen, jedoch werden keine Patterns ersetzt, sondern ein <code>differencePattern</code> eingefügt. Falls keins existiert, oder das existierende <code>differencePattern</code> wird erweitert. Als <code>firstPattern</code> im <code>differencePattern</code> wird immer der Name des <code>recurrencePattern</code> benutzt. Für die <code>furtherPattern</code>s werden die Namen der einzelnen <code>dailyPatterns</code> verwendet, die für die einzelne Veranstaltung erstellt wurden. 
+							</para>
+						</listitem>
+					</itemizedlist>
+				</para>
+			</section>
+		</section>
+		<section>
+			<title>Das Praktikum</title>
+			<section>
+				<title>Allgemeines</title>
+				<para>Mit der allgemeinen Organisation des Praktikums waren wir sehr zufrieden. Durch die wöchentlichen Vorlesungseinheiten wurde die grobe Idee der neu vorgestellten Technologien klar, welche dann durch das Aufgabenblatt eingeübt werden konnten. Dabei war die Modularisierung der einzelnen Teile super; dadurch konnte ein Teil unabhängig von den Anderen entwickelt werden (z.B. XSLT und XQuery). AUch die Reihenfolge der besprochenen Technologien war sinnvoll (also zuerst SVG, dann XSLT usw). Leider kam das letzte Thema mit XForms usw. etwas kurz (es gab z.B. kein extra Übungsblatt dazu); im Projekt stellte das die größte Schwierigkeit dar.</para>
+			</section>
+			<section>
+				<title>Im Team</title>
+				<para>Wir haben unsere Lösung des ersten Blatts (SVG) im Praktikum vorgestellt. Dadurch hatten wir bereits früh eine Basis für die Projektaufgabe. Wir haben ein git-Repository angelegt, um eine gemeinsame Versionskontrolle zu haben. Somit war die Möglichkeit gegeben, jederzeit am aktuellsten Code weiterzuarbeiten. Während der Vorlesungszeit wurden dann auch die Aufgabenblätter zu XSLT und XQuery separat entwickelt. Die restliche Arbeit haben wir dann nach den Klausuren erledigt, wobei es in dieser Phase auch häufiger Treffen oder Skype-Temrine gab, um sich abzustimmen. Hier wurde auch an fast allen Punkten noch gearbeitet, auch die bereits entwickelten XSLT- und XQuery-Codes mussten teilweise noch angepasst werden.</para>
+			</section>
+			<section>
+				<title>Probleme mit Tools</title>
+				<para>
+					Ein großes Problem war teilweise die Inflexibilität der Tools bzw. wie das Zusammenspiel zwischen den verschiedenen Applikationen aussieht. Im Speziellen kamen die meisten Probleme durch XForms zustande bzw. wie man XForms rendern und verwenden muss. Die Variante mit Verwendung von Betterforms ist nicht wirklich geeignet für nicht erfahrene XForms Programmierer.
+					Das debugging und der generellen Aufbau ist gestaltet sich dabei komplizierter. XSLTForms ist eigentlich der bessere Prozessor für XRX Applikationen, da es immer die XForm ausgibt, im Gegensatz zu Betterforms, wo die Formulare nur beim initialen Aufruf mit GET sichtbar sind (???????).
+					</para>
+					<para>
+					Ein anderer Faktor, der Probleme bereitet hat, sind die Unterschiede zwischen den verschiedenen Web-Engines. Gecko (Firefox) verhielt sich anders als der Rest, wie z.B. Webkit(Chrome). In den SVGs funktionieren die Verlinkungen z.B. in Chrome nicht, wenn die Definitionen sich nicht in der selben SVG-Datei befinden.
+				</para>
+			</section>
+		</section>
+</article>
+>>>>>>> db588049bfefe646dc58fe492b72408c4b6ab9cc
