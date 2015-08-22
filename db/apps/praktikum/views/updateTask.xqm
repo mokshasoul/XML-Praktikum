@@ -65,7 +65,7 @@ let $dbEvents := doc('/db/apps/praktikum/data/simpleEvents.xml')
 let $dbCal := doc('/db/apps/praktikum/data/sampleCalendarX.xml')
 let $event := $dbEvents//event[@description=$eventDescription][@date=$eventDate]
 let $location := xs:string($event/location/@description)
-let $note := xs:string($event/@note)
+let $note := xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@note)
 let $startTime := xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@startTime)
 let $endTime := xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@endTime)
 let $attendees := $dbCal//superEvent[@description=$eventDescription]//eventRule[1]/attendees
@@ -179,7 +179,6 @@ let $form := (
                 <xf:input ref="instance('dataI')//series">
                     <xf:label class="inputLabels">Edit Only Occurence?</xf:label>
                     <xf:action
-       
                        if="instance('dataI')//series">
                              <xf:setvalue ref="instance('dataI')//startDate" value="{$eventDate}" />
                     </xf:action>
@@ -189,7 +188,7 @@ let $form := (
                              <xf:setvalue ref="instance('dataI')//startDate" value="{$startDateSeries}" /></xf:action>
                </xf:input>
           
-            </xf:group>
+            </xf:group> 
             <xf:submit submission="convert">
                 <xf:label>Update Task</xf:label>
             </xf:submit>

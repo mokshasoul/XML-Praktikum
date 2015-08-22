@@ -8,7 +8,7 @@ import module namespace functx = 'http://www.functx.com' at 'functx-1.0-doc-2007
 
 
 declare function helper:calendarDoc(){
-    doc('../data/sampleCalendarX2.xml')
+    doc('../data/sampleCalendarX.xml')
 };
 
 
@@ -157,5 +157,3 @@ declare function helper:getOrdinalOfMonth($date as xs:date, $ordinal, $dayType)
             default
                 return $firstDayOfType
 };
-
-

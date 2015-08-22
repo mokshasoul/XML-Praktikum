@@ -139,7 +139,7 @@ let $superEvent := if($origDescription= $description) then $dbCal//superEvents/s
 else
               let $super := <superEvent description="{$description}" categories="teaching">
                     <eventRules>
-                        <eventRule description="{concat($description,"_1")}" startTime="{$startTime}" endTime="{$endTime}" note="">
+                        <eventRule description="{concat($description,"_1")}" startTime="{$startTime}" endTime="{$endTime}" note="{$note}">
                             <recurrencePattern>{concat($description,"_1")}</recurrencePattern>
                             <attendees/>
                         </eventRule>
@@ -160,7 +160,7 @@ let $diffExist := for $eventRule in $superEvent/eventRules/*
                         xs:boolean('false')
                    
 let $eventRule := if (not($diffExist)) then(
-                      let $rule :=  <eventRule description="{$newEventRule }" startTime="{$startTime}" endTime="{$endTime}" note="">
+                      let $rule :=  <eventRule description="{$newEventRule }" startTime="{$startTime}" endTime="{$endTime}" note="{$note}">
                             <recurrencePattern>{$newEventRule }</recurrencePattern>
                          <attendees>
                         {

@@ -28,6 +28,7 @@ let $form := (
                     <endDate/>
                     <startTime/>
                     <endTime/>
+                                        <restrictDate />
                     <note/>
                     <attendees>
                     </attendees>
@@ -38,12 +39,12 @@ let $form := (
                       <monthlyCardinalOrOrdinal />
 
                     <yearlyCardinalOrOrdinal />
-
+                    <ordinalType/>
                 </root>
             </xf:instance>
             <xf:bind ref="description" required="true()" type="xs:string"/>
             <xf:bind ref="startDate" required="true()" type="xs:date"/>
-            <xf:bind ref="endDate" required="false()" type="xs:date" />
+            <xf:bind ref="endDate" required="false()" type="xs:date" relevant="instance('dataI')//restrictDate[.='true']" />
             <xf:bind ref="startTime" required="false()" type="xs:string"/>
             <xf:bind ref="endTime" required="false()" type="xs:string"/>
             <xf:bind ref="attendees" required="false()" type="xs:string"/>
@@ -51,8 +52,10 @@ let $form := (
             <xf:bind ref="repeat" required="false()" type="xs:boolean"/>
             <xf:bind ref="patternType" required="false()" relevant="instance('dataI')//repeat[.='true']" />
             <xf:bind ref="repeatDayOfWeek" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='weeklyPattern']" />
-              <xf:bind ref="monthlyCardinalOrOrdinal" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='monthlyPattern']" />
-            <xf:bind ref="yearlyCardinalOrOrdinal" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='yearlyPattern']" />
+            <xf:bind ref="monthlyCardinalOrOrdinal" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='monthlyPattern']" />
+            <xf:bind ref="ordinalType" required="true()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and (instance('dataI')//patternType[.='monthlyPattern'] or instance('dataI')//patternType[.='yearlyPattern']) and (instance('dataI')//monthlyCardinalOrOrdinal[.='monthlyOrdinal'] or instance('dataI')//yearlyCardinalOrOrdinal[.='yearlyOrdinal'])"/>
+            <xf:bind ref="restrictDate" required="false()" type="xs:boolean"/>
+           <xf:bind ref="yearlyCardinalOrOrdinal" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='yearlyPattern']" />
                     <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
                 <xf:action ev:event="xforms-submit-error">
                     <xf:message>An Error has occured please contact Admin</xf:message>
@@ -88,12 +91,16 @@ let $form := (
                 <xf:input ref="instance('dataI')//startDate">
                     <xf:label  class="inputLabels">Start Date:</xf:label>
                 </xf:input>
+                <xf:input ref="instance('dataI')//restrictDate" id="restriction">
+                    <xf:label>End Datum? </xf:label>
+                    </xf:input>
                <xf:input ref="instance('dataI')//endDate">
                     <xf:label class="inputLabels">End Date:</xf:label>
                </xf:input>
                 <xf:input ref="instance('dataI')//startTime">
                     <xf:label  class="inputLabels">Start Time:</xf:label>
                 </xf:input>
+
                 <xf:input ref="instance('dataI')//endTime">
                     <xf:label  class="inputLabels">End Time:</xf:label>
                 </xf:input>
@@ -171,8 +178,34 @@ let $form := (
                         <xf:value>monthlyOrdinal</xf:value>
                     </xf:item>
                 </xf:select1>
-                
-                <xf:select1 ref="yearlyCardinalOrOrdinal" appearance="full">
+                <xf:select1 ref="ordinalType" appearance="minimal">
+                    <xf:label>Ordinality:</xf:label>
+                    <xf:item>
+                        <xf:label>First Day Of Month </xf:label>
+                        <xf:value>first</xf:value>
+                    </xf:item>
+                                        <xf:item>
+                        <xf:label>Second Day Of Month </xf:label>
+                        <xf:value>second</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Third Day Of Month </xf:label>
+                        <xf:value>third</xf:value>
+                    </xf:item>
+                                        <xf:item>
+                        <xf:label>Fourth Day Of Month </xf:label>
+                        <xf:value>fourth</xf:value>
+                    </xf:item>
+                                        <xf:item>
+                        <xf:label>Second To Last Day Of Month </xf:label>
+                        <xf:value>penultimate</xf:value>
+                    </xf:item>
+                                        <xf:item>
+                        <xf:label>Last Day Of Month </xf:label>
+                        <xf:value>ultimate</xf:value>
+                    </xf:item>
+                  </xf:select1>
+                    <xf:select1 ref="yearlyCardinalOrOrdinal" appearance="full">
                     <xf:label>Select ordinal or cardinal?</xf:label>
                     <xf:item>
                         <xf:label>Day of the month (cardinal)</xf:label>

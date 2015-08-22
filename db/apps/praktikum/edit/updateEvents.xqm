@@ -5,6 +5,7 @@ Purpose of this file is to handle the 2 different cases of event editing
 The functions themselves are saved in updateTesting.xqm
  :)
 import module namespace updateFunction = "http://www.update.com" at 'updateFunctions.xqm';
+import module namespace helper = "http://www.help.com" at '../views/helperFunctions.xqm';
 declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace request="http://exist-db.org/xquery/request";

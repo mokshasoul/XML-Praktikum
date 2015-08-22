@@ -9,3 +9,5 @@ vex-plugin.xml
 Aufgabe 2/Aufgabe2.xpr
 *.xpr
 .DS_Store
+*.bak
+Portfolio/source/en/out/pdf/docbook.pdf
