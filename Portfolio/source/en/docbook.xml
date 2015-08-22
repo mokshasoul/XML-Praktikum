@@ -4,16 +4,16 @@
 		<title>CalendarX</title>
 		<subtitle>Praktikum XML-Technologie Sommersemester 2015</subtitle>
 		<authorgroup>
-			<author><personname>David Becher</personname><email>david.becher@mytum.de</email></author>
-			<author><personname>Charis-Nicolas Georgiou</personname><email>georgiou@in.tum.de</email></author>
-			<author><personname>Chahir Jeljeli</personname><email>foo@bar.de</email></author>
-			<author><personname>Aryan Borhani</personname><email>foo@bar.de</email></author>
+			<author><personname>David Becher (03623209)</personname><email>david.becher@mytum.de</email></author>
+			<author><personname>Charis-Nicolas Georgiou (03620207)</personname><email>georgiou@in.tum.de</email></author>
+			<author><personname>Chahir Jeljeli (02856557)</personname><email>chahir.jeljeli@mytum.de</email></author>
+			<author><personname>Aryan Borhani (03621457)</personname><email>borhani@mytum.de</email></author>
 		</authorgroup>
 	</info>
 	<section>
 		<title>Einleitung</title>
 		<para>Im Praktikum XML-Technologie im Sommersemester 2015 an der TUM soll eine Kalenderanwendung nur mithilfe von XML-Technologien realisiert werden. Ziel ist es, eine funktionstüchtige Webanwendung zu entwickeln, in der neue Termine angelegt, eingetragene Termine wahlweise in einer Tagesansicht, Wochenansicht oder Monatsansicht angezeigt sowie bereits bestehende Termine verändert und werden können. Dabei soll es möglich sein, sowohl einzelne Termine einer Terminserie als auch alle Termine einer Serie zu bearbeiten. Jeder "Schritt" wird dabei mithilfe einer bestimmten XML-Technlogie realisiert, weshalb diese Dokumentation nach den Technologien gegliedert ist.</para>
-		<para>Im ersten Abschnitt wird kurz das Format vorgestellt, in dem die Events (in einer XML-Datei) abgelegt werden. Da auch (unendlich lange) Terminserien erstellt werden sollen, werden zunächst keine "direkten" Events mit genauem Datum gespeichert. Diese müssen zur Anzeige erst generiert werden, und zwar mithilfe der Abfragesprache XQuery. Dies wird im zweiten Abschnitt vorgestellt. Danach gilt es, die Kalendersichten als SVG-Grafiken zu generieren. Dazu wird die Transformationssprache XSLT eingesetzt. Die Webanwendung verwendet dann unterschiedliche Technologien, wir gehen dabei kurz auf XForms/XSLTForms und XRX und ??? ein. Zum Schluss ziehen wir noch ein Fazit zum Praktikum.</para>
+		<para>Im ersten Abschnitt wird kurz das Format vorgestellt, in dem die Events (in einer XML-Datei) abgelegt werden. Da auch (unendlich lange) Terminserien erstellt werden sollen, werden zunächst keine "direkten" Events mit genauem Datum gespeichert. Diese müssen zur Anzeige erst generiert werden, und zwar mithilfe der Abfragesprache XQuery. Dies wird im zweiten Abschnitt vorgestellt. Danach gilt es, die Kalendersichten als SVG-Grafiken zu generieren. Dazu wird die Transformationssprache XSLT eingesetzt. Die Webanwendung verwendet dann unterschiedliche Technologien, wir gehen dabei kurz auf XRX bzw. XForms/XSLTForms ein. Zum Schluss ziehen wir noch ein Fazit zum Praktikum.</para>
 	
 	</section>
 	<section>
@@ -97,19 +97,19 @@
 					<para>Beispiel:
 					<programlisting>
 					<![CDATA[
-					<unionPattern description="Feiertage2015">
+		<unionPattern description="Feiertage2015">
             <firstPattern>ChrHf</firstPattern>
             <furtherPatterns>
                 <furtherPattern>Fronleichnam</furtherPattern>
             </furtherPatterns>
-        </unionPattern>
+		</unionPattern>
         ]]>
 					</programlisting>
 					</para>
 				</section>
 				<section>
 					<title>differencePattern</title>
-					<para>Durch das <code>differencePattern</code> werden alle Daten aus dem in <code>firstPattern</code> angegebenen Pattern erfasst, die nicht in den <code>furtherPattern</code>s enthalten sind. Die in den <code>furtherPattern</code>s enthaltenen Tage werden sozusagen vom <code>firstPattern</code> abgezogen.</para>
+					<para>Durch das <code>differencePattern</code> werden alle Daten aus dem in <code>firstPattern</code> angegebenen Pattern erfasst, die nicht in den <code>furtherPattern</code>s enthalten sind. Die in den <code>furtherPattern</code>s enthaltenen Tage werden sozusagen von denen im <code>firstPattern</code> abgezogen.</para>
 					<para>Beispiel:
 					<programlisting>
 					<![CDATA[
@@ -118,7 +118,7 @@
            				<furtherPatterns>
                 			<furtherPattern>Feiertage2015</furtherPattern>
             			</furtherPatterns>
-        			</differencePattern>
+					</differencePattern>
         ]]>
 					</programlisting>
 					</para>
@@ -176,7 +176,7 @@
 		<title>XQueries</title>
 		<section>
 			<title>Motivation</title>
-			<para>Für die gewünschte Ansicht (Tages-, Wochen-, Monatssicht) müssen nun die dort stattfindenden Events aus den in der Datenbasis stehenden <code>superEvents</code> bzw. deren <code>eventRules</code> generiert werden. Dies geschieht mittels XQuery-Funktionen, welche im Folgenden jeweils kurz beschrieben werden.</para>
+			<para>Für die gewünschte Ansicht (Tages-, Wochen-, Monatssicht) müssen nun die dort stattfindenden Events aus den in der Datenbasis stehenden <code>superEvents</code> bzw. deren <code>eventRules</code> generiert werden. Diese Funktionalität wurde in mehreren XQuery-Funktionen realisiert, welche im Folgenden jeweils kurz beschrieben werden.</para>
 			</section>
 			<section>
 				<title>getEventsFunctions.xqm</title>
@@ -292,7 +292,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			</section>
 			<section xml:id="CalendarXTransform">
 				<title>CalendarXTransform.xslt</title>
-				<para>Zunächst werden für jedes Event die Event-Boxen generiert. Diese erhalten die in den XQueries generierten IDs und können dadurch bei der darauf folgenden Generierung der Tagessicht entsprechend referenziert werden. Dabei muss darauf geachtet werden, dass die Boxen korrekt skaliert werden: Wenn sich mehrere Events überschneiden, müssen die Termin-Rechtecke entsprechend verschmälert werden. Außerdem muss in Y-Richtung abhängig von der Länge des Termins skaliert werden. Dabei entspricht eine Minute auf der Zeitachse einem Pixel auf der Y-Achse, sodass die Länge des Termins in Minuten die Höhe des Rechtecks angibt. Dies wird so realisiert, dass das Rechteck standardmäßig die Höhe 100px hat und anschließend entsprechend skaliert wird. Ist ein Termin 3 Stunden lang (also 180 Minuten), wird entsprechend <code>scale(1,1.8)</code> verwendet. Es gibt auch die Möglichkeit, alle Termine gleich groß untereinander anzuzeigen, diese also nicht abhängig von ihrer Länge und Startzeit zu skalieren und anzuordnen. Dies ist nützlich für die Monatsansicht, da die Ansicht so deutlich komprimiert wird und nicht zu groß erscheint. Um das zu realisieren wird dem XSLT-Programm der boolsche Parameter <code>packedView</code> übergeben. Wenn <code>packedView</code> <code>true</code> ist, wird die letztgenannte komprimierte Ansicht generiert, ansonsten die Ansicht, die sich der dann angezeigten Zeitleiste anpasst. Die Schrift wird, um Verzerrungen zu vermeiden, nicht skaliert und bleibt immer gleich.</para>
+				<para>Zunächst werden für jedes Event die Event-Boxen generiert. Diese erhalten die in den XQueries generierten IDs und können dadurch bei der darauf folgenden Generierung der Tagessicht entsprechend referenziert werden. Dabei muss darauf geachtet werden, dass die Boxen korrekt skaliert werden: Wenn sich mehrere Events überschneiden, müssen die Termin-Rechtecke entsprechend verschmälert werden. Außerdem muss in Y-Richtung abhängig von der Länge des Termins skaliert werden. Dabei entspricht eine Minute auf der Zeitachse einem Pixel auf der Y-Achse, sodass die Länge des Termins in Minuten die Höhe des Rechtecks angibt. Dies wird so realisiert, dass das Rechteck standardmäßig die Höhe 100px hat und anschließend entsprechend skaliert wird. Ist ein Termin 3 Stunden lang (also 180 Minuten), wird entsprechend <code>scale(1,1.8)</code> verwendet. Es gibt auch die Möglichkeit, alle Termine gleich groß untereinander anzuzeigen, diese also nicht abhängig von ihrer Länge und Startzeit zu skalieren und anzuordnen. Dies ist nützlich für die Monatsansicht, da die Ansicht so deutlich komprimiert wird und nicht zu groß erscheint. Um das zu realisieren wird dem XSLT-Programm der boolsche Parameter <code>packedView</code> übergeben. Wenn <code>packedView="true"</code> ist, wird die letztgenannte komprimierte Ansicht generiert, ansonsten die Ansicht, die sich der dann angezeigten Zeitleiste anpasst. Die Schrift wird, um Verzerrungen zu vermeiden, nicht skaliert und bleibt immer gleich.</para>
 			
 			<section xml:id="CalendarXTransformDay">
 				<title>Tagessicht</title>
@@ -304,12 +304,12 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			</section>
 			<section xml:id="CalendarXTransformMonth">
 				<title>Monatssicht</title>
-				<para>Die Monatsansicht enthält 4 bis 6 Wochen, die untereinander angeordnet werden. Zunächst gilt es deshalb herauszufinden, wie viele Wochen benötigt werden. Für jede Woche wird mittels <link linkend="printWeekOfDay"><code>foo:printWeekOfDay</code></link> die entsprechende Woche generiert. Dieses Template generiert dabei wieder die komplette Woche, d.h. sowohl "leere" Wochen, als auch Wochen, in denen sich Termine befinden. Das Template referenziert jeweils die Tagessichten. Entsprechend ist es auch nicht notwendig, vorher alle Wochen, die Termine enthalten, zu generieren und diese hier zu referenzieren, da ja alle Termine schon durch die Verwendung von <link linkend="printWeekOfDay"><code>foo:printWeekOfDay</code></link> berücksichtigt wurden. Die Anzahl Pixel, um die die einzelnen Wochen nach unten verschoben werden, richtet sich nach der "Höhe" einer Woche. Diese wiederum hängt davon ab, ob <code>packedView</code> gewählt wurde. Ist <code>packedView=false</code>, ist die Höhe eines Tages (und somit einer Woche) immer gleich, weil alle 24 Stunden immer abgebildet werden. Ist <code>packedView=true</code>, hängt die Höhe von der Anzahl der Events ab. Damit die Übersicht einheitlich aussieht, erhält jede Woche die gleiche Höhe, diese ist dann abhängig von der maximalen Anzahl an Events, die an einem Tag stattfinden. Diese Anzahl wurde bereits durch die Xquery <link linkend="getEventsForMonth"><code>getEventsForMonth</code></link> berechnet.</para>
+				<para>Die Monatsansicht enthält 4 bis 6 Wochen, die untereinander angeordnet werden. Zunächst gilt es deshalb herauszufinden, wie viele Wochen benötigt werden. Für jede Woche wird mittels <link linkend="printWeekOfDay"><code>foo:printWeekOfDay</code></link> die entsprechende Woche generiert. Dieses Template generiert dabei wieder die komplette Woche, d.h. sowohl "leere" Wochen, als auch Wochen, in denen sich Termine befinden. Das Template referenziert jeweils die Tagessichten. Entsprechend ist es auch nicht notwendig, vorher alle Wochen, die Termine enthalten, zu generieren und diese hier zu referenzieren, da ja alle Termine schon durch die Verwendung von <link linkend="printWeekOfDay"><code>foo:printWeekOfDay</code></link> berücksichtigt wurden. Die Anzahl Pixel, um die die einzelnen Wochen nach unten verschoben werden, richtet sich nach der "Höhe" einer Woche. Da bei der Monatsansicht immer <code>packedView=true</code> ist<footnote><para>Wir haben uns entschieden, bei der Monatssicht nur die Listenansicht (<code>packedView</code>) zu erlauben, da das SVG sonst viel zu groß wäre</para></footnote>, hängt die Höhe von der Anzahl der Events ab. Damit die Übersicht einheitlich aussieht, erhält jede Woche die gleiche Höhe, diese ist dann abhängig von der maximalen Anzahl an Events, die an einem Tag stattfinden. Diese Anzahl wurde bereits durch die Xquery <link linkend="getEventsForMonth"><code>getEventsForMonth</code></link> berechnet.</para>
 			</section>		
 			</section>
 			<section xml:id="myFunctions">
 				<title>myFunctions.xsl</title>
-				<para>Die Bibliothek <code>myFunctions.xsl</code> enthält diverse Funktionen und Templates, die von den zuvor beschriebenen XSLT-Programmen genutzt werden. Dadurch ist der Code modular und redundanzfrei. Folgende Funktionen (<code>xsl:function</code>s) wurden definiert:
+				<para>Die Bibliothek <code>myFunctions.xsl</code> enthält diverse Funktionen und Templates, die vom zuvor beschriebenen XSLT-Programm genutzt werden. Dadurch ist der Code modular und redundanzfrei. Folgende Funktionen (<code>xsl:function</code>s) wurden definiert:
 				<itemizedlist>
 					<listitem><para><code>foo:getTimeInMinutes</code>: Gibt zu einer gegebenen Uhrzeit die Zeit in Minuten nach 00:00 Uhr zurück.</para></listitem>
 					<listitem xml:id="getLengthOfEvent"><para><code>foo:getLengthOfEvent</code>: Gibt die Länge eines Events (übergeben wird Start- und Enduhrzeit) in Minuten zurück.</para></listitem>
@@ -334,8 +334,8 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 				<title>Probleme</title>
 				<para>Der ursprüngliche Plan war, die Generierung der drei Sichten auf mehrere XSLT-Stylesheets zu verteilen, also die Generierung der Tasks, der Tagessicht, der Wochensicht und der Monatssicht seperat vorzunehmen und jeweils ein SVG zu generieren. Dabei wurden dann z.B. in der Tagessicht die Tasks im zuvor generierten Tasks-SVG referenziert. Prinzipiell ist es möglich, Elemente in einer SVG aus einer anderen SVG zu referenzieren. Allerdings traten dabei folgende Probleme auf:
 				<itemizedlist>
-					<listitem><para>Die Elemente aus einer anderen SVG-Datei wurden nur im Firefox-Browser angezeigt. In Chrome und Internet Explorer waren jeweils nur die Elemente, die in der Datei definiert wurden, die aufgerufen wurde, angezeigt. Beispielsweise war in diesen Browsern dann nur die leere Tagesansicht zu sehen, da die Tasks in einer anderen Datei lagen. Zunächst haben wir das ignoriert und im Folgenden ausschließlich Firefox benutzt.</para></listitem>
-					<listitem><para>Bei Verwendung von eXist trat dann folgendes Problem auf: Bei Anzeige des (eingebetteten) generierten SVGs wurden die Elemente, die in einer anderen Datei liegen, nur manchmal angezeigt. Das SVG wurde aber korrekt generiert und bei direktem Aufruf auch korrekt dargestellt. Wir wissen nicht, woran das liegt, da der Code bzw. das generierte SVG in jedem Fall richtig war.</para></listitem>
+					<listitem><para>Die Elemente aus einer anderen SVG-Datei wurden nur im Firefox-Browser angezeigt. In Chrome und Internet Explorer waren jeweils nur die Elemente, die in der aufgerufenen Datei definiert wurden, angezeigt. Beispielsweise war in diesen Browsern dann nur die leere Tagesansicht zu sehen, da die Tasks in einer anderen Datei lagen. Zunächst haben wir das ignoriert und im Folgenden ausschließlich Firefox benutzt.</para></listitem>
+					<listitem><para>Bei Verwendung von eXist trat dann folgendes Problem auf: Bei Anzeige des (eingebetteten) generierten SVGs wurden die Elemente, die in einer anderen Datei liegen, nur manchmal angezeigt. Das SVG wurde aber korrekt generiert und bei direktem Aufruf im Browser auch korrekt dargestellt. Wir wissen nicht, woran das liegt, da der Code bzw. das generierte SVG in jedem Fall richtig war.</para></listitem>
 				</itemizedlist>
 				Hauptsächlich aus dem letzten Grund haben wir uns dann dazu entschieden, nur eine SVG-Datei zu generieren, die alle Elemente enthält. Dies war relativ einfach, da sowieso fast alles in Templates und Funktionen ausgelagert wurde und die ursprünglichen vier XSLT-Stylesheets deshalb eh relativ kurz waren. Anschließend wurde alles immer richtig angezeigt und der verwendete Browser spielt in diesem Zusammenhang nun auch keine Rolle mehr.
 				</para>
@@ -345,8 +345,8 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 		<section>
 			<title>XRX</title>
 		<para>Die Implementierung der Front-End Application sollte über XForms erfolgen. Die
-			Architektur von XForms basiert auf das Model-View-Controller Konzept. In unserem Fall
-			wurde XForms in Kombination mit XQuery eingesetzt um eine XRX Applikation zu
+			Architektur von XForms basiert auf dem Model-View-Controller Konzept (MVC). In unserem Fall
+			wurde XForms in Kombination mit XQuery eingesetzt, um eine XRX Applikation zu
 			konstruieren. </para>
 
 			<section xml:id="getViews">
@@ -382,9 +382,9 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
         ]]>
 					</programlisting>
 				</para>
-				<para>Zunächst wird überprüft, ob ein POST-request vorliegt. Wenn ja, werden die oben genannten drei Parameter in Variablen gespeichert. 
+				<para>Zunächst wird überprüft, ob ein POST-Request vorliegt. Wenn ja, werden die oben genannten drei Parameter in Variablen gespeichert. 
 					Wenn dies nicht der Fall ist, wurde die Seite mittels GET aufgerufen. Dann werden den Variablen Standardwerte so zugewiesen, 
-					dass die Tagesansicht des aktuellen Tages angezeigt wird. Auf Grundlage der gesetzten Parameter wird die Generierung des SVGs (also die Ausführung 
+					dass die Tagesansicht des aktuellen Tages generiert und angezeigt wird. Auf Grundlage der gesetzten Parameter wird die Generierung des SVGs (also die Ausführung 
 					von <link linkend="CalendarXTransform"><code>CalendarXTransform.xslt</code></link>) angestoßen. Schließlich wird die Webseite mit allen XSLTforms-Elementen und 
 					dem eingebetteten generierten SVG erstellt.</para>
 			</section>
@@ -449,14 +449,14 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 					Variablen können wir die Variable <code>repeatDayOfWeek</code> darstellen, die nur sichtbar ist, wenn ein Termin sich tatsächlich wöchentlich wiederholen soll. Dies 
 					kann durch Checkboxen angegeben werden, mit denen man die verschiedenen Tage angeben kann. Dies ist gleich für monatliche und jährliche Wiederholungen, jedoch ohne das die eingabe Tage zur auswahl gibt. ???????????????????
 				</para>
-				<para>Als submit dient die Funktion mit id <code>convert</code>, die die XQuery addEvents.xqm aufruft. Falls die Operation erfolgreich ist, wird die XForm 
+				<para>Als submit dient die Funktion mit id <code>convert</code>, die die XQuery <link linkend="addEvents"><code>addEvents.xqm</code></link> aufruft. Falls die Operation erfolgreich ist, wird die XForm 
 				zurückgesetzt und eine Nachricht wird eingeblendet, die den Nutzer drauf hinweist, dass der Termin erstellt wurde.
 				</para>
 			</section>
-			<section>
+			<section xml:id="addEvents">
 				<title>addEvents.xqm</title>
             <para>Die Datei ist eine XQuery, die Daten-Operationen auf unsere Datenbank ausführt, in diesem Fall die Datei <code>sampleCalendarX.xml</code>.
-				Zuerst werden die Variablen vom POST-Request ausgelesen. Diese Variablen kommen von der <code>createTask.xqm</code>. Die Variablen geben die jeweiligen Informationen zum Kalendar-Eintrag an. Es handelt sich also um Start-Datum, End-Datum, Start- und Endzeitpunkt, Ort usw. Dannach wird z.B. in der <code>addEvents.xqm</code>geprüft, ob ein Start- und End-Datum existiert, und wenn ja, ob sie gleich sind. Falls dies der Fall ist, wird der Modus auf <code>singleDay</code>, andernfalls auf <code>patternType</code> gesetzt. In der createTask.xqm Datei wurden in data.xml Repeat, patternType und repeatDayOfWeek ergänzt. Dadurch kann auch eine Terminserie jeglicher Art dem Kalendar hinzugefügt werden. „Repeat“ ist kein Label bzw. kein IputBox, sondern eine CheckBox. Im Binding von PatternType wurde ein Attribut „Relevant“ hinzugefügt. Dadurch wird das DropDown zum Pattern erst dann eingeblendet wenn das Repeats CheckBox selektiert ist. Zusammengefasst, besteht das Formular aus elf InputBoxes (Task Name, Task Category, Start Date, End Date, Start Time, End Time, Additional Comments, Attendee, Location, Repeat, How often should the event occur). Beim dem letzten soll ein DropDown-Dialog eingeblendet (Every Day, Every Week, Every Month, Every Year).
+				Zuerst werden die Variablen vom POST-Request ausgelesen. Diese Variablen kommen von der <code>createTask.xqm</code>. Die Variablen geben die jeweiligen Informationen zum Kalendar-Eintrag an. Es handelt sich also um Start-Datum, End-Datum, Start- und Endzeitpunkt, Ort usw. Dannach wird in der <code>addEvents.xqm</code> geprüft, ob ein Start- und End-Datum existiert, und wenn ja, ob sie gleich sind. Falls dies der Fall ist, wird der Modus auf <code>singleDay</code>, andernfalls auf <code>patternType</code> gesetzt. In der <code>createTask.xqm</code> Datei wurden in <code>data.xml</code> Repeat, patternType und repeatDayOfWeek ergänzt. Dadurch kann auch eine Terminserie jeglicher Art dem Kalendar hinzugefügt werden. „Repeat“ ist kein Label bzw. kein IputBox, sondern eine CheckBox. Im Binding von PatternType wurde ein Attribut „Relevant“ hinzugefügt. Dadurch wird das DropDown zum Pattern erst dann eingeblendet wenn das Repeats CheckBox selektiert ist. Zusammengefasst, besteht das Formular aus elf InputBoxes (Task Name, Task Category, Start Date, End Date, Start Time, End Time, Additional Comments, Attendee, Location, Repeat, How often should the event occur). Beim dem letzten soll ein DropDown-Dialog eingeblendet (Every Day, Every Week, Every Month, Every Year).
 Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der Selektion von „every Week“  sollen alle Tage der Woche eingeblendet sein (Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag). Nach der Selektion von „Every Month“ sollen „Day of the month“ und „day of the week“ eingblendet werden sowie das „Beginn am“ –InputBox. Nach der Selektion von „Every Year“ sollen „Day of the month“ und „day of the week in Month“ eingblendet werden sowie das „Beginn am“ –InputBox. 
 
 				</para>
@@ -475,12 +475,12 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
                     </listitem>
                     <listitem>
                         <para>
-								Fall 3: Falls der Termin sich mindestens zwei Regeln untergibt (also z.B. Wöchentlich im Sommersemester 2015 stattfinden soll), wird zunächst ein <code>dailyPattern</code> und danach mehrere <code>furtherPatterns</code> erstellt. Es kommt also zum <code>unionPattern</code> mit dem vorher erstellten <code>DailyPattern</code> ein, wobei sich die ID wieder aus Beschreibung und <code>_1</code> zusammensetzt.
+								Fall 3: Falls der Termin sich mindestens zwei Regeln untergibt (also z.B. Wöchentlich im Sommersemester 2015 stattfinden soll), wird zunächst ein <code>dailyPattern</code> und danach mehrere <code>furtherPatterns</code> erstellt. Es wird also ein <code>unionPattern</code> mit den vorher erstellten <code>DailyPattern</code> erzeugt. Dabei setzt sich die ID wieder aus der Beschreibung und "_1" zusammen.
 							</para>
                     </listitem>
                     <listitem>
                         <para>
-							Fall 4: Falls der Termin wöchentlich stattfinden soll und ein Start- und End-Datum existiert, dann wird ein <code>IntersectionPattern</code> gebaut mit folgendem, festen Schema. Das intersectionPattern enthält dann ein <code>dailyPattern</code> als <code>firstPattern</code> sowie einem oder mehreren <code>furtherPattern</code>, welche die angegebenen Wochentage, an denen das Event stattfinden soll, darstellen.
+							Fall 4: Falls der Termin wöchentlich stattfinden soll und ein Start- und End-Datum existiert, dann wird ein <code>IntersectionPattern</code> gebaut mit folgendem, festen Schema. Das <code>intersectionPattern</code> enthält dann ein <code>dailyPattern</code> als <code>firstPattern</code> sowie einem oder mehreren <code>furtherPattern</code>, welche die angegebenen Wochentage, an denen das Event stattfinden soll, darstellen.
 						<programlisting>
 							<![CDATA[	
 							<intersectionPattern description="{$eventRuleDesc}">
@@ -502,7 +502,7 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
 			<section>
 				<title>updateTask.xqm</title>
 				<para>
-					<code>updateTask.xqm</code>: Generiert unsere XForm, um einzelne Tasks zu editieren. Wir haben uns dazu entschieden, den Aufruf mit GET zu implementieren, da wir die Veranstaltung selber anklickbar machen wollten. Entsprechend haben wir im SVG einfach ein <code>href</code> verwendet, um die Tasks anklickbar zu machen. In der URL werden die Parameter <code>date</code> (das Datum, an dem dieser eine Termin stattfindet) und <code>description</code> (der eindeutige Name der Terminserie) übergeben. Die Daten werden direkt anhand der Beschreibung der Terminserie aus der Datenbank entnommen. Wir unterscheiden zwischen zwei Fällen in unserem Daten-Model: 
+					<code>updateTask.xqm</code>: Generiert eine XSLTForm, um einzelne Tasks zu editieren. Wir haben uns dazu entschieden, den Aufruf mit GET zu implementieren, da wir die Veranstaltung selber anklickbar machen wollten. Entsprechend haben wir im SVG einfach ein <code>href</code> verwendet, um die Tasks anklickbar zu machen. In der URL werden die Parameter <code>date</code> (das Datum, an dem dieser eine Termin stattfindet) und <code>description</code> (der eindeutige Name der Terminserie) übergeben. Die Daten werden direkt anhand der Beschreibung der Terminserie aus der Datenbank entnommen. Wir unterscheiden zwischen zwei Fällen in unserem Daten-Model: 
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -573,7 +573,7 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
 			<section>
 				<title>updateEvents.xqm und updateTesting.xqm</title>
 				<para>
-					<code>updateEvents.xqm</code> dient der Weiterleitung der Daten zu den jeweiligen Funktionen von <code>updateTesting.xqm</code>. Es existieren zwei Funktionen in <code>updateTesting.xqm</code>: updateOccurence und updateSeries. Welche Funktion aufgerufen wird, hängt von der Variable <code>series</code> ab, deren Wert durch eine Checkbox in der XForm gesetzt wird. Als Orientierungspunkt in ??????????? dient die Originalbeschreibung der Veranstaltung. Diese wird im zuvor beschriebenen XForms-Model als <code>origDescription</code> dargestellt. 
+					<code>updateEvents.xqm</code> dient der Weiterleitung der Daten zu den jeweiligen Funktionen von <code>updateTesting.xqm</code>. Es existieren zwei Funktionen in <code>updateTesting.xqm</code>, nämlich <code>updateOccurence</code> und <code>updateSeries</code>. Welche Funktion aufgerufen wird, hängt von der Variable <code>series</code> ab, deren Wert durch eine Checkbox in der XForm gesetzt wird. Als Orientierungspunkt in ??????????? dient die Originalbeschreibung der Veranstaltung. Diese wird im zuvor beschriebenen XForms-Model als <code>origDescription</code> dargestellt. 
 					<itemizedlist>
 						<listitem>
 							<para>
@@ -583,7 +583,7 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
 						</listitem>
 						<listitem>
 							<para>
-								<code>updateOccurences</code>:	Der Verlauf ist ähnlich zum vorherigen, jedoch werden keine Patterns ersetzt, sondern ein <code>differencePattern</code> eingefügt. Falls keins existiert, oder das existierende <code>differencePattern</code> wird erweitert. Als <code>firstPattern</code> im <code>differencePattern</code> wird immer der Name des <code>recurrencePattern</code> benutzt. Für die <code>furtherPattern</code>s werden die Namen der einzelnen <code>dailyPatterns</code> verwendet, die für die einzelne Veranstaltung erstellt wurden. 
+								<code>updateOccurences</code>:	Der Verlauf ist ähnlich zum vorherigen, jedoch werden keine Patterns ersetzt, sondern ein <code>differencePattern</code> eingefügt, falls keins existiert. Andernfalls wird das existierende <code>differencePattern</code> erweitert. Als <code>firstPattern</code> im <code>differencePattern</code> wird immer der Name des <code>recurrencePattern</code> benutzt. Für die <code>furtherPattern</code>s werden die Namen der einzelnen <code>dailyPatterns</code> verwendet, die für die einzelne Veranstaltung erstellt wurden. 
 							</para>
 						</listitem>
 					</itemizedlist>
@@ -593,22 +593,22 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
 		<section>
 			<title>Das Praktikum</title>
 			<section>
+				<title>Probleme mit Tools</title>
+				<para>
+					Ein großes Problem war teilweise die Inflexibilität der Tools bzw. wie das Zusammenspiel zwischen den verschiedenen Applikationen aussieht. Im Speziellen kamen die meisten Probleme durch XForms zustande bzw. wie man XForms rendern und verwenden muss. Die Variante mit Verwendung von Betterforms ist nicht wirklich geeignet für nicht erfahrene XForms Programmierer.
+					Das Debugging und der generellen Aufbau ist gestaltet sich dabei komplizierter. XSLTForms ist eigentlich der bessere Prozessor für XRX Applikationen, da es immer die XForm ausgibt, im Gegensatz zu Betterforms, wo die Formulare nur beim initialen Aufruf mit GET sichtbar sind.
+					</para>
+					<para>
+					Ein anderer Faktor, der Probleme bereitet hat, sind die Unterschiede zwischen den verschiedenen Web-Engines. Gecko (Firefox) verhielt sich anders als der Rest, wie z.B. Webkit(Chrome). In den SVGs funktionieren beispielsweise die Verlinkungen z.B. in Chrome nicht, wenn die Definitionen sich nicht in der selben SVG-Datei befinden. Dadurch konnte man sich auch selten sicher sein, ob etwas nicht funktioniert, weil der Code fehlerhaft ist, oder ob es an einem verwendeten Tool (eXist, Browser...) liegt.
+				</para>
+			</section>
+			<section>
 				<title>Allgemeines</title>
-				<para>Mit der allgemeinen Organisation des Praktikums waren wir sehr zufrieden. Durch die wöchentlichen Vorlesungseinheiten wurde die grobe Idee der neu vorgestellten Technologien klar, welche dann durch das Aufgabenblatt eingeübt werden konnten. Dabei war die Modularisierung der einzelnen Teile super; dadurch konnte ein Teil unabhängig von den Anderen entwickelt werden (z.B. XSLT und XQuery). AUch die Reihenfolge der besprochenen Technologien war sinnvoll (also zuerst SVG, dann XSLT usw). Leider kam das letzte Thema mit XForms usw. etwas kurz (es gab z.B. kein extra Übungsblatt dazu); im Projekt stellte das die größte Schwierigkeit dar.</para>
+				<para>Mit der allgemeinen Organisation des Praktikums waren wir sehr zufrieden. Durch die wöchentlichen Vorlesungseinheiten wurde die grobe Idee der neu vorgestellten Technologien klar, welche dann durch das Aufgabenblatt eingeübt werden konnten. Dabei war die Modularisierung der einzelnen Teile super; dadurch konnte ein Teil unabhängig von den Anderen entwickelt werden (z.B. XSLT und XQuery). AUch die Reihenfolge der besprochenen Technologien war sinnvoll (also zuerst SVG, dann XSLT usw). Leider kam das letzte Thema mit XForms usw. etwas kurz (es gab z.B. kein extra Übungsblatt dazu); im Projekt stellte das eine große Schwierigkeit dar.</para>
 			</section>
 			<section>
 				<title>Im Team</title>
 				<para>Wir haben unsere Lösung des ersten Blatts (SVG) im Praktikum vorgestellt. Dadurch hatten wir bereits früh eine Basis für die Projektaufgabe. Wir haben ein git-Repository angelegt, um eine gemeinsame Versionskontrolle zu haben. Somit war die Möglichkeit gegeben, jederzeit am aktuellsten Code weiterzuarbeiten. Während der Vorlesungszeit wurden dann auch die Aufgabenblätter zu XSLT und XQuery separat entwickelt. Die restliche Arbeit haben wir dann nach den Klausuren erledigt, wobei es in dieser Phase auch häufiger Treffen oder Skype-Temrine gab, um sich abzustimmen. Hier wurde auch an fast allen Punkten noch gearbeitet, auch die bereits entwickelten XSLT- und XQuery-Codes mussten teilweise noch angepasst werden.</para>
-			</section>
-			<section>
-				<title>Probleme mit Tools</title>
-				<para>
-					Ein großes Problem war teilweise die Inflexibilität der Tools bzw. wie das Zusammenspiel zwischen den verschiedenen Applikationen aussieht. Im Speziellen kamen die meisten Probleme durch XForms zustande bzw. wie man XForms rendern und verwenden muss. Die Variante mit Verwendung von Betterforms ist nicht wirklich geeignet für nicht erfahrene XForms Programmierer.
-					Das debugging und der generellen Aufbau ist gestaltet sich dabei komplizierter. XSLTForms ist eigentlich der bessere Prozessor für XRX Applikationen, da es immer die XForm ausgibt, im Gegensatz zu Betterforms, wo die Formulare nur beim initialen Aufruf mit GET sichtbar sind (???????).
-					</para>
-					<para>
-					Ein anderer Faktor, der Probleme bereitet hat, sind die Unterschiede zwischen den verschiedenen Web-Engines. Gecko (Firefox) verhielt sich anders als der Rest, wie z.B. Webkit(Chrome). In den SVGs funktionieren die Verlinkungen z.B. in Chrome nicht, wenn die Definitionen sich nicht in der selben SVG-Datei befinden.
-				</para>
 			</section>
 		</section>
 </article>
