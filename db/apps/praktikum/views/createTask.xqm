@@ -22,7 +22,8 @@ let $form := (
         <xf:model xmlns="" id="appendData">
             <xf:instance xmlns="" id="dataI">
                 <root>
-                    <description/>                    <category/>
+                    <description/>                    
+                    <category/>
                     <startDate/>
                     <endDate/>
                     <startTime/>
@@ -34,6 +35,10 @@ let $form := (
                     <repeat />
                     <patternType />
                     <repeatDayOfWeek />
+                      <monthlyCardinalOrOrdinal />
+
+                    <yearlyCardinalOrOrdinal />
+
                 </root>
             </xf:instance>
             <xf:bind ref="description" required="true()" type="xs:string"/>
@@ -45,9 +50,10 @@ let $form := (
             <xf:bind ref="location" required="false()"/>
             <xf:bind ref="repeat" required="false()" type="xs:boolean"/>
             <xf:bind ref="patternType" required="false()" relevant="instance('dataI')//repeat[.='true']" />
-            <xf:bind ref="repeatDayOfWeek" required="false()" type="xs:boolean" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='weeklyPattern']" />
-
-            <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
+            <xf:bind ref="repeatDayOfWeek" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='weeklyPattern']" />
+              <xf:bind ref="monthlyCardinalOrOrdinal" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='monthlyPattern']" />
+            <xf:bind ref="yearlyCardinalOrOrdinal" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='yearlyPattern']" />
+                    <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
                 <xf:action ev:event="xforms-submit-error">
                     <xf:message>An Error has occured please contact Admin</xf:message>
                 </xf:action>
@@ -94,7 +100,7 @@ let $form := (
                 <xf:input ref="instance('dataI')//note">
                     <xf:label  class="inputLabels">Additional Comments:</xf:label>
                 </xf:input>
-                <xf:input ref="instance('dataI')//attendee">
+                <xf:input ref="instance('dataI')//attendees">
                     <xf:label  class="inputLabels">Attendee:</xf:label>
                 </xf:input>
                 <xf:input ref="instance('dataI')//location">
@@ -117,6 +123,10 @@ let $form := (
                     <xf:item>
                         <xf:label>Every Month</xf:label>
                         <xf:value>monthlyPattern</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Every Year </xf:label>
+                        <xf:value>yearlyPattern</xf:value>
                     </xf:item>
                 </xf:select1>
                 
@@ -149,7 +159,30 @@ let $form := (
                            <xf:label>Sunday</xf:label>
                            <xf:value>sunday</xf:value>
                     </xf:item>
-                </xf:select>  
+                </xf:select> 
+                                <xf:select1 ref="monthlyCardinalOrOrdinal" appearance="full">
+                    <xf:label>Select ordinal or cardinal?</xf:label>
+                    <xf:item>
+                        <xf:label>Day of the month (cardinal)</xf:label>
+                        <xf:value>monthlyCardinal</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Day of the week (ordinal)</xf:label>
+                        <xf:value>monthlyOrdinal</xf:value>
+                    </xf:item>
+                </xf:select1>
+                
+                <xf:select1 ref="yearlyCardinalOrOrdinal" appearance="full">
+                    <xf:label>Select ordinal or cardinal?</xf:label>
+                    <xf:item>
+                        <xf:label>Day of the month (cardinal)</xf:label>
+                        <xf:value>yearlyCardinal</xf:value>
+                    </xf:item>
+                    <xf:item>
+                        <xf:label>Day of the week (ordinal)</xf:label>
+                        <xf:value>yearlyOrdinal</xf:value>
+                    </xf:item>
+                </xf:select1>
               </xf:group>
               
               <xf:submit submission="convert">
@@ -160,7 +193,6 @@ let $form := (
         </div>
     </body>
 </html>)
-let $xslt-pi := processing-instruction xml-stylesheet {'type="text/xsl" href="/exist/rest/db/apps/xsltforms/xsltforms.xsl"'}
-let $debug := processing-instruction xsltforms-options {'debug="yes"'}    
+let $xslt-pi := processing-instruction xml-stylesheet {'type="text/xsl" href="/exist/rest/db/apps/xsltforms/xsltforms.xsl"'}   
 return
   ($xslt-pi,$form)

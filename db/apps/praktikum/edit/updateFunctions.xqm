@@ -1,6 +1,7 @@
 xquery version "3.0";
 
 module namespace  updateFunction = "http://www.update.com";
+import module namespace helper = "http://www.help.com" at '../views/helperFunctions.xqm';
 import module namespace fn = "http://www.functx.com" at '../views/functx-1.0-doc-2007-01.xq';
 declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
@@ -12,19 +13,17 @@ declare function updateFunction:updateSeries($post-req as item()*)
 let $collection :=  'xmldb:exist:///db/apps/praktikum'
 let $login := xmldb:login($collection, 'admin', '')
 
-let $note := $post-req//note
-let $description := $post-req//description
-let $endDate := $post-req//endDate
-let $startDate := $post-req//startDate
-let $startTime := $post-req//startTime
-let $endTime := $post-req//endTime
+let $note := xs:string($post-req//note)
+let $description := xs:string($post-req//description)
+let $endDate := xs:string($post-req//endDate)
+let $startDate := xs:string($post-req//startDate)
+let $startTime := xs:string($post-req//startTime)
+let $endTime := xs:string($post-req//endTime)
 let $attendees := $post-req//attendees
-let $origDescription := $post-req//origDescription
-let $location := $post-req//location
-let $mode := $post-req//mode
-let $series := $post-req//series
-
-let $dbCal := doc('/db/apps/praktikum/data/sampleCalendarX.xml')
+let $origDescription := xs:string($post-req//origDescription)
+let $location := xs:string($post-req//location)
+let $mode := xs:string($post-req//mode)
+let $dbCal := helper:calendarDoc()
 
 
 
@@ -90,10 +89,25 @@ let $newPattern := for $pattern in $assocPattern/*
                             let $replacementPattern := <weeklyPattern description="{$newEventRule}" dayOfWeek="{$pattern/@dayOfWeek}" />
                             return 
                              update replace $dbCal//patterns/*[@description=$pattern/@description] with $replacementPattern
+                            )else(
+                            if($pattern/name()='differencePattern') then (
+                                let $replacementPattern := <differencePattern description="{concat($description,'_d_1')}">
+            <firstPattern>{$newEventRule}</firstPattern>
+            <furtherPatterns>
+                                                       {for $furtherPattern in $pattern//furtherPatterns/*
+                                            return
+                                                <furtherPattern> {$furtherPattern/text()}
+                                                </furtherPattern>
+                                        }
+            </furtherPatterns>
+        </differencePattern>
+        return
+                                  update replace $dbCal//patterns/*[@description=$pattern/@description] with $replacementPattern
                             )else()
                           )
                           )
-                     )               
+                     )
+                     )
                        
 let $update := update replace $superEvent with $superEventRep
  

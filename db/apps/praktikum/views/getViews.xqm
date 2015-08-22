@@ -69,10 +69,6 @@ let $form := (
                     <packedView>{$param3}</packedView>
                 </root>
             </xf:instance >
-                 <xf:instance id='inlineSVG'>
-                        {$svg}
-                    </xf:instance>
-                
             <xf:submission id="getView" method="post" action="getViews.xqm"/>
             <xf:bind nodeset="instance('dateData')//date" type="xs:date"/>
             <xf:bind nodeset="instance('dateData')//mode" type="xs:string"/>
@@ -150,8 +146,10 @@ let $form := (
                     case 'Week' return concat('Woche vom ', format-date(helper:getMondayOfWeek($param2), "[D].[M].[Y]"))
                     case 'Month' return format-date($param2, "[MNn] [Y]", "de", (), ())
                     default return ''
-                }</h1>            
+                }</h1>  
+                <div id="calendarViewSVG">
                {$svg}
+               </div>
             </div>
             </div>
         </div>
@@ -163,4 +161,3 @@ let $xslt-pi := processing-instruction xml-stylesheet {'type="text/xsl" href="/e
 let $debug := processing-instruction xsltforms-options {'debug="yes"'}    
 return
   ($xslt-pi,$form)
-

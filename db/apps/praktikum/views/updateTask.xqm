@@ -1,24 +1,12 @@
 xquery version "3.0";
-(: echo-post.xq: Return all data from an HTTP post to the caller. 
- transform:transform($input, $xsl, $param)
- 
+(: IN CASE WE WANT TO ADD WEEKS 
                      {if ($weeklyTest) then
                                             <repeatDayOfWeek />
                                             else()}
- 
- 
- 
- 
- 
- 
- 
   {if ($weeklyTest) then 
                  <xf:bind ref="repeatDayOfWeek" required="false()" type="xs:boolean" />
              else()
-             }
-             
-             
-             
+             }    
                   {
                if ($weeklyTest) then 
                                <xf:select ref="repeatDayOfWeek" appearance="full">
@@ -150,7 +138,7 @@ let $form := (
     <body>
          <div id="wrapper">
          <div id="wrapperPropper">
-        <h1>Update Task</h1>
+       <div id="form-heading">Update Task</div>
         <div id="navBar">
             <ul>
                 <li>

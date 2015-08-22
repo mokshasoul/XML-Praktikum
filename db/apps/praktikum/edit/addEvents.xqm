@@ -5,6 +5,7 @@ xquery version "3.0";
  :)
  import module namespace fn = "http://www.functx.com" at '../views/functx-1.0-doc-2007-01.xq';
 import module namespace getEvents = "http://www.getEvents.com" at '../views/getEventsFunctions.xqm';
+import module namespace helper = "http://www.help.com" at '../views/helperFunctions.xqm';
 declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace request="http://exist-db.org/xquery/request";
@@ -18,15 +19,18 @@ let $data-path := '/db/apps/praktikum/data/'
 let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
 let $post-req := request:get-data()
 
-let $description := $post-req//description
-let $endDate := $post-req//endDate
-let $startDate := $post-req//startDate
-let $startTime := $post-req//startTime
-let $endTime := $post-req//endTime
-let $attendees := $post-req//attendees
-let $location := $post-req//location
-let $recurrencePattern := $post-req//repeat
-
+let $description := xs:string($post-req//description)
+let $endDate := xs:string($post-req//endDate)
+let $startDate := xs:string($post-req//startDate)
+let $startTime := xs:string($post-req//startTime)
+let $endTime := xs:string($post-req//endTime)
+let $attendees := xs:string($post-req//attendees)
+let $location := xs:string($post-req//location)
+let $recurrencePattern := xs:string($post-req//repeat)
+let $monthMode := xs:string($post-req//monthlyCardinalOrOrdinal)
+let $yearlyMode := xs:string($post-req//yearlyCardinalOrOrdinal)
+let $category := xs:string($post-req//category)
+let $note := xs:string($post-req//note)
 let $mode := if ($startDate = $endDate) then(
         'singleDay'
     )else(
@@ -37,16 +41,16 @@ let $days := $post-req//repeatDayOfWeek
 let $daysCount := count(tokenize($days," "))
 
 
-let $dbCal := doc('/db/apps/praktikum/data/calendarX2.xml')
+let $dbCal := helper:calendarDoc()
 let $eventRuleDesc := concat($description,"_1")
-let $event :=  if ($mode eq 'singleDay' or ($mode eq 'weeklyPatter' and $daysCount < 2) or ($mode eq 'dailyPattern') ) then(
-<superEvent description="{$description}">
+let $event :=  if ($mode eq 'singleDay' or ($mode eq 'weeklyPattern' and $daysCount < 2) or ($mode eq 'dailyPattern') ) then(
+<superEvent description="{$description}" categories="{$category}">
             <eventRules>
-                <eventRule description="{$description}" startTime="{$startTime}" endTime="{$endTime}" note="">
+                <eventRule description="{$description}" startTime="{$startTime}" endTime="{$endTime}" note="{$note}">
                 <recurrencePattern>{$description}</recurrencePattern>
                     <attendees>
                         { for $attendee in tokenize($attendees, ",") return
-                        <attendee>{$attendee}</attendee> }
+                        <attendee>{fn:trim($attendee)}</attendee> }
                     </attendees>
                     <location>{$location}</location>
                 </eventRule>
@@ -54,20 +58,20 @@ let $event :=  if ($mode eq 'singleDay' or ($mode eq 'weeklyPatter' and $daysCou
         </superEvent>
         
 )else( 
-<superEvent description="{$description}">
+<superEvent description="{$description}" categories="{$category}">
             <eventRules>
-                <eventRule description="{$eventRuleDesc}" startTime="{$startTime}" endTime="{$endTime}" note="">
+                <eventRule description="{$eventRuleDesc}" startTime="{$startTime}" endTime="{$endTime}" note="{$note}">
                 <recurrencePattern>{$eventRuleDesc}</recurrencePattern>
                     <attendees>
                         { for $attendee in tokenize($attendees, ",") return
-                        <attendee>{$attendee}</attendee> }
+                        <attendee>{fn:trim($attendee)}</attendee> }
                     </attendees>
                     <location>{$location}</location>
                 </eventRule>
             </eventRules>
         </superEvent>
         )
-let $store-return-status := update insert $event into $dbCal//SuperEvents
+let $store-return-status := update insert $event into $dbCal//superEvents
 (: pattern types :)
 
 let $dailyPattern:= if ($startDate and $endDate) then  
@@ -98,9 +102,9 @@ let $unionPattern := if (($mode eq "weeklyPattern") and $daysCount > 1) then (
         let $pattern := <unionPattern description="{$eventRuleDesc}">
          <firstPattern>{tokenize($days, " ")[1]}</firstPattern>
          <furtherPatterns> {
-             for $day in tokenize($days, " ")
+             for $day at $pos in tokenize($days, " ")
              return
-                 if ($day) then(
+                 if ($day and $pos > 1) then(
                      <furtherPattern>{$day}</furtherPattern>
                 )else()
          }
@@ -110,17 +114,31 @@ let $unionPattern := if (($mode eq "weeklyPattern") and $daysCount > 1) then (
          update insert $pattern into $dbCal//patterns
     )else()
     
-let $monthlyPattern := if (($mode eq "monthlyPattern") and ($monthMode eq "day")) then
-    <ordinalMonthlyPattern ordinal="first" dayType="{$startDate}"
+let $monthlyPattern := if (($mode eq "monthlyPattern") and ($monthMode eq "monthlyOrdinal")) then
+    let $pattern := <ordinalMonthlyPattern ordinal="first" dayType="{$startDate}"
             description="{$description}"/>
-    else
-    <cardinalMonthlyPattern dayOfMonth="{fn:day-of-week-name-en($startDate)}" description="{$description}"/>
-
-let $yearlyPattern := if (($mode eq "yearlyPattern") and ($yearlyMode eq "day")) then 
-        <ordinalYearlyPattern ordinal="second" dayType="Saturday"
+            return
+  update insert $pattern into $dbCal//patterns
+    else(
+    if($monthMode eq "monthlyCardinal") then
+    (
+    let $pattern := <cardinalMonthlyPattern dayOfMonth="{fn:day-of-week-name-en($startDate)}" description="{$description}"/>
+    return
+  update insert $pattern into $dbCal//patterns
+    )else()
+    )
+let $yearlyPattern := if (($mode eq "yearlyPattern") and ($yearlyMode eq "yearlyOrdinal")) then 
+        let $pattern := <ordinalYearlyPattern ordinal="second" dayType="{fn:day-of-week-name-en($startDate)}"
 month="{fn:month-name-en($startDate)}" description="{$description}"/>
-else
-<cardinalYearlyPattern dayOfMonth="{fn:day-of-week-name-en($startDate)}" month="{fn:month-name-en($startDate)}"
+return
+  update insert $pattern into $dbCal//patterns
+else(
+if ($yearlyMode eq "yearlyCardinal") then
+ let $pattern := <cardinalYearlyPattern dayOfMonth="{fn:day-of-week-name-en($startDate)}" month="{fn:month-name-en($startDate)}"
 description="{$description}"/>
+return
+    update insert $pattern into $dbCal//patterns
+else()
+)
 return
 <root/>

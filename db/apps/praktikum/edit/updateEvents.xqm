@@ -1,9 +1,10 @@
 xquery version "3.0";
 
-(: echo-post.xq: Return all data from an HTTP post to the caller. 
- transform:transform($input, $xsl, $param)
+(:
+Purpose of this file is to handle the 2 different cases of event editing
+The functions themselves are saved in updateTesting.xqm
  :)
-import module namespace updateFunction = "http://www.update.com" at 'updateTesting.xqm';
+import module namespace updateFunction = "http://www.update.com" at 'updateFunctions.xqm';
 declare namespace exist = "http://exist.sourceforge.net/NS/exist";
 declare namespace xmldb="http://exist-db.org/xquery/xmldb";
 declare namespace request="http://exist-db.org/xquery/request";
@@ -12,19 +13,18 @@ declare option exist:serialize "method=xhtml media-type=text/xml indent=no  proc
 
 let $collection :=  'xmldb:exist:///db/apps/praktikum'
 let $login := xmldb:login($collection, 'admin', '')
-let $data-path := '/db/apps/praktikum/data/'
+let $dbCal := helper:calendarDoc()
 
 let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 'true')
 let $post-req := request:get-data()
 
-let $dbCal := doc('/db/apps/praktikum/data/sampleCalendarX.xml')
-let $seriesProc := if (not($post-req//series = 'true')) then
+let $seriesProc := if (not(xs:boolean($post-req//series))) then
 (
 updateFunction:updateSeries($post-req)
 )else(
 updateFunction:updateOccurence($post-req)
-)
+)   
     return
     <root>
-{$seriesProc}
+{$dbCal}
 </root>
