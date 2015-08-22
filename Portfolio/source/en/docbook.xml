@@ -348,7 +348,6 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			Architektur von XForms basiert auf dem Model-View-Controller Konzept (MVC). In unserem Fall
 			wurde XForms in Kombination mit XQuery eingesetzt, um eine XRX Applikation zu
 			konstruieren. </para>
-
 			<section xml:id="getViews">
 				<title>getViews.xqm</title>
 				<para>Für die Website verwenden wir XSLTforms für die Eingabemasken. Die Website zur Auswahl des
@@ -427,32 +426,47 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			</section>
 			<section xml:id="addEvents">
 				<title>addEvents.xqm</title>
-            <para>Die Datei ist eine XQuery, die Daten-Operationen auf unsere Datenbank ausführt, in diesem Fall die Datei <code>sampleCalendarX.xml</code>.
-				Zuerst werden die Variablen vom POST-Request ausgelesen. Diese Variablen kommen von der <code>createTask.xqm</code>. Die Variablen geben die jeweiligen Informationen zum Kalendar-Eintrag an. Es handelt sich also um Start-Datum, End-Datum, Start- und Endzeitpunkt, Ort usw. Dannach wird in der <code>addEvents.xqm</code> geprüft, ob ein Start- und End-Datum existiert, und wenn ja, ob sie gleich sind. Falls dies der Fall ist, wird der Modus auf <code>singleDay</code>, andernfalls auf <code>patternType</code> gesetzt. In der <code>createTask.xqm</code> Datei wurden in <code>data.xml</code> Repeat, patternType und repeatDayOfWeek ergänzt. Dadurch kann auch eine Terminserie jeglicher Art dem Kalendar hinzugefügt werden. „Repeat“ ist kein Label bzw. kein IputBox, sondern eine CheckBox. Im Binding von PatternType wurde ein Attribut „Relevant“ hinzugefügt. Dadurch wird das DropDown zum Pattern erst dann eingeblendet wenn das Repeats CheckBox selektiert ist. Zusammengefasst, besteht das Formular aus elf InputBoxes (Task Name, Task Category, Start Date, End Date, Start Time, End Time, Additional Comments, Attendee, Location, Repeat, How often should the event occur). Beim dem letzten soll ein DropDown-Dialog eingeblendet (Every Day, Every Week, Every Month, Every Year).
-Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der Selektion von „every Week“  sollen alle Tage der Woche eingeblendet sein (Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag). Nach der Selektion von „Every Month“ sollen „Day of the month“ und „day of the week“ eingblendet werden sowie das „Beginn am“ –InputBox. Nach der Selektion von „Every Year“ sollen „Day of the month“ und „day of the week in Month“ eingblendet werden sowie das „Beginn am“ –InputBox. 
-
+            <para>Die Datei ist eine XQuery Datei, die Daten-Operationen auf unsere Datenbank ausführt, in diesem Fall die Datei <code>sampleCalendarX.xml</code>.
+				Zuerst werden die Variablen vom POST-Request ausgelesen. Diese Variablen kommen von der <code>createTask.xqm</code>. Die Variablen geben die jeweiligen Informationen zum Kalendar-Eintrag an. Es handelt sich also um Start-Datum, End-Datum, Start- und Endzeitpunkt, 
+            	Ort usw. Es findet eine überprüfung statt ob ein Start- und End-Datum existiert, und wenn ja, ob sie gleich sind. 
+            	Falls dies der Fall ist, wird der Modus auf <code>singleDay</code>, andernfalls auf <code>patternType</code> gesetzt. 
 				</para>
-            <para>
-					Für das Zusammenstellen eines Events unterscheiden wir zwischen folgenden Ereignissen:
+			<para>
+				In unserer XML-Datenbank haben wir die Wochentage hardkodiert mit folgenden Schema:
+				<programlisting>
+					<![CDATA[	
+					<weeklyPattern description="$tag" dayOfWeek="$dayOfWeek"/> 
+					]]>
+				</programlisting>
+				Dies wurde gemacht um die erstellung von Terminen die Sich mehrmals in der Woche wiederholen leichter zu gestallten, da das Pattern in jeder Serie mehrmals benutzt wird.
+			</para>
+				<para>
+					Für das Zusammenstellen eines Events unterscheiden wir zwischen folgenden Ereignissen beim Input:
 					<itemizedlist>
                     <listitem>
                         <para>
-								Fall 1: Modus ist <code>singleDay</code>. In diesem Fall wird ein <code>SuperEvent</code> erstellt, das als EventRule-ID die Beschreibung des Termins erhält. Diese Beschreibung wird auch als Name für das dazugehörige dailyPattern verwendet.
+								Fall 1: Modus ist <code>singleDay</code>. In diesem Fall wird ein <code>SuperEvent</code> erstellt, das als EventRule-ID die Beschreibung des Termins erhält.
+                        	Diese Beschreibung wird auch als Name für das dazugehörige dailyPattern verwendet.
+							</para>
+                    </listitem>
+						<listitem>
+								<para>
+									Fall 2: Der Termin soll sich 1-Mal Wochentlich wiederholen, die Erstellung des SuperEvents ist ähnlich zu Fall 1 aber anstatt einer <code>dailyPattern</code> wird ein <code>weeklyPattern</code> erstellt.		
+								</para>
+						</listitem>
+                    <listitem>
+                        <para>
+								Fall 3:  Wenn die ersten beiden Fälle nicht eintreten, wird ein Standard-<code>SuperEvent</code> angelegt, wobei sich die EventRule-ID aus der Beschreibung und  <code>_1</code> zusammengesetzt ist. Falls ein Start und End-Datum existiert wird ein DailyPattern angelegt, dessen ID der Beschreibung des Termins entspricht.
 							</para>
                     </listitem>
                     <listitem>
                         <para>
-								Fall 2:  Wenn der Modus nicht <code>singleDay</code> ist, wird ein Standard-<code>SuperEvent</code> angelegt, wobei sich die EventRule-ID aus der Beschreibung und  <code>_1</code> zusammensetzt. Falls ein Start und End-Datum existiert wird ein DailyPattern angelegt, dessen ID der Beschreibung des Termins entspricht.
+								Fall 4: Falls der Termin sich mindestens zwei Regeln untergibt (also z.B. Wöchentlich im Sommersemester 2015 stattfinden soll), wird zunächst ein <code>dailyPattern</code> und danach mehrere <code>furtherPatterns</code> erstellt. Es wird also ein <code>unionPattern</code> mit den vorher erstellten <code>DailyPattern</code> erzeugt. Dabei setzt sich die ID wieder aus der Beschreibung und "_1" zusammen.
 							</para>
                     </listitem>
                     <listitem>
                         <para>
-								Fall 3: Falls der Termin sich mindestens zwei Regeln untergibt (also z.B. Wöchentlich im Sommersemester 2015 stattfinden soll), wird zunächst ein <code>dailyPattern</code> und danach mehrere <code>furtherPatterns</code> erstellt. Es wird also ein <code>unionPattern</code> mit den vorher erstellten <code>DailyPattern</code> erzeugt. Dabei setzt sich die ID wieder aus der Beschreibung und "_1" zusammen.
-							</para>
-                    </listitem>
-                    <listitem>
-                        <para>
-							Fall 4: Falls der Termin wöchentlich stattfinden soll und ein Start- und End-Datum existiert, dann wird ein <code>IntersectionPattern</code> gebaut mit folgendem, festen Schema. Das <code>intersectionPattern</code> enthält dann ein <code>dailyPattern</code> als <code>firstPattern</code> sowie einem oder mehreren <code>furtherPattern</code>, welche die angegebenen Wochentage, an denen das Event stattfinden soll, darstellen.
+							Fall 5: Falls der Termin wöchentlich stattfinden soll und ein Start- und End-Datum existiert, dann wird ein <code>IntersectionPattern</code> gebaut mit folgendem, festen Schema. Das <code>intersectionPattern</code> enthält dann ein <code>dailyPattern</code> als <code>firstPattern</code> sowie einem oder mehreren <code>furtherPattern</code>, welche die angegebenen Wochentage, an denen das Event stattfinden soll, darstellen.
 						<programlisting>
 							<![CDATA[	
 							<intersectionPattern description="{$eventRuleDesc}">
@@ -468,6 +482,11 @@ Nach der Selektion von „Every Day“ soll nichts eingeblendet werden. Nach der
 						</programlisting>		
 						</para>
 					</listitem>
+						<listitem>
+							<para>
+								Fall 6: Ein Ausnahme-Fall existiert wenn ein Termin Täglich stattfinden soll aber ohne das dieser ein End-Datum besitzt. In diesem Fall benutzen wir ein Union Pattern das alle Wochentage benutzt.
+							</para>
+						</listitem>
 					</itemizedlist>
 				</para>
 			</section>
