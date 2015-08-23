@@ -116,7 +116,7 @@ let $weeklyPattern := if (($mode eq "weeklyPattern") and $daysCount = 1) then (
     update insert $pattern into $dbCal//patterns
     )else()
     
-let $isUnionPattern := ($mode eq "weeklyPattern") and ($daysCount > 1 or $dailyPattern)
+let $isUnionPattern := ($mode eq "weeklyPattern") and ($daysCount > 1 or ($startDate and $endDate))
 let $isMonthlyPattern := ($mode eq "monthlyPattern") and ($monthMode eq "monthlyOrdinal")
 
 let $furtherPatternDescription := if (not($startDate and $endDate)) then $eventRuleDesc else concat($eventRuleDesc,'_f')
