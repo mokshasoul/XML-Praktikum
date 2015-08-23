@@ -33,7 +33,7 @@ let $recurrencePattern := xs:string($superEvent//eventRule[1]/recurrencePattern)
 let $newEventRule := concat($description,'_',substring-after($eventRuleDesc,'_'))
 let $superEventRep :=<superEvent description="{$description}" categories="teaching">
                     <eventRules>
-                        <eventRule description="{$newEventRule }" startTime="{$startTime}" endTime="{$endTime}" note="">
+                        <eventRule description="{$newEventRule }" startTime="{$startTime}" endTime="{$endTime}" note="{$note}">
                             <recurrencePattern>{$newEventRule }</recurrencePattern>
                          <attendees>
                         {
@@ -45,11 +45,10 @@ let $superEventRep :=<superEvent description="{$description}" categories="teachi
                         </eventRule>
                     </eventRules>
                 </superEvent>
-
+let $update := update replace $superEvent with $superEventRep
 let $assocPattern := 
-<root>{
-$dbCal//patterns/*[contains(@description,substring-before($recurrencePattern,'_'))]}
-</root>
+$dbCal//patterns/*[contains(@description,$origDescription)]
+
 let $newPattern := for $pattern in $assocPattern/*
                     return
                    if( $pattern/name() = 'intersectionPattern') then(
@@ -109,11 +108,11 @@ let $newPattern := for $pattern in $assocPattern/*
                      )
                      )
                        
-let $update := update replace $superEvent with $superEventRep
+
  
                 return
                 <root>
-            {$dbCal}
+            { $superEventRep}
     </root>
 };
 

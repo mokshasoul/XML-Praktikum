@@ -131,6 +131,13 @@ let $form := (
             <xf:bind ref="series" required="false()" type="xs:boolean"/>
            
            <xf:submission id="convert" method="post" replace="none" action="../edit/updateEvents.xqm">
+           <xf:action ev:event="xforms-submit-error">
+                    <xf:message>An Error has occured please contact Admin</xf:message>
+                </xf:action>
+                <xf:action ev:event="xforms-submit-done">
+                    <xf:message>Task Updated You Can Close The Window Now</xf:message>
+                    <xf:reset model="appendData"/>
+                </xf:action>
             </xf:submission>
         </xf:model>
         <title/>
