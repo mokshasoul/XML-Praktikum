@@ -418,7 +418,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 					Das Datenmodell beinhaltet die Eingabedaten für einen Termin. Wir benutzen eine boolsche Variable names <code>repeat</code>, um herauszufinden, ob der Termin 
 					sich wiederholen soll. Die Variable mit Namen <code>patternType</code> bestimmt, was für eine Art Wiederholung der Termin haben soll. Durch diese beiden
 					Variablen können wir die Variable <code>repeatDayOfWeek</code> darstellen, die nur sichtbar ist, wenn ein Termin sich tatsächlich wöchentlich wiederholen soll. Dies 
-					kann durch Checkboxen angegeben werden, mit denen man die verschiedenen Tage angeben kann. Für monatliche und jährliche Wiederholng kann jeweils zwischen <code>ordinal</code> bzw. <code>cardinal</code> gewählt werden<footnote><para>siehe dazu auch die Beschreibung der Patterns im Abschnitt zu den<link linkend="simplePattern"><code>simplePattern</code></link></para></footnote>.
+					kann durch Checkboxen angegeben werden, mit denen man die verschiedenen Tage angeben kann. Für monatliche und jährliche Wiederholng kann jeweils zwischen <code>ordinal</code> bzw. <code>cardinal</code> gewählt werden<footnote><para>siehe dazu auch die Beschreibung der Patterns im Abschnitt zu den <link linkend="simplePattern"><code>simplePattern</code></link></para></footnote>.
 				</para>
 				<para>Als submit dient die Funktion mit id <code>convert</code>, die die XQuery <link linkend="addEvents"><code>addEvents.xqm</code></link> aufruft. Falls die Operation erfolgreich ist, wird die XForm 
 				zurückgesetzt und eine Nachricht wird eingeblendet, die den Nutzer drauf hinweist, dass der Termin erstellt wurde.
@@ -428,7 +428,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 				<title>addEvents.xqm</title>
             <para>Die Datei ist eine XQuery Datei, die Daten-Operationen auf unsere Datenbank ausführt, in diesem Fall die Datei <code>sampleCalendarX.xml</code>.
 				Zuerst werden die Variablen vom POST-Request ausgelesen. Diese Variablen kommen von der <code>createTask.xqm</code>. Die Variablen geben die jeweiligen Informationen zum Kalendar-Eintrag an. Es handelt sich also um Start-Datum, End-Datum, Start- und Endzeitpunkt, 
-            	Ort usw. Es findet eine überprüfung statt ob ein Start- und End-Datum existiert, und wenn ja, ob sie gleich sind. 
+            	Ort usw. Es findet eine Überprüfung statt, ob ein Start- und End-Datum existiert, und wenn ja, ob sie gleich sind. 
             	Falls dies der Fall ist, wird der Modus auf <code>singleDay</code>, andernfalls auf <code>patternType</code> gesetzt. 
 				</para>
 			<para>
@@ -438,7 +438,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 					<weeklyPattern description="$tag" dayOfWeek="$dayOfWeek"/> 
 					]]>
 				</programlisting>
-				Dies wurde gemacht um die erstellung von Terminen die Sich mehrmals in der Woche wiederholen leichter zu gestallten, da das Pattern in jeder Serie mehrmals benutzt wird.
+				Dies wurde gemacht, um die Erstellung von Terminen, die sich wöchentlich wiederholen (also bei denen das <code>weeklyPattern</code> verwendet wird), leichter zu gestalten, da das Pattern oft benutzt wird und es nur die sieben Möglichkeiten gibt.
 			</para>
 				<para>
 					Für das Zusammenstellen eines Events unterscheiden wir zwischen folgenden Ereignissen beim Input:
@@ -446,22 +446,22 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
                     <listitem>
                         <para>
 								Fall 1: Modus ist <code>singleDay</code>. In diesem Fall wird ein <code>SuperEvent</code> erstellt, das als EventRule-ID die Beschreibung des Termins erhält.
-                        	Diese Beschreibung wird auch als Name für das dazugehörige dailyPattern verwendet.
+                        	Diese Beschreibung wird auch als Name für das dazugehörige <code>dailyPattern</code> verwendet.
 							</para>
                     </listitem>
 						<listitem>
 								<para>
-									Fall 2: Der Termin soll sich 1-Mal Wochentlich wiederholen, die Erstellung des SuperEvents ist ähnlich zu Fall 1 aber anstatt einer <code>dailyPattern</code> wird ein <code>weeklyPattern</code> erstellt.		
+									Fall 2: Der Termin soll sich 1-Mal wöchentlich wiederholen, die Erstellung des <code>SuperEvents</code> ist ähnlich zu Fall 1, aber anstatt eines <code>dailyPattern</code> wird ein <code>weeklyPattern</code> erstellt.		
 								</para>
 						</listitem>
                     <listitem>
                         <para>
-								Fall 3:  Wenn die ersten beiden Fälle nicht eintreten, wird ein Standard-<code>SuperEvent</code> angelegt, wobei sich die EventRule-ID aus der Beschreibung und  <code>_1</code> zusammengesetzt ist. Falls ein Start und End-Datum existiert wird ein DailyPattern angelegt, dessen ID der Beschreibung des Termins entspricht.
+								Fall 3:  Wenn die ersten beiden Fälle nicht eintreten, wird ein Standard-<code>SuperEvent</code> angelegt, wobei sich die EventRule-ID aus der Beschreibung und <code>_1</code> zusammengesetzt. Falls ein Start- und End-Datum existiert wird ein <code>dailyPattern</code> angelegt, dessen ID der Beschreibung des Termins entspricht.
 							</para>
                     </listitem>
                     <listitem>
                         <para>
-								Fall 4: Falls der Termin sich mindestens zwei Regeln untergibt (also z.B. Wöchentlich im Sommersemester 2015 stattfinden soll), wird zunächst ein <code>dailyPattern</code> und danach mehrere <code>furtherPatterns</code> erstellt. Es wird also ein <code>unionPattern</code> mit den vorher erstellten <code>DailyPattern</code> erzeugt. Dabei setzt sich die ID wieder aus der Beschreibung und "_1" zusammen.
+								Fall 4: Falls der Termin sich mindestens zwei Regeln untergibt (also z.B. wöchentlich im Sommersemester 2015 stattfinden soll), wird zunächst ein <code>dailyPattern</code> und danach mehrere <code>furtherPatterns</code> erstellt. Es wird also ein <code>unionPattern</code> mit den vorher erstellten <code>DailyPattern</code> erzeugt. Dabei setzt sich die ID wieder aus der Beschreibung und <code>_1</code> zusammen.
 							</para>
                     </listitem>
                     <listitem>
@@ -484,7 +484,7 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 					</listitem>
 						<listitem>
 							<para>
-								Fall 6: Ein Ausnahme-Fall existiert wenn ein Termin Täglich stattfinden soll aber ohne das dieser ein End-Datum besitzt. In diesem Fall benutzen wir ein Union Pattern das alle Wochentage benutzt.
+								Fall 6: Ein Ausnahme-Fall existiert, wenn ein Termin täglich stattfinden soll aber ohne das dieser ein End-Datum besitzt. In diesem Fall benutzen wir ein <code>unionPattern</code> das alle Wochentage benutzt.
 							</para>
 						</listitem>
 					</itemizedlist>
@@ -583,6 +583,9 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 			<section>
 				<title>Allgemeines</title>
 				<para>Mit der allgemeinen Organisation des Praktikums waren wir sehr zufrieden. Durch die wöchentlichen Vorlesungseinheiten wurde die grobe Idee der neu vorgestellten Technologien klar, welche dann durch das Aufgabenblatt eingeübt werden konnten. Dabei war die Modularisierung der einzelnen Teile super; dadurch konnte ein Teil unabhängig von den Anderen entwickelt werden (z.B. XSLT und XQuery). AUch die Reihenfolge der besprochenen Technologien war sinnvoll (also zuerst SVG, dann XSLT usw). Leider kam das letzte Thema mit XForms usw. etwas kurz (es gab z.B. kein extra Übungsblatt dazu); im Projekt stellte das eine große Schwierigkeit dar.</para>
+				<para>
+				Etwas schade fanden wir, dass die Präsentation des Projekts für jede Gruppe komplett separat stattfindet. Das hat zwar den Vorteil, dass man zeitlich sehr flexibel ist, allerdings wäre es interessant zu sehen, wie die Anwendungen der anderen Gruppen aussehen und wie andere Gruppen bestimmte Probleme gelöst haben. Schön wäre also beispielsweise, wenn jeweils zwei Gruppen einen gemeinsamen Testat-Termin hätten. Organisatorisch ist das sicherlich schwieriger, aber es wäre auch für die Teilnehmer viel interessanter.
+				</para>
 			</section>
 			<section>
 				<title>Im Team</title>
