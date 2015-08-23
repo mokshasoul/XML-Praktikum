@@ -58,10 +58,10 @@ let $form := (
            <xf:bind ref="yearlyCardinalOrOrdinal" required="false()" type="xs:string" relevant="instance('dataI')//repeat[.='true'] and instance('dataI')//patternType[.='yearlyPattern']" />
                     <xf:submission id="convert" method="post" replace="none" action="../edit/addEvents.xqm">
                 <xf:action ev:event="xforms-submit-error">
-                    <xf:message>An Error has occured please contact Admin</xf:message>
+                    <xf:message>An Error has occured. Please check your Input.</xf:message>
                 </xf:action>
                 <xf:action ev:event="xforms-submit-done">
-                    <xf:message>Task Created You Can Close The Window Now or Create New Task</xf:message>
+                    <xf:message>Task Created! You Can Close The Window Now or Create New Task</xf:message>
                     <xf:reset model="appendData"/>
                 </xf:action>
             </xf:submission>

@@ -22,8 +22,8 @@ let $post-req := request:get-data()
 let $description := xs:string($post-req//description)
 let $endDate := xs:string($post-req//endDate)
 let $startDate := xs:string($post-req//startDate)
-let $startTime := xs:string($post-req//startTime)
-let $endTime := xs:string($post-req//endTime)
+let $startTimeInput := xs:string($post-req//startTime)
+let $endTimeInput := xs:string($post-req//endTime)
 let $attendees := xs:string($post-req//attendees)
 let $location := xs:string($post-req//location)
 let $recurrencePattern := xs:string($post-req//repeat)
@@ -37,6 +37,13 @@ let $mode := if ($startDate = $endDate) then(
     )else(
 $post-req//patternType
 )
+
+(: check if times are valid :)
+let $error := if(not(matches($startTimeInput, '^\d\d:\d\d$') and matches($endTimeInput, '^\d\d:\d\d$') and $startTimeInput < $endTimeInput))
+then <xf:action if="(xs:boolean='true')"></xf:action> else ()
+
+let $startTime := concat($startTimeInput, ':00')
+let $endTime := concat($endTimeInput, ':00')
 
 let $days := $post-req//repeatDayOfWeek
 let $daysCount := if(contains($days," ")) then
@@ -100,18 +107,7 @@ let $dailyPattern:= if ($startDate and $endDate) then
         update insert $pattern into $dbCal//patterns 
     else (xs:boolean('false')) 
 
-let $intersectionPattern := if ($dailyPattern and ($mode eq "weeklyPattern")) then(
-                let $pattern := <intersectionPattern description="{$eventRuleDesc}">
-            <firstPattern>{$dailyPattern/@description}</firstPattern>
-            <furtherPatterns>{
-                for $day in tokenize($days," ")
-                return
-                     <furtherPattern>{$day}</furtherPattern>
-            }
-            </furtherPatterns>
-        </intersectionPattern>
-        return update insert $pattern into $dbCal//patterns
-    ) else ()
+
     
 
 let $weeklyPattern := if (($mode eq "weeklyPattern") and $daysCount = 1) then (
@@ -120,8 +116,17 @@ let $weeklyPattern := if (($mode eq "weeklyPattern") and $daysCount = 1) then (
     update insert $pattern into $dbCal//patterns
     )else()
     
-let $unionPattern := if (($mode eq "weeklyPattern") and ($daysCount > 1 or $dailyPattern)) then (
-        let $pattern := <unionPattern description="{if (not($dailyPattern)) then $eventRuleDesc else $description}">
+let $isUnionPattern := ($mode eq "weeklyPattern") and ($daysCount > 1 or $dailyPattern)
+let $isMonthlyPattern := ($mode eq "monthlyPattern") and ($monthMode eq "monthlyOrdinal")
+
+let $furtherPatternDescription := if (not($startDate and $endDate)) then $eventRuleDesc else concat($eventRuleDesc,'_f')
+
+
+let $usedPattern := if ($isUnionPattern) then $furtherPatternDescription
+                    else $description
+    
+let $unionPattern := if ($isUnionPattern) then (
+        let $pattern := <unionPattern description="{$furtherPatternDescription}">
          <firstPattern>{tokenize($days, " ")[1]}</firstPattern>
          <furtherPatterns> {
              for $day at $pos in tokenize($days, " ")
@@ -136,31 +141,45 @@ let $unionPattern := if (($mode eq "weeklyPattern") and ($daysCount > 1 or $dail
          update insert $pattern into $dbCal//patterns
     )else()
     
-let $monthlyPattern := if (($mode eq "monthlyPattern") and ($monthMode eq "monthlyOrdinal")) then
+let $monthlyPattern := if ($isMonthlyPattern) then
     let $pattern := <ordinalMonthlyPattern ordinal="{$ordinality}" dayType="{functx:day-of-week-name-en($startDate)}"
-            description="{$description}"/>
+            description="{$furtherPatternDescription}"/>
             return
   update insert $pattern into $dbCal//patterns
     else(
     if($monthMode eq "monthlyCardinal") then
     (
-    let $pattern := <cardinalMonthlyPattern dayOfMonth="{fn:day-from-date(xs:date($startDate))}" description="{$description}"/>
+    let $pattern := <cardinalMonthlyPattern dayOfMonth="{fn:day-from-date(xs:date($startDate))}" description="{$furtherPatternDescription}"/>
     return
   update insert $pattern into $dbCal//patterns
     )else()
     )
 let $yearlyPattern := if (($mode eq "yearlyPattern") and ($yearlyMode eq "yearlyOrdinal")) then 
         let $pattern := <ordinalYearlyPattern ordinal="{$ordinality}" dayType="{functx:day-of-week-name-en($startDate)}"
-month="{functx:month-name-en($startDate)}" description="{$description}"/>
+month="{functx:month-name-en($startDate)}" description="{$furtherPatternDescription}"/>
 return
   update insert $pattern into $dbCal//patterns
 else(
 if ($yearlyMode eq "yearlyCardinal") then
  let $pattern := <cardinalYearlyPattern dayOfMonth="{fn:day-from-date(xs:date($startDate))}" month="{functx:month-name-en($startDate)}"
-description="{$description}"/>
+description="{$furtherPatternDescription}"/>
 return
     update insert $pattern into $dbCal//patterns
 else()
 )
+
+
+let $intersectionPattern := if ($startDate and $endDate and not($mode eq "dailyPattern")) then(
+                let $pattern := <intersectionPattern description="{$eventRuleDesc}">
+            <firstPattern>{$description}</firstPattern>
+            <furtherPatterns>
+                     <furtherPattern>{$furtherPatternDescription}</furtherPattern>
+            </furtherPatterns>
+        </intersectionPattern>
+        return update insert $pattern into $dbCal//patterns
+    ) else ()
+
+
+
 return
 <root/>
