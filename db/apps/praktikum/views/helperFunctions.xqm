@@ -22,12 +22,11 @@ declare function helper:isDateInPattern($date as xs:date, $patternName as xs:str
             case "weeklyPattern"
                 return functx:day-of-week-name-en($date) eq $pattern/@dayOfWeek
             case "cardinalMonthlyPattern"
-                return $pattern/@dayOfMonth eq fn:day-from-date($date)
+                return $pattern/@dayOfMonth eq xs:string(fn:day-from-date($date))
             case "ordinalMonthlyPattern"
                 return helper:getOrdinalOfMonth($date, $pattern/@ordinal, $pattern/@dayType) eq $date
-            case "cardinalYealyPattern"
-                return $pattern/@dayOfMonth eq fn:day-from-date($date) and $pattern/@month eq functx:month-name-en($date
-                                                                                                                  )
+            case "cardinalYearlyPattern"
+                return $pattern/@dayOfMonth eq xs:string(fn:day-from-date($date)) and $pattern/@month eq functx:month-name-en($date)
             case "ordinalYearlyPattern"
                 return helper:getOrdinalOfMonth($date, $pattern/@ordinal, $pattern/@dayType) eq $date and
                     $pattern/@month eq functx:month-name-en($date)

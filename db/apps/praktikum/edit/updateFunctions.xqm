@@ -30,7 +30,7 @@ let $dbCal := helper:calendarDoc()
 let $superEvent := $dbCal//superEvents/superEvent[@description=$origDescription]
 let $eventRuleDesc := xs:string ($superEvent//eventRule[1]/@description)
 let $recurrencePattern := xs:string($superEvent//eventRule[1]/recurrencePattern)
-let $newEventRule := concat($description,'_1')
+let $newEventRule := concat($description,'_',substring-after($eventRuleDesc,'_'))
 let $superEventRep :=<superEvent description="{$description}" categories="teaching">
                     <eventRules>
                         <eventRule description="{$newEventRule }" startTime="{$startTime}" endTime="{$endTime}" note="{$note}">
@@ -47,15 +47,13 @@ let $superEventRep :=<superEvent description="{$description}" categories="teachi
                 </superEvent>
 let $update := update replace $superEvent with $superEventRep
 let $assocPattern := 
-<root>
-{$dbCal//patterns/*[contains(@description,$origDescription)]}
+<root>{$dbCal//patterns/*[contains(@description,$origDescription)]}
 </root>
 let $newPattern := for $pattern in $assocPattern/*
                     return
                    if( $pattern/name() = 'intersectionPattern') then(
                         let $replacementPattern := <intersectionPattern description="{$newEventRule}">
-                            <firstPattern>{if ($pattern/firstPattern/text() = $eventRuleDesc) then $newEventRule else if($pattern/firstPattern/text() 
-                                =  $origDescription ) then $description else $pattern/firstPattern/text()}</firstPattern>
+                            <firstPattern>{xs:string($description)}</firstPattern>
                             <furtherPatterns>
                                 {for $furtherPattern in $pattern//furtherPatterns/*
                                     return
@@ -74,8 +72,7 @@ let $newPattern := for $pattern in $assocPattern/*
                           )else(
                           if ( $pattern/name() = 'unionPattern') then (
                             let $replacementPattern := <unionPattern description="{$newEventRule}">
-                                <firstPattern>{if ($pattern/firstPattern/text() = $eventRuleDesc) then $newEventRule else if($pattern/firstPattern/text() 
-                                =  $origDescription ) then $description else $pattern/firstPattern/text()} </firstPattern>
+                                <firstPattern>{if ($pattern/firstPattern/text() = $eventRuleDesc) then $newEventRule else $pattern/firstPattern/text()} </firstPattern>
                                     <furtherPatterns>
                                         {for $furtherPattern in $pattern//furtherPatterns/*
                                             return
@@ -94,8 +91,7 @@ let $newPattern := for $pattern in $assocPattern/*
                             )else(
                             if($pattern/name()='differencePattern') then (
                                 let $replacementPattern := <differencePattern description="{concat($description,'_d_1')}">
-            <firstPattern>{if ($pattern/firstPattern/text() = $eventRuleDesc) then $newEventRule else if($pattern/firstPattern/text() 
-                                =  $origDescription ) then $description else $pattern/firstPattern/text()}</firstPattern>
+            <firstPattern>{$newEventRule}</firstPattern>
             <furtherPatterns>
                                                        {for $furtherPattern in $pattern//furtherPatterns/*
                                             return

@@ -54,7 +54,7 @@ let $daysCount := if(contains($days," ")) then
 
 let $dbCal := helper:calendarDoc()
 let $eventRuleDesc := concat($description,"_1")
-let $event :=  if ($mode eq 'singleDay' or ($mode eq 'weeklyPattern' and $daysCount < 2) or ($mode eq 'dailyPattern') ) then(
+let $event :=  if ($mode eq 'singleDay' or ($mode eq 'weeklyPattern' and $daysCount < 2 and not($startDate and $endDate)) or ($mode eq 'dailyPattern') ) then(
 <superEvent description="{$description}" categories="{$category}">
             <eventRules>
                 <eventRule description="{$description}" startTime="{$startTime}" endTime="{$endTime}" note="{$note}">
@@ -108,18 +108,19 @@ let $dailyPattern:= if ($startDate and $endDate) then
     else (xs:boolean('false')) 
 
 
-    
+    let $furtherPatternDescription := if (($mode eq "weeklyPattern") and $daysCount = 1 and $startDate and $endDate) then $days/text() else if (($mode eq "weeklyPattern") and $daysCount = 1 and not($endDate)) then $description else if (not($startDate and $endDate)) then $eventRuleDesc 
+        else concat($eventRuleDesc,'_f')
 
-let $weeklyPattern := if (($mode eq "weeklyPattern") and $daysCount = 1) then (
-    let $pattern := <weeklyPattern description="{$description}" dayOfWeek="{functx:capitalize-first($days)}" />
+let $weeklyPattern := if (($mode eq "weeklyPattern") and $daysCount = 1 and not($endDate)) then (
+    let $pattern := <weeklyPattern description="{$furtherPatternDescription}" dayOfWeek="{functx:capitalize-first($days)}" />
     return
     update insert $pattern into $dbCal//patterns
     )else()
     
-let $isUnionPattern := ($mode eq "weeklyPattern") and ($daysCount > 1 or ($startDate and $endDate))
+let $isUnionPattern := ($mode eq "weeklyPattern") and ($daysCount > 1)
 let $isMonthlyPattern := ($mode eq "monthlyPattern") and ($monthMode eq "monthlyOrdinal")
 
-let $furtherPatternDescription := if (not($startDate and $endDate)) then $eventRuleDesc else concat($eventRuleDesc,'_f')
+
 
 
 let $usedPattern := if ($isUnionPattern) then $furtherPatternDescription
