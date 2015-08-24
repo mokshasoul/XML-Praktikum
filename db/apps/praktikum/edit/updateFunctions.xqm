@@ -17,14 +17,19 @@ let $note := xs:string($post-req//note)
 let $description := xs:string($post-req//description)
 let $endDate := xs:string($post-req//endDate)
 let $startDate := xs:string($post-req//startDate)
-let $startTime := xs:string($post-req//startTime)
-let $endTime := xs:string($post-req//endTime)
+let $startTimeInput := xs:string($post-req//startTime)
+let $endTimeInput := xs:string($post-req//endTime)
 let $attendees := $post-req//attendees
 let $origDescription := xs:string($post-req//origDescription)
 let $location := xs:string($post-req//location)
 let $mode := xs:string($post-req//mode)
 let $dbCal := helper:calendarDoc()
 
+let $error := if(not(matches($startTimeInput, '^\d\d:\d\d$') and matches($endTimeInput, '^\d\d:\d\d$') and $startTimeInput < $endTimeInput))
+then <xf:action if="(xs:boolean='true')"></xf:action> else ()
+
+let $startTime := concat($startTimeInput, ':00')
+let $endTime := concat($endTimeInput, ':00')
 
 
 let $superEvent := $dbCal//superEvents/superEvent[@description=$origDescription]

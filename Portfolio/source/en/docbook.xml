@@ -370,9 +370,6 @@ Im Stylesheet verwendete Funktionen und Templates wurden in die Datei <link link
 					   <packedView>{$param3}</packedView>
 					  </root>
 					 </xf:instance>
-					 <xf:instance id='inlineSVG'>
-					  {$svg}
-					 </xf:instance>
 					  <xf:submission id="getView" method="post" action="getViews.xqm"/>
 					  <xf:bind nodeset="instance('dateData')//date" type="xs:date"/>
 					  <xf:bind nodeset="instance('dateData')//mode" type="xs:string"/>
