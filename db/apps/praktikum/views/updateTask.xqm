@@ -66,8 +66,8 @@ let $dbCal := doc('/db/apps/praktikum/data/sampleCalendarX.xml')
 let $event := $dbEvents//event[@description=$eventDescription][@date=$eventDate]
 let $location := xs:string($event/location/@description)
 let $note := xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@note)
-let $startTime := xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@startTime)
-let $endTime := xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@endTime)
+let $startTime := substring(xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@startTime),1,5)
+let $endTime := substring(xs:string($dbCal//superEvent[@description=$eventDescription]//eventRule[1]/@endTime),1,5)
 let $attendees := $dbCal//superEvent[@description=$eventDescription]//eventRule[1]/attendees
 let $pattern := $dbCal//superEvent[@description=$eventDescription]//eventRule[1]/recurrencePattern
 let $dailyTest := $dbCal//patterns/dailyPattern[@description=$eventDescription]
@@ -132,10 +132,10 @@ let $form := (
            
            <xf:submission id="convert" method="post" replace="none" action="../edit/updateEvents.xqm">
            <xf:action ev:event="xforms-submit-error">
-                    <xf:message>An Error has occured please contact Admin</xf:message>
+                    <xf:message>An Error has occured! Please check your input.</xf:message>
                 </xf:action>
                 <xf:action ev:event="xforms-submit-done">
-                    <xf:message>Task Updated You Can Close The Window Now</xf:message>
+                    <xf:message>Task Updated! You Can Close The Window Now.</xf:message>
                     <xf:reset model="appendData"/>
                 </xf:action>
             </xf:submission>
