@@ -52,12 +52,12 @@ let $assocPattern :=
 let $newPattern := for $pattern in $assocPattern/*
                     return
                    if( $pattern/name() = 'intersectionPattern') then(
-                        let $replacementPattern := <intersectionPattern description="{$newEventRule}">
+                        let $replacementPattern := <intersectionPattern description="{concat($description,substring-after($pattern/@description,$origDescription))}">
                             <firstPattern>{xs:string($description)}</firstPattern>
                             <furtherPatterns>
                                 {for $furtherPattern in $pattern//furtherPatterns/*
                                     return
-                                        <furtherPattern> {$furtherPattern/text()}
+                                        <furtherPattern> {if(contains($furtherPattern/text(),$origDescription)) then concat($description,"_1_f") else $furtherPattern/text()}
                                         </furtherPattern>
                                 }
                            </furtherPatterns>
@@ -71,12 +71,12 @@ let $newPattern := for $pattern in $assocPattern/*
                                  update replace $dbCal//patterns/*[@description=$pattern/@description] with $replacementPattern
                           )else(
                           if ( $pattern/name() = 'unionPattern') then (
-                            let $replacementPattern := <unionPattern description="{$newEventRule}">
+                            let $replacementPattern := <unionPattern description="{concat($description,substring-after($pattern/@description,$origDescription))}">
                                 <firstPattern>{if ($pattern/firstPattern/text() = $eventRuleDesc) then $newEventRule else $pattern/firstPattern/text()} </firstPattern>
                                     <furtherPatterns>
                                         {for $furtherPattern in $pattern//furtherPatterns/*
                                             return
-                                                <furtherPattern> {$furtherPattern/text()}
+                                                <furtherPattern> {if(contains($furtherPattern/text(),$origDescription)) then concat($description,"_1_f") else $furtherPattern/text()}
                                                 </furtherPattern>
                                         }
                                    </furtherPatterns>
