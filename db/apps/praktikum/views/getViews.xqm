@@ -111,13 +111,13 @@ let $form := (
                     </xf:trigger>
                     {if($param1 eq 'Day' or $param1 eq 'Week') then (
                     <xf:select1 id="packedView" ref="instance('dateData')//packedView" appearance="minimal" incremental="true">  
-            <xf:label>Ansicht: </xf:label>
+            <xf:label>View: </xf:label>
                 <xf:item>
                     <xf:label>Standard</xf:label>
                     <xf:value>false</xf:value> 
                 </xf:item>
                 <xf:item>
-                    <xf:label>Liste</xf:label>
+                    <xf:label>List</xf:label>
                     <xf:value>true</xf:value>
                 </xf:item>
                 <xf:action ev:event="xforms-value-changed">
@@ -136,9 +136,9 @@ let $form := (
             </div>
 <div id="calendarView">
                 <h1>{switch($param1) 
-                    case 'Day' return format-date($param2, "[D1o] [MNn] [Y]", "de", (), ()) 
-                    case 'Week' return concat('Woche vom ', format-date(helper:getMondayOfWeek($param2), "[D].[M].[Y]"))
-                    case 'Month' return format-date($param2, "[MNn] [Y]", "de", (), ())
+                    case 'Day' return format-date($param2, "[D1o] [MNn] [Y]", "en", (), ()) 
+                    case 'Week' return concat('Week of ', format-date(helper:getMondayOfWeek($param2), "[D].[M].[Y]"))
+                    case 'Month' return format-date($param2, "[MNn] [Y]", "en", (), ())
                     default return ''
                 }</h1>  
                 <div id="calendarViewSVG">

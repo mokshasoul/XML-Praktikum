@@ -24,7 +24,7 @@
 
  @version 1.0
  @see     http://www.xsltfunctions.com
---><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:dxmlf="http://www.datypic.com/xmlf" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://www.datypic.com/local" exclude-result-prefixes="dxmlf xs" version="2.0">
+--><xsl:stylesheet xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:dxmlf="http://www.datypic.com/xmlf" xmlns:local="http://www.datypic.com/local" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:functx="http://www.functx.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="dxmlf xs" version="2.0">
  
 <!--
   Adds attributes to XML elements 
