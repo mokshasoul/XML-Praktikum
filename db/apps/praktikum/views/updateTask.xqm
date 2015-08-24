@@ -140,19 +140,13 @@ let $form := (
                 </xf:action>
             </xf:submission>
         </xf:model>
-        <title/>
+        <title>Update Task</title>
     </head>
     <body>
          <div id="wrapper">
          <div id="wrapperPropper">
-       <div id="form-heading">Update Task</div>
-        <div id="navBar">
-            <ul>
-                <li>
-                    <a href="getViews.xqm">Home</a>
-                </li>
-            </ul>
-        </div>
+            <h1 id="title">Update Task</h1>
+       <div id="views"><a href="getViews.xqm">Home</a></div>
     
         <div id="inputBlock">
             <xf:group model="appendData" appearance="bf:verticalTable">
