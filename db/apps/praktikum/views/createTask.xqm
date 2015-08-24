@@ -17,7 +17,7 @@ let $attribute := request:set-attribute('betterform.filter.ignoreResponseBody', 
 let $form := (
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xf="http://www.w3.org/2002/xforms">
     <head>
-        <link href="screen.css" rel="stylesheet" type="text/css" />
+        <link rel ="stylesheet" href="screen.css" media="all" type="text/css" />
 
         <xf:model xmlns="" id="appendData">
             <xf:instance xmlns="" id="dataI">
@@ -66,19 +66,15 @@ let $form := (
                 </xf:action>
             </xf:submission>
         </xf:model>
-        <title/>
+        <title>CalendarX System</title>
     </head>
     <body>
          <div id="wrapper">
          <div id="wrapperPropper">
-        <div id="form-heading">Create New Task</div>
-        <div id="navBar">
-            <ul>
-                <li>
-                    <a href="getViews.xqm">Home</a>
-                </li>
-            </ul>
-        </div>
+            <h1 id="title">Create New Task</h1>
+            <div id="views">
+                <a href="getViews.xqm">Home</a>
+            </div>
     
         <div id="inputBlock" class="inputBlock">
             <xf:group model="appendData" appearance="bf:verticalTable">
